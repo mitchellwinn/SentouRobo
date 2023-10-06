@@ -16,7 +16,7 @@ func hasControl():
 func title():
 	waiting = true
 	animPlay.play("titleIN")
-	await get_tree().create_timer(2).timeout #wait length of animation before yielding control
+	await get_tree().create_timer(1.5).timeout #wait length of animation before yielding control
 	waiting = false
 	while(!PlayerInput.confirm):
 		if (Time.get_ticks_msec()%1000)>500:
@@ -26,7 +26,7 @@ func title():
 		await get_tree().process_frame
 	var t = 0.0
 	animPlay.play("titleOUT")
-	while(t<1.75):
+	while(t<1.25):
 		t+=1.0/60
 		if ((Time.get_ticks_msec()*16)%1000)>500:
 			press.modulate = Color(1,1,1,1)

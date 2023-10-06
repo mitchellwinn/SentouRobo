@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://d1mbdg45asaao"]
+[gd_scene load_steps=16 format=3 uid="uid://d1mbdg45asaao"]
 
 [ext_resource type="Texture2D" uid="uid://xu6lxnwc3c5y" path="res://Assets/TitleScreenAssets/topVisor-01.png" id="1_4tsii"]
 [ext_resource type="Script" path="res://Assets/Scripts/Menu/MainMenu.gd" id="1_8ctrw"]
@@ -7,6 +7,9 @@
 [ext_resource type="Texture2D" uid="uid://cwgp6mtayfsc1" path="res://Assets/TitleScreenAssets/japanese-01.png" id="4_db7d0"]
 [ext_resource type="Texture2D" uid="uid://jaibs623edf5" path="res://Assets/TitleScreenAssets/crosshair-01.png" id="6_fmqs1"]
 [ext_resource type="Texture2D" uid="uid://ds7oh75jyb105" path="res://Assets/TitleScreenAssets/pressContinue-01-01.png" id="6_m45dd"]
+[ext_resource type="AudioStream" uid="uid://vjnkjr4s58xw" path="res://Assets/SFX/Lasers 2.wav" id="8_8wrbk"]
+[ext_resource type="AudioStream" uid="uid://b0pqjd6co5viw" path="res://Assets/SFX/Lasers 20.wav" id="9_rykqp"]
+[ext_resource type="AudioStream" uid="uid://bep7rwmsuu671" path="res://Assets/SFX/Lasers 5.wav" id="11_tss62"]
 
 [sub_resource type="Gradient" id="Gradient_ds4v4"]
 colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
@@ -25,8 +28,8 @@ tracks/0/path = NodePath("Title/TextureRect:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0.05, 0.65),
-"transitions": PackedFloat32Array(2, 1),
+"times": PackedFloat32Array(0, 1.75),
+"transitions": PackedFloat32Array(0.366022, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
@@ -85,10 +88,10 @@ tracks/5/path = NodePath("Title/crosshair:visible")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0, 0.8, 0.9, 1, 1.1, 1.25, 1.4, 1.45, 1.5, 1.55, 1.6, 1.65, 1.7, 1.8, 1.85, 1.9, 1.95, 2),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.8, 0.85, 0.9, 0.95, 1, 1.05, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.85, 1.95, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true]
+"values": [false, true, false, true, false, true, false, true, false, true, false, true, false, false, true, false, true]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
@@ -113,6 +116,60 @@ tracks/7/keys = {
 "transitions": PackedFloat32Array(1.51572, 1, 1.51572, 1),
 "update": 0,
 "values": [Vector2(1, 0.25), Vector2(1, 1), Vector2(1, 0.25), Vector2(1, 1)]
+}
+tracks/8/type = "audio"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("SFX1")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("8_8wrbk")
+}],
+"times": PackedFloat32Array(0.7)
+}
+tracks/8/use_blend = true
+tracks/9/type = "audio"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("SFX2")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("9_rykqp")
+}],
+"times": PackedFloat32Array(0.1)
+}
+tracks/9/use_blend = true
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("AnimationPlayer:speed_scale")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 1.0]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("Camera2D:zoom")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(0.31864, 1),
+"update": 0,
+"values": [Vector2(1.2, 1.2), Vector2(1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_pelwg"]
@@ -246,10 +303,10 @@ tracks/10/path = NodePath("Title:scale")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(0.307786, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(0.307786),
 "update": 0,
-"values": [Vector2(0.288, 0.288), Vector2(0.327999, 0.327999)]
+"values": [Vector2(0.288, 0.288)]
 }
 tracks/11/type = "value"
 tracks/11/imported = false
@@ -258,11 +315,38 @@ tracks/11/path = NodePath("Title:position")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(0.307786, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(0.307786),
 "update": 0,
-"values": [Vector2(0, 0), Vector2(-83, -44)]
+"values": [Vector2(0, 0)]
 }
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("Camera2D:zoom")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0, 0.65, 1.2),
+"transitions": PackedFloat32Array(2, 3.03143, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.5, 1.5), Vector2(1, 1)]
+}
+tracks/13/type = "audio"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("SFX1")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("11_tss62")
+}],
+"times": PackedFloat32Array(-0.05)
+}
+tracks/13/use_blend = true
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_m4143"]
 _data = {
@@ -392,3 +476,12 @@ stretch_mode = 5
 libraries = {
 "": SubResource("AnimationLibrary_m4143")
 }
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(576, 324)
+
+[node name="SFX1" type="AudioStreamPlayer" parent="."]
+pitch_scale = 2.4
+
+[node name="SFX2" type="AudioStreamPlayer" parent="."]
+pitch_scale = 2.4
