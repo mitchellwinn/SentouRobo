@@ -19,6 +19,11 @@ config/icon="res://icon.svg"
 
 PlayerInput="*res://Assets/Scripts/Singletons/player_input.gd"
 
+[display]
+
+window/stretch/mode="canvas_items"
+window/stretch/aspect="ignore"
+
 [input]
 
 up={
