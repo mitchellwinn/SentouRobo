@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://d1mbdg45asaao"]
+[gd_scene load_steps=32 format=3 uid="uid://d1mbdg45asaao"]
 
 [ext_resource type="Texture2D" uid="uid://xu6lxnwc3c5y" path="res://Assets/TitleScreenAssets/topVisor-01.png" id="1_4tsii"]
 [ext_resource type="Script" path="res://Assets/Scripts/Menu/MainMenu.gd" id="1_8ctrw"]
@@ -9,7 +9,138 @@
 [ext_resource type="Texture2D" uid="uid://ds7oh75jyb105" path="res://Assets/TitleScreenAssets/pressContinue-01-01.png" id="6_m45dd"]
 [ext_resource type="AudioStream" uid="uid://vjnkjr4s58xw" path="res://Assets/SFX/Lasers 2.wav" id="8_8wrbk"]
 [ext_resource type="AudioStream" uid="uid://b0pqjd6co5viw" path="res://Assets/SFX/Lasers 20.wav" id="9_rykqp"]
+[ext_resource type="Texture2D" uid="uid://br6x64mquqptq" path="res://Assets/MainMenuAssets/MyRobot_.png" id="11_4xmbv"]
 [ext_resource type="AudioStream" uid="uid://bep7rwmsuu671" path="res://Assets/SFX/Lasers 5.wav" id="11_tss62"]
+[ext_resource type="Texture2D" uid="uid://c04d8j7csvl4p" path="res://Assets/MainMenuAssets/Frame (2).png" id="12_cxx6n"]
+[ext_resource type="Script" path="res://Assets/Scripts/buttonProperties.gd" id="12_f5jcp"]
+[ext_resource type="Texture2D" uid="uid://cxnn7s7qjxeue" path="res://Assets/MainMenuAssets/Online_.png" id="12_giv2s"]
+[ext_resource type="Texture2D" uid="uid://bfme7pak6r6bn" path="res://Assets/MainMenuAssets/Training_.png" id="13_u6rtu"]
+[ext_resource type="Texture2D" uid="uid://tv4a8jnn4apm" path="res://Assets/MainMenuAssets/Trials_.png" id="14_57qq6"]
+[ext_resource type="Texture2D" uid="uid://8xml88p410bv" path="res://Assets/MainMenuAssets/Options_.png" id="15_xxs4p"]
+[ext_resource type="Texture2D" uid="uid://wycb0edc3eve" path="res://Assets/MainMenuAssets/coolBart.png" id="17_k0uy4"]
+[ext_resource type="Texture2D" uid="uid://didkyk7rtjoc0" path="res://Assets/MainMenuAssets/Back3_.png" id="18_0q8eg"]
+[ext_resource type="PackedScene" uid="uid://bm0r1orqsnkcg" path="res://Assets/Prefabs/PreviewMech.tscn" id="21_3k3sq"]
+
+[sub_resource type="Animation" id="Animation_1wu8f"]
+resource_name = "fadeFromBlack"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BlackOverlay:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.406126, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_dnjy2"]
+resource_name = "fadeToBlack"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BlackOverlay:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.329877, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_lc830"]
+resource_name = "mainMenuIN"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MainMenu:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MainMenu:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.3, 0.7),
+"transitions": PackedFloat32Array(0.277392, 1),
+"update": 0,
+"values": [Vector2(0.35, 0.35), Vector2(0.24, 0.24)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MainMenu/Offset/frame:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.3, 0.7),
+"transitions": PackedFloat32Array(0.210225, 1),
+"update": 0,
+"values": [Vector2(0.575, 0.575), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_hgnyy"]
+resource_name = "mainMenuOUT"
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MainMenu:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.35, 0.45, 0.55, 0.6, 0.65),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [true, true, false, true, false, true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MainMenu:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.7),
+"transitions": PackedFloat32Array(3.13834, 0.965935, 1),
+"update": 0,
+"values": [Vector2(0.24, 0.24), Vector2(0.405, 0.405), Vector2(0.725, 0.725)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MainMenu/Offset/frame:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(2.46229, 0.210225),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(-0.14, -0.14)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("MainMenu/Offset/frame:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [true, false, true, false, true, false, true, false]
+}
 
 [sub_resource type="Animation" id="Animation_moqvy"]
 resource_name = "titleIN"
@@ -18,31 +149,31 @@ step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Title/bottomVisor:position")
+tracks/0/path = NodePath("UI/Offset/bottomVisor:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 1.7),
 "transitions": PackedFloat32Array(1.36604, 1),
 "update": 0,
-"values": [Vector2(3.472, 300), Vector2(3.472, 0)]
+"values": [Vector2(-1029.17, 300), Vector2(-1029.17, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Title/topVisor:position")
+tracks/1/path = NodePath("UI/Offset/topVisor:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0, 1.7),
 "transitions": PackedFloat32Array(1.36, 1),
 "update": 0,
-"values": [Vector2(3.472, -300), Vector2(3.472, 0)]
+"values": [Vector2(-1029.17, -300), Vector2(-1029.17, 0)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Title/romaji:scale")
+tracks/2/path = NodePath("UI/Offset/romaji:scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -54,7 +185,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Title/japanese:scale")
+tracks/3/path = NodePath("UI/Offset/japanese:scale")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -66,7 +197,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Title/crosshair:visible")
+tracks/4/path = NodePath("UI/Offset/crosshair:visible")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -78,7 +209,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("Title/press:visible")
+tracks/5/path = NodePath("UI/Offset/press:visible")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -90,7 +221,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("Title/crosshair:scale")
+tracks/6/path = NodePath("UI/Offset/crosshair:scale")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -132,7 +263,7 @@ tracks/8/use_blend = true
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("AnimationPlayer:speed_scale")
+tracks/9/path = NodePath("TitleAnimationPlayer:speed_scale")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
@@ -144,14 +275,62 @@ tracks/9/keys = {
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("Camera2D:zoom")
+tracks/10/path = NodePath("UI:scale")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
-"times": PackedFloat32Array(0, 1.7),
-"transitions": PackedFloat32Array(0.164939, 1),
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1.41421, 1),
 "update": 0,
-"values": [Vector2(1.5, 1.5), Vector2(1, 1)]
+"values": [Vector2(0.335, 0.335), Vector2(0.24, 0.24)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("MainMenu:visible")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("UI:visible")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("UI/Offset/japanese:visible")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("UI/Offset/romaji:visible")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_pelwg"]
@@ -161,31 +340,31 @@ step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Title/bottomVisor:position")
+tracks/0/path = NodePath("UI/Offset/bottomVisor:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 1.1),
 "transitions": PackedFloat32Array(1.35, 1),
 "update": 0,
-"values": [Vector2(3.472, 0), Vector2(3.472, 500)]
+"values": [Vector2(-1029.17, 0), Vector2(-1029.17, 500)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Title/topVisor:position")
+tracks/1/path = NodePath("UI/Offset/topVisor:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0, 1.1),
 "transitions": PackedFloat32Array(1.35, 1),
 "update": 0,
-"values": [Vector2(3.472, 0), Vector2(3.472, -500)]
+"values": [Vector2(-1029.17, 0), Vector2(-1029.17, -500)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Title/romaji:scale")
+tracks/2/path = NodePath("UI/Offset/romaji:scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -197,7 +376,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Title/japanese:scale")
+tracks/3/path = NodePath("UI/Offset/japanese:scale")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -209,7 +388,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Title/crosshair:visible")
+tracks/4/path = NodePath("UI/Offset/crosshair:visible")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -221,7 +400,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("Title/press:visible")
+tracks/5/path = NodePath("UI/Offset/press:visible")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -233,7 +412,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("Title/crosshair:scale")
+tracks/6/path = NodePath("UI/Offset/crosshair:scale")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -245,7 +424,7 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("Title/romaji:visible")
+tracks/7/path = NodePath("UI/Offset/romaji:visible")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
@@ -257,7 +436,7 @@ tracks/7/keys = {
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("Title/japanese:visible")
+tracks/8/path = NodePath("UI/Offset/japanese:visible")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
@@ -266,37 +445,13 @@ tracks/8/keys = {
 "update": 1,
 "values": [true, false, true, false, true, false, true, false]
 }
-tracks/9/type = "value"
+tracks/9/type = "audio"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("Title:scale")
+tracks/9/path = NodePath("SFX1")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(0.307786),
-"update": 0,
-"values": [Vector2(0.288, 0.288)]
-}
-tracks/10/type = "value"
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/path = NodePath("Title:position")
-tracks/10/interp = 1
-tracks/10/loop_wrap = true
-tracks/10/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(0.307786),
-"update": 0,
-"values": [Vector2(0, 0)]
-}
-tracks/11/type = "audio"
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/path = NodePath("SFX1")
-tracks/11/interp = 1
-tracks/11/loop_wrap = true
-tracks/11/keys = {
 "clips": [{
 "end_offset": 0.0,
 "start_offset": 0.0,
@@ -304,92 +459,532 @@ tracks/11/keys = {
 }],
 "times": PackedFloat32Array(-0.05)
 }
-tracks/11/use_blend = true
-tracks/12/type = "value"
-tracks/12/imported = false
-tracks/12/enabled = true
-tracks/12/path = NodePath("Camera2D:zoom")
-tracks/12/interp = 1
-tracks/12/loop_wrap = true
-tracks/12/keys = {
-"times": PackedFloat32Array(0, 0.775, 2),
-"transitions": PackedFloat32Array(1.6245, 2.07053, 1),
+tracks/9/use_blend = true
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("UI:scale")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0, 0.85, 1.35),
+"transitions": PackedFloat32Array(0.31864, 2.2974, 0.31864),
 "update": 0,
-"values": [Vector2(1, 1), Vector2(2, 2), Vector2(1, 1)]
+"values": [Vector2(0.24, 0.24), Vector2(0.67, 0.67), Vector2(0.24, 0.24)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("UI:visible")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0, 0.85),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_m4143"]
 _data = {
+"fadeFromBlack": SubResource("Animation_1wu8f"),
+"fadeToBlack": SubResource("Animation_dnjy2"),
+"mainMenuIN": SubResource("Animation_lc830"),
+"mainMenuOUT": SubResource("Animation_hgnyy"),
 "titleIN": SubResource("Animation_moqvy"),
 "titleOUT": SubResource("Animation_pelwg")
 }
 
-[node name="Menu" type="Control" node_paths=PackedStringArray("animPlay", "press")]
-layout_mode = 3
-anchors_preset = 0
-script = ExtResource("1_8ctrw")
-animPlay = NodePath("AnimationPlayer")
-press = NodePath("Title/press")
+[sub_resource type="ViewportTexture" id="ViewportTexture_efw7l"]
+viewport_path = NodePath("SubViewport")
 
-[node name="Title" type="Control" parent="."]
+[sub_resource type="FontVariation" id="FontVariation_8kuo2"]
+variation_embolden = 0.57
+spacing_glyph = -10
+spacing_space = 30
+spacing_top = -25
+spacing_bottom = -40
+
+[sub_resource type="Gradient" id="Gradient_dkcyr"]
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_88ctn"]
+gradient = SubResource("Gradient_dkcyr")
+
+[node name="Menu" type="Control" node_paths=PackedStringArray("animTitle", "animMain", "myRobot", "online", "training", "trials", "options", "previewMech", "mainMenuDescription", "press")]
 layout_direction = 1
-anchors_preset = 0
-scale = Vector2(0.288, 0.288)
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -480.0
+offset_top = -270.0
+offset_right = -480.0
+offset_bottom = -270.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+mouse_filter = 2
+script = ExtResource("1_8ctrw")
+animTitle = NodePath("TitleAnimationPlayer")
+animMain = NodePath("MainMenuAnimationPlayer")
+myRobot = NodePath("MainMenu/Offset/myRobot")
+online = NodePath("MainMenu/Offset/online")
+training = NodePath("MainMenu/Offset/training")
+trials = NodePath("MainMenu/Offset/trials")
+options = NodePath("MainMenu/Offset/options")
+previewMech = NodePath("PreviewMech")
+mainMenuDescription = NodePath("MainMenu/Offset/title/RichTextLabel")
+press = NodePath("UI/Offset/press")
 
-[node name="topVisor" type="TextureRect" parent="Title"]
-modulate = Color(1, 1, 1, 0.588235)
-layout_mode = 1
-offset_left = 3.472
-offset_right = 4003.47
-offset_bottom = 2250.0
-texture = ExtResource("1_4tsii")
+[node name="TitleAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_m4143")
+}
 
-[node name="bottomVisor" type="TextureRect" parent="Title"]
-modulate = Color(1, 1, 1, 0.588235)
-layout_mode = 1
-offset_left = 3.472
-offset_right = 4003.47
-offset_bottom = 2250.0
-texture = ExtResource("2_30ylj")
-
-[node name="romaji" type="TextureRect" parent="Title"]
-layout_mode = 1
-offset_right = 4000.0
-offset_bottom = 2250.0
-texture = ExtResource("3_qncem")
-stretch_mode = 5
-
-[node name="japanese" type="TextureRect" parent="Title"]
-layout_mode = 1
-offset_right = 4000.0
-offset_bottom = 2250.0
-texture = ExtResource("4_db7d0")
-stretch_mode = 5
-
-[node name="press" type="TextureRect" parent="Title"]
-layout_mode = 1
-offset_right = 4000.0
-offset_bottom = 2250.0
-texture = ExtResource("6_m45dd")
-stretch_mode = 5
-
-[node name="crosshair" type="TextureRect" parent="Title"]
-layout_mode = 1
-offset_right = 4000.0
-offset_bottom = 2250.0
-texture = ExtResource("6_fmqs1")
-stretch_mode = 5
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="MainMenuAnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_m4143")
 }
 
 [node name="SFX1" type="AudioStreamPlayer" parent="."]
-pitch_scale = 2.4
+volume_db = -10.0
+pitch_scale = 2.24
 
 [node name="SFX2" type="AudioStreamPlayer" parent="."]
-pitch_scale = 2.4
+volume_db = -10.0
+pitch_scale = 2.24
 
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(576, 324)
+[node name="UI" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_right = 4000.0
+offset_bottom = 2250.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.24, 0.24)
+pivot_offset = Vector2(480, 270)
+
+[node name="Offset" type="Control" parent="UI"]
+anchors_preset = 0
+offset_left = -1532.5
+offset_top = -855.0
+offset_right = -1492.5
+offset_bottom = -815.0
+
+[node name="topVisor" type="TextureRect" parent="UI/Offset"]
+modulate = Color(1, 1, 1, 0.588235)
+layout_direction = 1
+layout_mode = 2
+offset_left = -1029.17
+offset_top = -500.0
+offset_right = 2970.83
+offset_bottom = 1750.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.5, 1)
+texture = ExtResource("1_4tsii")
+stretch_mode = 4
+
+[node name="bottomVisor" type="TextureRect" parent="UI/Offset"]
+modulate = Color(1, 1, 1, 0.588235)
+layout_direction = 1
+layout_mode = 2
+offset_left = -1029.17
+offset_top = 500.0
+offset_right = 2970.83
+offset_bottom = 2750.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.5, 1)
+texture = ExtResource("2_30ylj")
+stretch_mode = 4
+
+[node name="romaji" type="TextureRect" parent="UI/Offset"]
+visible = false
+layout_mode = 2
+offset_left = 4.16846
+offset_top = 41.6667
+offset_right = 4004.17
+offset_bottom = 2291.67
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1, 0.75)
+texture = ExtResource("3_qncem")
+stretch_mode = 4
+
+[node name="japanese" type="TextureRect" parent="UI/Offset"]
+visible = false
+layout_mode = 2
+offset_left = 4.16846
+offset_top = 41.6667
+offset_right = 4004.17
+offset_bottom = 2291.67
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1, 0.5)
+texture = ExtResource("4_db7d0")
+stretch_mode = 4
+
+[node name="press" type="TextureRect" parent="UI/Offset"]
+layout_mode = 2
+offset_left = 4.16846
+offset_top = 41.6667
+offset_right = 4004.17
+offset_bottom = 2291.67
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_m45dd")
+stretch_mode = 4
+
+[node name="crosshair" type="TextureRect" parent="UI/Offset"]
+visible = false
+layout_mode = 2
+offset_left = 4.16846
+offset_top = 41.6667
+offset_right = 4004.17
+offset_bottom = 2291.67
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1, 1e-05)
+texture = ExtResource("6_fmqs1")
+stretch_mode = 4
+
+[node name="MainMenu" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_right = 4000.0
+offset_bottom = 2250.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.24, 0.24)
+pivot_offset = Vector2(480, 270)
+mouse_filter = 2
+
+[node name="Offset" type="Control" parent="MainMenu"]
+anchors_preset = 0
+offset_left = -1532.5
+offset_top = -855.0
+offset_right = -1492.5
+offset_bottom = -815.0
+mouse_filter = 2
+
+[node name="previewMech" type="TextureRect" parent="MainMenu/Offset"]
+layout_mode = 0
+offset_left = 133.333
+offset_top = 337.5
+offset_right = 2133.33
+offset_bottom = 2337.5
+texture = SubResource("ViewportTexture_efw7l")
+
+[node name="title" type="TextureRect" parent="MainMenu/Offset"]
+self_modulate = Color(0.545098, 0.545098, 0.545098, 1)
+z_index = 1
+layout_mode = 0
+offset_left = 45.8324
+offset_top = 37.5
+offset_right = 4698.83
+offset_bottom = 535.5
+scale = Vector2(0.6, 0.6)
+mouse_filter = 2
+texture = ExtResource("17_k0uy4")
+stretch_mode = 4
+flip_h = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MainMenu/Offset/title"]
+z_index = 10
+layout_mode = 0
+offset_left = 458.334
+offset_top = 90.0
+offset_right = 4479.33
+offset_bottom = 486.0
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 50
+theme_override_fonts/normal_font = SubResource("FontVariation_8kuo2")
+theme_override_font_sizes/normal_font_size = 150
+text = "Welcome, cadet! It is always good to see you!"
+
+[node name="frame" type="TextureRect" parent="MainMenu/Offset"]
+visible = false
+layout_mode = 2
+offset_left = 258.333
+offset_top = 137.5
+offset_right = 3787.33
+offset_bottom = 2128.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("12_cxx6n")
+stretch_mode = 4
+
+[node name="myRobot" type="TextureRect" parent="MainMenu/Offset"]
+layout_mode = 0
+offset_left = 2158.33
+offset_top = 400.0
+offset_right = 6158.33
+offset_bottom = 2650.0
+scale = Vector2(0.35, 0.35)
+mouse_filter = 2
+texture = ExtResource("11_4xmbv")
+stretch_mode = 4
+
+[node name="myRobotButton" type="Button" parent="MainMenu/Offset/myRobot" node_paths=PackedStringArray("menu")]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 42.0
+offset_right = 3979.0
+offset_bottom = 604.0
+script = ExtResource("12_f5jcp")
+menu = NodePath("../../../..")
+buttonName = "myRobot"
+description = "Outfit your machine with a variety of different parts to prepare for all types of combat situations!"
+
+[node name="online" type="TextureRect" parent="MainMenu/Offset"]
+layout_mode = 0
+offset_left = 2454.17
+offset_top = 750.0
+offset_right = 6454.17
+offset_bottom = 3000.01
+scale = Vector2(0.35, 0.35)
+mouse_filter = 2
+texture = ExtResource("12_giv2s")
+stretch_mode = 4
+
+[node name="onlineButton" type="Button" parent="MainMenu/Offset/online" node_paths=PackedStringArray("menu")]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 42.0
+offset_right = 3979.0
+offset_bottom = 604.0
+script = ExtResource("12_f5jcp")
+menu = NodePath("../../../..")
+buttonName = "online"
+description = "Test  your skill against opponents from all over the world!"
+
+[node name="training" type="TextureRect" parent="MainMenu/Offset"]
+layout_mode = 0
+offset_left = 2258.33
+offset_top = 1100.0
+offset_right = 6258.33
+offset_bottom = 3350.0
+scale = Vector2(0.35, 0.35)
+mouse_filter = 2
+texture = ExtResource("13_u6rtu")
+stretch_mode = 4
+
+[node name="trainingButton" type="Button" parent="MainMenu/Offset/training" node_paths=PackedStringArray("menu")]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 42.0
+offset_right = 3979.0
+offset_bottom = 604.0
+script = ExtResource("12_f5jcp")
+menu = NodePath("../../../..")
+buttonName = "training"
+description = "Practice for the real thing using powerful training tools!"
+
+[node name="trials" type="TextureRect" parent="MainMenu/Offset"]
+layout_mode = 0
+offset_left = 2508.34
+offset_top = 1450.0
+offset_right = 6508.34
+offset_bottom = 3700.0
+scale = Vector2(0.35, 0.35)
+mouse_filter = 2
+texture = ExtResource("14_57qq6")
+stretch_mode = 4
+
+[node name="trialsButton" type="Button" parent="MainMenu/Offset/trials" node_paths=PackedStringArray("menu")]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 42.0
+offset_right = 3979.0
+offset_bottom = 604.0
+script = ExtResource("12_f5jcp")
+menu = NodePath("../../../..")
+buttonName = "trials"
+description = "Special challenges designed to teach gameplay concepts."
+
+[node name="options" type="TextureRect" parent="MainMenu/Offset"]
+layout_mode = 0
+offset_left = 2595.83
+offset_top = 1800.0
+offset_right = 6595.83
+offset_bottom = 4050.0
+scale = Vector2(0.35, 0.35)
+texture = ExtResource("15_xxs4p")
+stretch_mode = 4
+
+[node name="optionsButton" type="Button" parent="MainMenu/Offset/options" node_paths=PackedStringArray("menu")]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 42.0
+offset_right = 3979.0
+offset_bottom = 604.0
+script = ExtResource("12_f5jcp")
+menu = NodePath("../../../..")
+buttonName = "options"
+description = "Adjust how the game is played."
+
+[node name="back" type="TextureRect" parent="MainMenu/Offset"]
+layout_mode = 0
+offset_left = 3608.34
+offset_top = 45.8334
+offset_right = 7608.34
+offset_bottom = 1920.84
+scale = Vector2(0.15, 0.15)
+mouse_filter = 2
+texture = ExtResource("18_0q8eg")
+stretch_mode = 4
+
+[node name="backButton" type="Button" parent="MainMenu/Offset/back" node_paths=PackedStringArray("menu")]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 42.0
+offset_top = 21.0
+offset_right = 1611.0
+offset_bottom = 1222.0
+script = ExtResource("12_f5jcp")
+menu = NodePath("../../../..")
+buttonName = "back3"
+description = "Return to the title screen."
+
+[node name="PreviewMech" parent="." instance=ExtResource("21_3k3sq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.13353, -2.34977)
+visible = false
+
+[node name="Skeleton3D" parent="PreviewMech/Armature" index="0"]
+bones/0/position = Vector3(-5.05522e-08, 0.184924, -3.16507)
+bones/0/rotation = Quaternion(-0.283934, -0.0104075, -0.00829676, 0.958751)
+bones/1/rotation = Quaternion(0.330106, -0.00128702, 0.00102736, 0.943942)
+bones/2/rotation = Quaternion(0.20382, -6.20072e-05, -0.000291852, 0.979008)
+bones/4/position = Vector3(-1.196, 2.05644, -0.107933)
+bones/4/rotation = Quaternion(0.195881, 0.255768, 0.615165, 0.719573)
+bones/5/rotation = Quaternion(0.175613, 0.187028, 0.486898, 0.834932)
+bones/9/position = Vector3(1.10883, 2.05714, -0.107909)
+bones/9/rotation = Quaternion(-0.116508, 0.116677, -0.71313, 0.681364)
+bones/10/rotation = Quaternion(0.113949, -0.284582, -0.528474, 0.791672)
+bones/18/position = Vector3(-1.19815, -2.01955, -3.0609)
+bones/18/rotation = Quaternion(-0.145546, 0.213564, 0.962795, 0.0789497)
+bones/19/rotation = Quaternion(-0.763467, -0.145559, -0.0110885, 0.629133)
+bones/20/rotation = Quaternion(0.822157, 0.0497508, -0.116629, 0.554959)
+bones/24/position = Vector3(1.2192, -2.26399, -3.1343)
+bones/24/rotation = Quaternion(0.0674485, 0.399739, 0.906322, -0.11933)
+bones/25/rotation = Quaternion(-0.0531396, 0.0333014, -0.0961259, 0.993392)
+bones/26/rotation = Quaternion(0.657177, 0.022707, 0.0428632, 0.752174)
+
+[node name="Head_2" parent="PreviewMech/Armature/Skeleton3D" index="0"]
+transform = Transform3D(0.0354251, 0.00359023, 1.07367, 0.242291, 1.25776, -0.00857819, -1.2573, 0.24248, 0.0285983, 0.153049, 8.29025, -4.46201)
+
+[node name="Arm_R_2" parent="PreviewMech/Armature/Skeleton3D" index="1"]
+transform = Transform3D(0.871435, 0.352269, 0.410434, -0.262289, 1.26199, -0.0728185, -0.414494, -0.0579631, 0.908978, -0.950676, -0.672397, -3.99588)
+
+[node name="NeedleCannon" parent="PreviewMech/Armature/Skeleton3D" index="2"]
+transform = Transform3D(0.871435, 0.352269, 0.410434, -0.262289, 1.26199, -0.0728185, -0.414494, -0.0579631, 0.908978, -2.21195, -5.65073, 0.0553899)
+
+[node name="Shoulder_R_2" parent="PreviewMech/Armature/Skeleton3D" index="3"]
+transform = Transform3D(0.768575, 0.332451, 0.587399, -0.279222, 1.25774, -0.048504, -0.575611, -0.166215, 0.807843, -1.27094, -0.614275, -4.51209)
+
+[node name="Arm_L_2" parent="PreviewMech/Armature/Skeleton3D" index="4"]
+transform = Transform3D(0.937688, -0.110394, 0.337128, 0.16725, 1.25874, -0.225559, -0.304577, 0.351339, 0.914039, 0.957279, -0.806764, -5.40678)
+
+[node name="Drill" parent="PreviewMech/Armature/Skeleton3D" index="5"]
+transform = Transform3D(1.1421, 0.784957, -0.930638, 0.332939, -1.42876, -0.796512, -1.17107, 0.359339, -1.13407, 9.82763, -3.53705, -3.7781)
+
+[node name="Shoulder_L_2" parent="PreviewMech/Armature/Skeleton3D" index="6"]
+transform = Transform3D(0.947601, -0.146744, 0.299221, 0.148191, 1.29019, -0.101448, -0.283005, 0.184233, 0.948776, 0.984975, -0.637358, -4.89837)
+
+[node name="Torso_002" parent="PreviewMech/Armature/Skeleton3D" index="7"]
+transform = Transform3D(0.999617, 0.0930198, -0.0286875, -0.00739229, 9.60403, 0.0947578, 0.0266811, -0.824118, 1.10104, 0.0783439, 3.32961, -5.08162)
+
+[node name="Frills" parent="PreviewMech/Armature/Skeleton3D" index="8"]
+transform = Transform3D(1.55074, 0.0807708, -0.0334169, -0.0155111, 4.71314, 0.444171, 0.0382675, -1.36274, 1.53422, 0.112947, 1.8782, -4.25866)
+
+[node name="Torso" parent="PreviewMech/Armature/Skeleton3D" index="9"]
+transform = Transform3D(0.999646, 0.233529, -0.0121912, -0.00999882, 6.99594, 0.760463, 0.0246681, -6.62779, 0.802274, 0.0808602, 3.33369, -5.16552)
+
+[node name="Torso_001" parent="PreviewMech/Armature/Skeleton3D" index="10"]
+transform = Transform3D(0.999646, 0.233529, -0.0121912, -0.00999882, 6.99594, 0.760463, 0.0246681, -6.62779, 0.802274, 0.0808602, 3.33369, -5.16552)
+
+[node name="Foot_R_2" parent="PreviewMech/Armature/Skeleton3D" index="11"]
+transform = Transform3D(0.971754, 0.0662216, -0.237593, -0.220777, 1.38131, -0.883934, 0.0833744, 2.88591, 0.428538, -1.90181, -9.1997, -9.95723)
+
+[node name="Legs_R" parent="PreviewMech/Armature/Skeleton3D" index="12"]
+transform = Transform3D(0.995253, -0.306666, 0.0171388, 0.0480657, 1.06413, -0.951909, 0.0846195, 3.00241, 0.33913, -0.943002, -3.17992, 6.14955)
+
+[node name="Thigh_R_2" parent="PreviewMech/Armature/Skeleton3D" index="13"]
+transform = Transform3D(0.968136, 0.00238444, -0.253092, 0.0698129, 3.07069, 0.275661, 0.240496, -0.900982, 0.938824, 0.218859, -0.0810091, -3.91826)
+
+[node name="Foot_L_2" parent="PreviewMech/Armature/Skeleton3D" index="14"]
+transform = Transform3D(0.995026, -0.289734, 0.04199, 0.0662101, 2.92076, 0.407534, -0.0744281, -1.27519, 0.923899, -1.60303, -13.5171, 7.10405)
+
+[node name="Legs_L" parent="PreviewMech/Armature/Skeleton3D" index="15"]
+transform = Transform3D(0.999389, -0.111796, 0.000460753, 0.0236863, 2.19875, 0.733939, -0.0256828, -2.32248, 0.694816, 0.400833, -1.71005, -5.51116)
+
+[node name="Thigh_L_2" parent="PreviewMech/Armature/Skeleton3D" index="16"]
+transform = Transform3D(0.995014, -0.287929, 0.043487, 0.0447165, 2.52205, 0.620458, -0.0891471, -1.94865, 0.796603, -0.152595, -1.04107, -4.80173)
+
+[node name="AnimationPlayer" parent="PreviewMech" index="1"]
+speed_scale = 0.65
+
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+msaa_2d = 1
+msaa_3d = 1
+canvas_cull_mask = 4293918721
+size = Vector2i(2000, 2000)
+
+[node name="Camera3D" type="Camera3D" parent="SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 0.923712, 0.383087, 0, -0.383087, 0.923712, 0, 23.443, 27.5251)
+cull_mask = 1
+v_offset = -1.655
+fov = 52.3
+size = 30.345
+near = 0.001
+
+[node name="SpotLight3D" type="SpotLight3D" parent="SubViewport/Camera3D"]
+light_energy = 100.0
+light_specular = 3.447
+spot_range = 204.06
+
+[node name="BlackOverlay" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0)
+z_index = 4096
+layout_mode = 0
+offset_left = -1625.0
+offset_top = -1181.0
+offset_right = -1369.0
+offset_bottom = -1141.0
+scale = Vector2(17.8655, 146.952)
+mouse_filter = 2
+texture = SubResource("GradientTexture1D_88ctn")
+
+[connection signal="mouse_entered" from="MainMenu/Offset/myRobot/myRobotButton" to="MainMenu/Offset/myRobot/myRobotButton" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="MainMenu/Offset/myRobot/myRobotButton" to="MainMenu/Offset/myRobot/myRobotButton" method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="MainMenu/Offset/online/onlineButton" to="MainMenu/Offset/online/onlineButton" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="MainMenu/Offset/online/onlineButton" to="MainMenu/Offset/online/onlineButton" method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="MainMenu/Offset/training/trainingButton" to="MainMenu/Offset/training/trainingButton" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="MainMenu/Offset/training/trainingButton" to="MainMenu/Offset/training/trainingButton" method="_on_mouse_exited"]
+[connection signal="pressed" from="MainMenu/Offset/training/trainingButton" to="." method="_on_training_button_pressed"]
+[connection signal="mouse_entered" from="MainMenu/Offset/trials/trialsButton" to="MainMenu/Offset/trials/trialsButton" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="MainMenu/Offset/trials/trialsButton" to="MainMenu/Offset/trials/trialsButton" method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="MainMenu/Offset/options/optionsButton" to="MainMenu/Offset/options/optionsButton" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="MainMenu/Offset/options/optionsButton" to="MainMenu/Offset/options/optionsButton" method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="MainMenu/Offset/back/backButton" to="MainMenu/Offset/back/backButton" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="MainMenu/Offset/back/backButton" to="MainMenu/Offset/back/backButton" method="_on_mouse_exited"]
+[connection signal="pressed" from="MainMenu/Offset/back/backButton" to="." method="_on_back_button_pressed"]
+
+[editable path="PreviewMech"]

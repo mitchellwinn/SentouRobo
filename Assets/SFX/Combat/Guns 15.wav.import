@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bby6yd8urkiud"
+path="res://.godot/imported/Guns 15.wav-03fac688093f301c84555e721d9e7962.sample"
+
+[deps]
+
+source_file="res://Assets/SFX/Combat/Guns 15.wav"
+dest_files=["res://.godot/imported/Guns 15.wav-03fac688093f301c84555e721d9e7962.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

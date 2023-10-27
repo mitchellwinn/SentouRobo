@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://ctvpaiy8uiuii"
+path="res://.godot/imported/Lasers 10.wav-239999f66e0d2b45de2bd94a045590a1.sample"
+
+[deps]
+
+source_file="res://Assets/SFX/Lasers 10.wav"
+dest_files=["res://.godot/imported/Lasers 10.wav-239999f66e0d2b45de2bd94a045590a1.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

@@ -1,0 +1,73 @@
+[gd_scene load_steps=2 format=3 uid="uid://bm0r1orqsnkcg"]
+
+[ext_resource type="PackedScene" uid="uid://bmlqq80sue4nr" path="res://Assets/Robots/mech.glb" id="1_pv7ss"]
+
+[node name="PreviewMech" instance=ExtResource("1_pv7ss")]
+
+[node name="Head_2" parent="Armature/Skeleton3D" index="0"]
+transform = Transform3D(-6.11267e-08, -1.14302e-07, 1.07409, -0.164414, 1.27033, 5.91535e-08, -1.27033, -0.164414, -5.38981e-08, 0.0535909, 8.80947, -0.182626)
+bone_idx = 3
+
+[node name="Arm_R_2" parent="Armature/Skeleton3D" index="1"]
+transform = Transform3D(1, 2.98023e-08, -1.49012e-08, -5.96046e-08, 1.31151, -1.78814e-07, 8.9407e-08, 2.98023e-07, 1, 0, -0.0141206, 0.741734)
+bone_idx = 6
+
+[node name="NeedleCannon" parent="Armature/Skeleton3D" index="2"]
+transform = Transform3D(1, 2.98023e-08, -1.49012e-08, -5.96046e-08, 1.31151, -1.78814e-07, 8.9407e-08, 2.98023e-07, 1, -1.47259, -5.32229, 4.2691)
+bone_idx = 7
+
+[node name="Shoulder_R_2" parent="Armature/Skeleton3D" index="3"]
+transform = Transform3D(1, -1.78814e-07, 4.37976e-09, 7.45058e-08, 1.31151, -3.37075e-08, -4.37985e-09, 4.42079e-08, 1, 2.38419e-07, 0.0899191, 0.638071)
+bone_idx = 8
+
+[node name="Arm_L_2" parent="Armature/Skeleton3D" index="4"]
+transform = Transform3D(1, 1.93715e-07, 0, -2.08616e-07, 1.31151, 1.19209e-07, -2.98023e-08, -2.38419e-07, 1, 1.90735e-06, -0.0141153, 0.741737)
+bone_idx = 11
+
+[node name="Drill" parent="Armature/Skeleton3D" index="5"]
+transform = Transform3D(1.4833, 0.387637, -0.660452, -0.0903058, -1.34109, -0.989936, -0.760463, 0.91535, -1.17067, 7.36492, -2.94489, 5.8367)
+bone_idx = 12
+
+[node name="Shoulder_L_2" parent="Armature/Skeleton3D" index="6"]
+transform = Transform3D(1, 1.63913e-07, -2.7059e-08, -1.3411e-07, 1.31151, 1.32005e-08, 2.70589e-08, -1.73125e-08, 1, -8.34465e-07, 0.0899191, 0.638066)
+bone_idx = 13
+
+[node name="Torso_002" parent="Armature/Skeleton3D" index="7"]
+transform = Transform3D(1, -1.06582e-07, -3.26618e-08, 1.62397e-08, 9.47938, 0.200822, 2.7045e-08, -1.75116, 1.08709, -1.00465e-06, 3.81311, 0.0361767)
+bone_idx = 14
+
+[node name="Frills" parent="Armature/Skeleton3D" index="8"]
+transform = Transform3D(1.55129, -5.73943e-08, -7.62853e-08, -4.11521e-09, 4.69602, -0.463268, 7.61545e-08, 1.42291, 1.52892, 0.0689998, 2.09962, 0.00344181)
+bone_idx = 15
+
+[node name="Torso" parent="Armature/Skeleton3D" index="9"]
+transform = Transform3D(1, 1.03922e-07, -4.88729e-08, -2.57007e-09, 9.47938, 0.200822, 4.54322e-08, -1.75116, 1.08709, 3.84879e-07, 3.81311, 0.0361756)
+bone_idx = 16
+
+[node name="Torso_001" parent="Armature/Skeleton3D" index="10"]
+transform = Transform3D(1, 1.03922e-07, -4.88729e-08, -2.57007e-09, 9.47938, 0.200822, 4.54322e-08, -1.75116, 1.08709, 3.84879e-07, 3.81311, 0.0361756)
+bone_idx = 17
+
+[node name="Foot_R_2" parent="Armature/Skeleton3D" index="11"]
+transform = Transform3D(1, -1.2666e-07, 6.0536e-08, -7.82311e-08, 3.15215, -0.174375, -5.36529e-08, 0.552136, 0.995504, -2.6152, -14.6938, -3.83507)
+bone_idx = 21
+
+[node name="Legs_R" parent="Armature/Skeleton3D" index="12"]
+transform = Transform3D(0.999927, -0.031754, -0.00697702, 0.00722916, 3.03568, -0.319738, 0.00968785, 1.01218, 0.958725, -0.0954695, 1.55427, 1.34828)
+bone_idx = 22
+
+[node name="Thigh_R_2" parent="Armature/Skeleton3D" index="13"]
+transform = Transform3D(1, -6.82894e-08, 2.07714e-08, -1.04308e-07, 3.15215, -0.174374, -1.43523e-08, 0.552136, 0.995504, 0.0232546, 1.63736, 3.57628e-07)
+bone_idx = 23
+
+[node name="Foot_L_2" parent="Armature/Skeleton3D" index="14"]
+transform = Transform3D(1, 1.49012e-07, -1.03377e-07, 1.04308e-07, 3.15215, -0.174375, 9.36034e-08, 0.552136, 0.995505, -2.6152, -14.6938, -3.83507)
+bone_idx = 27
+
+[node name="Legs_L" parent="Armature/Skeleton3D" index="15"]
+transform = Transform3D(0.999927, 0.0317539, 0.00697748, -0.00722895, 3.03568, -0.319738, -0.00968828, 1.01218, 0.958725, 0.162226, 1.55035, 1.48351)
+bone_idx = 28
+
+[node name="Thigh_L_2" parent="Armature/Skeleton3D" index="16"]
+transform = Transform3D(1, 1.23784e-07, -2.76382e-08, 7.45062e-08, 3.15215, -0.174374, 1.33425e-08, 0.552136, 0.995504, 0.0232557, 1.63736, -5.66244e-07)
+bone_idx = 29

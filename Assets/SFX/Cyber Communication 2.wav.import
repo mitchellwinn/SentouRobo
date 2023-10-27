@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bafaavok3s3dg"
+path="res://.godot/imported/Cyber Communication 2.wav-338242f2f8498321a97beac01634c663.sample"
+
+[deps]
+
+source_file="res://Assets/SFX/Cyber Communication 2.wav"
+dest_files=["res://.godot/imported/Cyber Communication 2.wav-338242f2f8498321a97beac01634c663.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

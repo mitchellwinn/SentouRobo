@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dx2n7cwfo5qqo"
+path="res://.godot/imported/Glitch Rapid Clicks 2.wav-0c5045826521bf8451a752b7a20ae311.sample"
+
+[deps]
+
+source_file="res://Assets/SFX/Glitch Rapid Clicks 2.wav"
+dest_files=["res://.godot/imported/Glitch Rapid Clicks 2.wav-0c5045826521bf8451a752b7a20ae311.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

@@ -1,0 +1,137 @@
+[gd_scene load_steps=16 format=3 uid="uid://cnc3ukvxjeyij"]
+
+[ext_resource type="Texture2D" uid="uid://b0uv7q17b0myw" path="res://Assets/ExtraImageTextures/splash1.png" id="1_icwga"]
+[ext_resource type="Texture2D" uid="uid://siow1nxgxuvb" path="res://Assets/ExtraImageTextures/splash2.png" id="2_3sofh"]
+
+[sub_resource type="Gradient" id="Gradient_e7rvx"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_svtd5"]
+gradient = SubResource("Gradient_e7rvx")
+
+[sub_resource type="Curve" id="Curve_nemb7"]
+max_value = 100.0
+_data = [Vector2(0, 2.10526), 0.0, 18.1508, 0, 0, Vector2(1, 22.1053), 58.1174, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_if4q6"]
+curve = SubResource("Curve_nemb7")
+
+[sub_resource type="Curve" id="Curve_ogemt"]
+_data = [Vector2(0, 0), 0.0, 6.32074, 0, 0, Vector2(0.134796, 0.589474), 0.0, 0.0, 0, 0, Vector2(0.99999, 0), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_8fqf1"]
+curve = SubResource("Curve_ogemt")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_q5ok4"]
+lifetime_randomness = 0.3
+emission_shape = 3
+emission_box_extents = Vector3(1, 0, 1)
+direction = Vector3(0, 1, 0)
+spread = 4.35
+gravity = Vector3(0, -1, 0)
+initial_velocity_min = 3.1
+initial_velocity_max = 3.1
+angular_velocity_min = -10.0
+angular_velocity_max = 10.0
+damping_min = 0.935
+damping_max = 2.461
+damping_curve = SubResource("CurveTexture_if4q6")
+scale_max = 3.0
+scale_curve = SubResource("CurveTexture_8fqf1")
+color = Color(1, 1, 1, 0)
+color_ramp = SubResource("GradientTexture1D_svtd5")
+color_initial_ramp = SubResource("GradientTexture1D_svtd5")
+turbulence_enabled = true
+sub_emitter_mode = 1
+sub_emitter_frequency = 1.0
+sub_emitter_keep_velocity = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pvjh2"]
+blend_mode = 1
+cull_mode = 2
+diffuse_mode = 2
+specular_mode = 2
+albedo_color = Color(0.384314, 0.627451, 0.65098, 1)
+albedo_texture = ExtResource("1_icwga")
+emission_enabled = true
+emission = Color(0, 0, 0.803922, 1)
+emission_operator = 1
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_3j1a5"]
+material = SubResource("StandardMaterial3D_pvjh2")
+
+[sub_resource type="CurveTexture" id="CurveTexture_ibofu"]
+curve = SubResource("Curve_ogemt")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ohcq6"]
+lifetime_randomness = 0.3
+emission_shape = 3
+emission_box_extents = Vector3(1, 0, 1)
+direction = Vector3(0, 1, 0)
+spread = 4.35
+gravity = Vector3(0, -1, 0)
+initial_velocity_min = 3.1
+initial_velocity_max = 3.1
+angular_velocity_min = -10.0
+angular_velocity_max = 10.0
+radial_accel_min = 2.15
+radial_accel_max = 4.6
+damping_min = 1.02
+damping_max = 2.461
+damping_curve = SubResource("CurveTexture_if4q6")
+scale_max = 3.0
+scale_curve = SubResource("CurveTexture_ibofu")
+color = Color(1, 1, 1, 0)
+color_ramp = SubResource("GradientTexture1D_svtd5")
+color_initial_ramp = SubResource("GradientTexture1D_svtd5")
+turbulence_enabled = true
+sub_emitter_mode = 1
+sub_emitter_frequency = 1.0
+sub_emitter_keep_velocity = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ribpi"]
+transparency = 3
+alpha_hash_scale = 1.51
+alpha_antialiasing_mode = 0
+blend_mode = 1
+cull_mode = 2
+diffuse_mode = 2
+specular_mode = 2
+albedo_color = Color(1, 1, 1, 0.184314)
+albedo_texture = ExtResource("2_3sofh")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_1vi2e"]
+material = SubResource("StandardMaterial3D_ribpi")
+
+[node name="WaterSplash" type="GPUParticles3D"]
+emitting = false
+amount = 60
+sub_emitter = NodePath("WaterSplash")
+lifetime = 0.8
+one_shot = true
+explosiveness = 0.5
+process_material = SubResource("ParticleProcessMaterial_q5ok4")
+draw_pass_1 = SubResource("QuadMesh_3j1a5")
+
+[node name="WaterSplash" type="GPUParticles3D" parent="."]
+emitting = false
+amount = 60
+lifetime = 2.0
+one_shot = true
+explosiveness = 0.8
+randomness = 1.0
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_ohcq6")
+draw_pass_1 = SubResource("QuadMesh_1vi2e")

@@ -1,0 +1,899 @@
+[gd_scene load_steps=27 format=3 uid="uid://d1mbdg45asaao"]
+
+[ext_resource type="Texture2D" uid="uid://xu6lxnwc3c5y" path="res://Assets/TitleScreenAssets/topVisor-01.png" id="1_4tsii"]
+[ext_resource type="Script" path="res://Assets/Scripts/Menu/MainMenu.gd" id="1_8ctrw"]
+[ext_resource type="Texture2D" uid="uid://kl1hfk7gl4sm" path="res://Assets/TitleScreenAssets/bottomVisor-01.png" id="2_30ylj"]
+[ext_resource type="Texture2D" uid="uid://bpyruoepd4a7o" path="res://Assets/TitleScreenAssets/romaji-01.png" id="3_qncem"]
+[ext_resource type="Texture2D" uid="uid://cwgp6mtayfsc1" path="res://Assets/TitleScreenAssets/japanese-01.png" id="4_db7d0"]
+[ext_resource type="Texture2D" uid="uid://jaibs623edf5" path="res://Assets/TitleScreenAssets/crosshair-01.png" id="6_fmqs1"]
+[ext_resource type="Texture2D" uid="uid://ds7oh75jyb105" path="res://Assets/TitleScreenAssets/pressContinue-01-01.png" id="6_m45dd"]
+[ext_resource type="AudioStream" uid="uid://vjnkjr4s58xw" path="res://Assets/SFX/Lasers 2.wav" id="8_8wrbk"]
+[ext_resource type="AudioStream" uid="uid://b0pqjd6co5viw" path="res://Assets/SFX/Lasers 20.wav" id="9_rykqp"]
+[ext_resource type="Texture2D" uid="uid://br6x64mquqptq" path="res://Assets/MainMenuAssets/MyRobot_.png" id="11_4xmbv"]
+[ext_resource type="AudioStream" uid="uid://bep7rwmsuu671" path="res://Assets/SFX/Lasers 5.wav" id="11_tss62"]
+[ext_resource type="Texture2D" uid="uid://c04d8j7csvl4p" path="res://Assets/MainMenuAssets/Frame (2).png" id="12_cxx6n"]
+[ext_resource type="Script" path="res://Assets/Scripts/buttonProperties.gd" id="12_f5jcp"]
+[ext_resource type="Texture2D" uid="uid://cxnn7s7qjxeue" path="res://Assets/MainMenuAssets/Online_.png" id="12_giv2s"]
+[ext_resource type="Texture2D" uid="uid://bfme7pak6r6bn" path="res://Assets/MainMenuAssets/Training_.png" id="13_u6rtu"]
+[ext_resource type="Texture2D" uid="uid://tv4a8jnn4apm" path="res://Assets/MainMenuAssets/Trials_.png" id="14_57qq6"]
+[ext_resource type="Texture2D" uid="uid://8xml88p410bv" path="res://Assets/MainMenuAssets/Options_.png" id="15_xxs4p"]
+[ext_resource type="Texture2D" uid="uid://wycb0edc3eve" path="res://Assets/MainMenuAssets/coolBart.png" id="17_k0uy4"]
+[ext_resource type="Texture2D" uid="uid://didkyk7rtjoc0" path="res://Assets/MainMenuAssets/Back3_.png" id="18_0q8eg"]
+[ext_resource type="PackedScene" uid="uid://bmlqq80sue4nr" path="res://Assets/Robots/mech.glb" id="20_utvb6"]
+
+[sub_resource type="Animation" id="Animation_lc830"]
+resource_name = "mainMenuIN"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MainMenu:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MainMenu:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.3, 0.7),
+"transitions": PackedFloat32Array(0.277392, 1),
+"update": 0,
+"values": [Vector2(0.35, 0.35), Vector2(0.24, 0.24)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MainMenu/Offset/frame:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.3, 0.7),
+"transitions": PackedFloat32Array(0.210225, 1),
+"update": 0,
+"values": [Vector2(0.575, 0.575), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_moqvy"]
+resource_name = "titleIN"
+length = 2.0
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Title/Offset/bottomVisor:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.7),
+"transitions": PackedFloat32Array(1.36604, 1),
+"update": 0,
+"values": [Vector2(-1029.17, 300), Vector2(-1029.17, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Title/Offset/topVisor:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.7),
+"transitions": PackedFloat32Array(1.36, 1),
+"update": 0,
+"values": [Vector2(-1029.17, -300), Vector2(-1029.17, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Title/Offset/romaji:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(1, 1.7),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector2(1, 0), Vector2(1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Title/Offset/japanese:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1.7),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector2(1, 0), Vector2(1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Title/Offset/crosshair:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.8, 0.85, 0.9, 0.95, 1, 1.05, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.85, 1.95, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [false, true, false, true, false, true, false, true, false, true, false, true, false, false, true, false, true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Title/Offset/press:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Title/Offset/crosshair:scale")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0.65, 1.7, 1.75, 2),
+"transitions": PackedFloat32Array(1.51572, 1, 1.51572, 1),
+"update": 0,
+"values": [Vector2(1, 0.25), Vector2(1, 1), Vector2(1, 0.25), Vector2(1, 1)]
+}
+tracks/7/type = "audio"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("SFX1")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("8_8wrbk")
+}],
+"times": PackedFloat32Array(0.7)
+}
+tracks/7/use_blend = true
+tracks/8/type = "audio"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("SFX2")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("9_rykqp")
+}],
+"times": PackedFloat32Array(0.1)
+}
+tracks/8/use_blend = true
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("TitleAnimationPlayer:speed_scale")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 1.0]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Title:scale")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1.41421, 1),
+"update": 0,
+"values": [Vector2(0.335, 0.335), Vector2(0.24, 0.24)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("MainMenu:visible")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("Title:visible")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("Title/Offset/japanese:visible")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("Title/Offset/romaji:visible")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_pelwg"]
+resource_name = "titleOUT"
+length = 2.0
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Title/Offset/bottomVisor:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.1),
+"transitions": PackedFloat32Array(1.35, 1),
+"update": 0,
+"values": [Vector2(-1029.17, 0), Vector2(-1029.17, 500)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Title/Offset/topVisor:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.1),
+"transitions": PackedFloat32Array(1.35, 1),
+"update": 0,
+"values": [Vector2(-1029.17, 0), Vector2(-1029.17, -500)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Title/Offset/romaji:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.25),
+"transitions": PackedFloat32Array(0.554785, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 0.75)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Title/Offset/japanese:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1.25),
+"transitions": PackedFloat32Array(0.574349, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 0.5)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Title/Offset/crosshair:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [true, false, true, false, true, false, true, false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Title/Offset/press:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Title/Offset/crosshair:scale")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0.2, 1.05),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 0)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Title/Offset/romaji:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [true, false, true, false, true, false, true, false]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Title/Offset/japanese:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [true, false, true, false, true, false, true, false]
+}
+tracks/9/type = "audio"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("SFX1")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("11_tss62")
+}],
+"times": PackedFloat32Array(-0.05)
+}
+tracks/9/use_blend = true
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Title:scale")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0, 0.85, 1.35),
+"transitions": PackedFloat32Array(0.31864, 2.2974, 0.31864),
+"update": 0,
+"values": [Vector2(0.24, 0.24), Vector2(0.67, 0.67), Vector2(0.24, 0.24)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("Title:visible")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0, 0.85),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_m4143"]
+_data = {
+"mainMenuIN": SubResource("Animation_lc830"),
+"titleIN": SubResource("Animation_moqvy"),
+"titleOUT": SubResource("Animation_pelwg")
+}
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_efw7l"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="FontVariation" id="FontVariation_8kuo2"]
+variation_embolden = 0.57
+spacing_glyph = -10
+spacing_space = 30
+spacing_top = -25
+spacing_bottom = -40
+
+[node name="Menu" type="Control" node_paths=PackedStringArray("animTitle", "animMain", "myRobot", "online", "training", "trials", "options", "mainMenuDescription", "press")]
+layout_direction = 1
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -480.0
+offset_top = -270.0
+offset_right = -480.0
+offset_bottom = -270.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+mouse_filter = 2
+script = ExtResource("1_8ctrw")
+animTitle = NodePath("TitleAnimationPlayer")
+animMain = NodePath("MainMenuAnimationPlayer")
+myRobot = NodePath("MainMenu/Offset/myRobot")
+online = NodePath("MainMenu/Offset/online")
+training = NodePath("MainMenu/Offset/training")
+trials = NodePath("MainMenu/Offset/trials")
+options = NodePath("MainMenu/Offset/options")
+mainMenuDescription = NodePath("MainMenu/Offset/title/RichTextLabel")
+press = NodePath("Title/Offset/press")
+
+[node name="TitleAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_m4143")
+}
+
+[node name="MainMenuAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_m4143")
+}
+
+[node name="SFX1" type="AudioStreamPlayer" parent="."]
+volume_db = -10.0
+pitch_scale = 2.4
+
+[node name="SFX2" type="AudioStreamPlayer" parent="."]
+volume_db = -10.0
+pitch_scale = 2.4
+
+[node name="Title" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_right = 4000.0
+offset_bottom = 2250.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.335, 0.335)
+pivot_offset = Vector2(480, 270)
+
+[node name="Offset" type="Control" parent="Title"]
+anchors_preset = 0
+offset_left = -1532.5
+offset_top = -855.0
+offset_right = -1492.5
+offset_bottom = -815.0
+
+[node name="topVisor" type="TextureRect" parent="Title/Offset"]
+modulate = Color(1, 1, 1, 0.588235)
+layout_direction = 1
+layout_mode = 2
+offset_left = -921.828
+offset_top = -251.119
+offset_right = 3078.17
+offset_bottom = 1998.88
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.5, 1)
+texture = ExtResource("1_4tsii")
+stretch_mode = 4
+
+[node name="bottomVisor" type="TextureRect" parent="Title/Offset"]
+modulate = Color(1, 1, 1, 0.588235)
+layout_direction = 1
+layout_mode = 2
+offset_left = -1029.17
+offset_top = 300.0
+offset_right = 2970.83
+offset_bottom = 2550.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.5, 1)
+texture = ExtResource("2_30ylj")
+stretch_mode = 4
+
+[node name="romaji" type="TextureRect" parent="Title/Offset"]
+layout_mode = 2
+offset_left = 4.16846
+offset_top = 41.6667
+offset_right = 4004.17
+offset_bottom = 2291.67
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1, 1e-05)
+texture = ExtResource("3_qncem")
+stretch_mode = 4
+
+[node name="japanese" type="TextureRect" parent="Title/Offset"]
+layout_mode = 2
+offset_left = 4.16846
+offset_top = 41.6667
+offset_right = 4004.17
+offset_bottom = 2291.67
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1, 1e-05)
+texture = ExtResource("4_db7d0")
+stretch_mode = 4
+
+[node name="press" type="TextureRect" parent="Title/Offset"]
+visible = false
+layout_mode = 2
+offset_left = 4.16846
+offset_top = 41.6667
+offset_right = 4004.17
+offset_bottom = 2291.67
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_m45dd")
+stretch_mode = 4
+
+[node name="crosshair" type="TextureRect" parent="Title/Offset"]
+visible = false
+layout_mode = 2
+offset_left = 4.16846
+offset_top = 41.6667
+offset_right = 4004.17
+offset_bottom = 2291.67
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1, 0.25)
+texture = ExtResource("6_fmqs1")
+stretch_mode = 4
+
+[node name="previewMech" type="TextureRect" parent="Title/Offset"]
+layout_mode = 0
+offset_left = 887.127
+offset_top = 748.881
+offset_right = 2887.13
+offset_bottom = 2748.88
+scale = Vector2(0.5, 0.5)
+texture = SubResource("ViewportTexture_efw7l")
+
+[node name="MainMenu" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_right = 4000.0
+offset_bottom = 2250.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.24, 0.24)
+pivot_offset = Vector2(480, 270)
+mouse_filter = 2
+
+[node name="Offset" type="Control" parent="MainMenu"]
+anchors_preset = 0
+offset_left = -1532.5
+offset_top = -855.0
+offset_right = -1492.5
+offset_bottom = -815.0
+mouse_filter = 2
+
+[node name="title" type="TextureRect" parent="MainMenu/Offset"]
+self_modulate = Color(0.545098, 0.545098, 0.545098, 1)
+z_index = 1
+layout_mode = 0
+offset_left = 45.8324
+offset_top = 37.5
+offset_right = 4698.83
+offset_bottom = 535.5
+scale = Vector2(0.6, 0.6)
+mouse_filter = 2
+texture = ExtResource("17_k0uy4")
+stretch_mode = 4
+flip_h = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MainMenu/Offset/title"]
+z_index = 10
+layout_mode = 0
+offset_left = 458.334
+offset_top = 90.0
+offset_right = 4479.33
+offset_bottom = 486.0
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 50
+theme_override_fonts/normal_font = SubResource("FontVariation_8kuo2")
+theme_override_font_sizes/normal_font_size = 150
+text = "Welcome, cadet! It is always good to see you!"
+
+[node name="frame" type="TextureRect" parent="MainMenu/Offset"]
+layout_mode = 2
+offset_left = 258.333
+offset_top = 137.5
+offset_right = 3787.33
+offset_bottom = 2128.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("12_cxx6n")
+stretch_mode = 4
+
+[node name="myRobot" type="TextureRect" parent="MainMenu/Offset"]
+layout_mode = 0
+offset_left = 2158.33
+offset_top = 404.167
+offset_right = 6158.33
+offset_bottom = 2654.17
+scale = Vector2(0.35, 0.35)
+mouse_filter = 2
+texture = ExtResource("11_4xmbv")
+stretch_mode = 4
+
+[node name="myRobotButton" type="Button" parent="MainMenu/Offset/myRobot" node_paths=PackedStringArray("menu")]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 42.0
+offset_right = 3979.0
+offset_bottom = 604.0
+script = ExtResource("12_f5jcp")
+menu = NodePath("../../../..")
+buttonName = "myRobot"
+description = "Outfit your machine with a variety of different parts to prepare for all types of combat situations!"
+
+[node name="online" type="TextureRect" parent="MainMenu/Offset"]
+layout_mode = 0
+offset_left = 2454.17
+offset_top = 679.163
+offset_right = 6454.17
+offset_bottom = 2929.17
+scale = Vector2(0.35, 0.35)
+mouse_filter = 2
+texture = ExtResource("12_giv2s")
+stretch_mode = 4
+
+[node name="onlineButton" type="Button" parent="MainMenu/Offset/online" node_paths=PackedStringArray("menu")]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 42.0
+offset_right = 3979.0
+offset_bottom = 604.0
+script = ExtResource("12_f5jcp")
+menu = NodePath("../../../..")
+buttonName = "online"
+description = "Test  your skill against opponents from all over the world!"
+
+[node name="training" type="TextureRect" parent="MainMenu/Offset"]
+layout_mode = 0
+offset_left = 2258.33
+offset_top = 962.5
+offset_right = 6258.33
+offset_bottom = 3212.5
+scale = Vector2(0.35, 0.35)
+mouse_filter = 2
+texture = ExtResource("13_u6rtu")
+stretch_mode = 4
+
+[node name="trainingButton" type="Button" parent="MainMenu/Offset/training" node_paths=PackedStringArray("menu")]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 42.0
+offset_right = 3979.0
+offset_bottom = 604.0
+script = ExtResource("12_f5jcp")
+menu = NodePath("../../../..")
+buttonName = "training"
+description = "Practice for the real thing using powerful training tools!"
+
+[node name="trials" type="TextureRect" parent="MainMenu/Offset"]
+layout_mode = 0
+offset_left = 2508.34
+offset_top = 1237.5
+offset_right = 6508.34
+offset_bottom = 3487.5
+scale = Vector2(0.35, 0.35)
+mouse_filter = 2
+texture = ExtResource("14_57qq6")
+stretch_mode = 4
+
+[node name="trialsButton" type="Button" parent="MainMenu/Offset/trials" node_paths=PackedStringArray("menu")]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 42.0
+offset_right = 3979.0
+offset_bottom = 604.0
+script = ExtResource("12_f5jcp")
+menu = NodePath("../../../..")
+buttonName = "trials"
+description = "Special challenges designed to teach gameplay concepts."
+
+[node name="options" type="TextureRect" parent="MainMenu/Offset"]
+layout_mode = 0
+offset_left = 2595.83
+offset_top = 1512.5
+offset_right = 6595.83
+offset_bottom = 3762.5
+scale = Vector2(0.35, 0.35)
+texture = ExtResource("15_xxs4p")
+stretch_mode = 4
+
+[node name="optionsButton" type="Button" parent="MainMenu/Offset/options" node_paths=PackedStringArray("menu")]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 42.0
+offset_right = 3979.0
+offset_bottom = 604.0
+script = ExtResource("12_f5jcp")
+menu = NodePath("../../../..")
+buttonName = "options"
+description = "Adjust how the game is played."
+
+[node name="back" type="TextureRect" parent="MainMenu/Offset"]
+layout_mode = 0
+offset_left = 3608.34
+offset_top = 45.8334
+offset_right = 7608.34
+offset_bottom = 1920.84
+scale = Vector2(0.15, 0.15)
+mouse_filter = 2
+texture = ExtResource("18_0q8eg")
+stretch_mode = 4
+
+[node name="backButton" type="Button" parent="MainMenu/Offset/back" node_paths=PackedStringArray("menu")]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 42.0
+offset_top = 21.0
+offset_right = 1611.0
+offset_bottom = 1222.0
+script = ExtResource("12_f5jcp")
+menu = NodePath("../../../..")
+buttonName = "back3"
+description = "Return to the title screen."
+
+[node name="PreviewMech" parent="." instance=ExtResource("20_utvb6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.13353, -2.34977)
+visible = false
+
+[node name="Skeleton3D" parent="PreviewMech/Armature" index="0"]
+bones/0/position = Vector3(-3.99952e-08, -1.70274, -0.810189)
+bones/0/rotation = Quaternion(-0.177042, 1.17326e-07, -2.11051e-08, 0.984203)
+bones/1/rotation = Quaternion(0.384876, -5.99163e-15, 1.03906e-07, 0.922968)
+bones/4/position = Vector3(-1.196, 2.05679, -0.107921)
+bones/4/rotation = Quaternion(-0.244244, -0.0671686, 0.747758, 0.613752)
+bones/5/rotation = Quaternion(0.352454, 0.147251, 0.466864, 0.797578)
+bones/9/position = Vector3(1.10883, 2.05679, -0.10792)
+bones/9/rotation = Quaternion(-0.346155, 0.139373, -0.793964, 0.479973)
+bones/10/rotation = Quaternion(0.233954, -0.391087, -0.629761, 0.62906)
+bones/18/position = Vector3(-1.27775, -2.54718, -0.371547)
+bones/18/rotation = Quaternion(-0.335255, -0.0407758, 0.911166, 0.236045)
+bones/19/rotation = Quaternion(-0.359642, -0.0165187, 0.0787243, 0.929616)
+bones/20/rotation = Quaternion(0.884936, 0.0520125, 0.143102, 0.440119)
+bones/24/position = Vector3(1.18488, -2.54718, -0.371547)
+bones/24/rotation = Quaternion(0.207937, 0.395495, 0.890655, -0.0841375)
+bones/25/rotation = Quaternion(-0.592546, 0.117118, 0.0122901, 0.796882)
+bones/26/rotation = Quaternion(0.846005, -0.00606788, 0.0289938, 0.532351)
+
+[node name="Head_2" parent="PreviewMech/Armature/Skeleton3D" index="0"]
+transform = Transform3D(-2.98363e-07, -1.63404e-07, 1.07409, 0.385233, 1.22162, 2.274e-07, -1.22162, 0.385233, -1.69692e-07, 0.0535913, 6.40046, -0.0804712)
+bone_idx = 3
+
+[node name="Arm_R_2" parent="PreviewMech/Armature/Skeleton3D" index="1"]
+transform = Transform3D(0.939667, 0.13687, -0.325783, -0.143141, 1.29171, -0.0973678, 0.310703, 0.181154, 0.940417, -0.709808, -2.5132, -1.53358)
+bone_idx = 6
+
+[node name="NeedleCannon" parent="PreviewMech/Armature/Skeleton3D" index="2"]
+transform = Transform3D(0.939667, 0.13687, -0.325783, -0.143141, 1.29171, -0.0973678, 0.310703, 0.181154, 0.940417, -3.79667, -7.87388, 0.592877)
+bone_idx = 7
+
+[node name="Shoulder_R_2" parent="PreviewMech/Armature/Skeleton3D" index="3"]
+transform = Transform3D(0.893863, 0.0308944, -0.447721, -0.118781, 1.27922, -0.185824, 0.432319, 0.287591, 0.874652, -0.548379, -2.29056, -1.48928)
+bone_idx = 8
+
+[node name="Arm_L_2" parent="PreviewMech/Armature/Skeleton3D" index="4"]
+transform = Transform3D(0.720701, 0.267317, 0.662605, -0.329027, 1.23526, 0.0681507, -0.610189, -0.350346, 0.745861, -0.433072, -0.555328, 0.921312)
+bone_idx = 11
+
+[node name="Drill" parent="PreviewMech/Armature/Skeleton3D" index="5"]
+transform = Transform3D(0.546722, 0.612542, -1.45345, -0.624927, -1.32827, -0.794854, -1.44817, 0.804438, -0.205714, 7.65342, -5.39173, 1.01035)
+bone_idx = 12
+
+[node name="Shoulder_L_2" parent="PreviewMech/Armature/Skeleton3D" index="6"]
+transform = Transform3D(0.706619, 0.240304, 0.68346, -0.0572867, 1.28205, -0.202837, -0.705271, 0.136627, 0.701242, -0.294599, -2.10827, -0.671559)
+bone_idx = 13
+
+[node name="Torso_002" parent="PreviewMech/Armature/Skeleton3D" index="7"]
+transform = Transform3D(1, -2.28874e-07, 5.66016e-09, 2.42699e-08, 9.33648, -0.27512, 9.49782e-10, 2.39903, 1.0707, -4.23926e-08, 1.77565, -1.9838)
+bone_idx = 14
+
+[node name="Frills" parent="PreviewMech/Armature/Skeleton3D" index="8"]
+transform = Transform3D(1.55129, -2.84217e-14, -1.13687e-13, 0, 4.89751, 0.0985904, 8.52651e-14, -0.302816, 1.59452, 0.0689997, 0.189673, -1.51011)
+bone_idx = 15
+
+[node name="Torso" parent="PreviewMech/Armature/Skeleton3D" index="9"]
+transform = Transform3D(1, 2.55795e-13, -8.52651e-14, -7.10543e-15, 8.27488, 0.567075, 4.26326e-14, -4.94486, 0.948959, -3.99952e-08, 1.80715, -2.07657)
+bone_idx = 16
+
+[node name="Torso_001" parent="PreviewMech/Armature/Skeleton3D" index="10"]
+transform = Transform3D(1, 2.55795e-13, -8.52651e-14, -7.10543e-15, 8.27488, 0.567075, 4.26326e-14, -4.94486, 0.948959, -3.99952e-08, 1.80715, -2.07657)
+bone_idx = 17
+
+[node name="Foot_R_2" parent="PreviewMech/Armature/Skeleton3D" index="11"]
+transform = Transform3D(0.762809, -0.41052, -0.640529, 0.0184888, 3.1491, -0.178815, 0.64636, 0.3944, 0.761041, -1.34937, -14.7306, -7.59746)
+bone_idx = 21
+
+[node name="Legs_R" parent="PreviewMech/Armature/Skeleton3D" index="12"]
+transform = Transform3D(0.707811, -0.604619, -0.687923, -0.260575, 2.64262, -0.505514, 0.656586, 1.70055, 0.540974, -2.48302, -1.17019, 3.10662)
+bone_idx = 22
+
+[node name="Thigh_R_2" parent="PreviewMech/Armature/Skeleton3D" index="13"]
+transform = Transform3D(0.724469, 0.532384, -0.676062, -0.294001, 3.04755, -0.0824384, 0.623465, 0.818467, 0.746713, 0.431005, -0.876582, 0.517388)
+bone_idx = 23
+
+[node name="Foot_L_2" parent="PreviewMech/Armature/Skeleton3D" index="14"]
+transform = Transform3D(0.964196, 0.0837275, 0.266709, 0.0205926, 3.15127, -0.174712, -0.264389, 0.550789, 0.95905, -2.51551, -14.855, 0.499105)
+bone_idx = 27
+
+[node name="Leg_L_2" parent="PreviewMech/Armature/Skeleton3D" index="15"]
+transform = Transform3D(0.964101, 0.226493, 0.258658, 0.0236612, 2.99882, -0.351994, -0.264479, 1.09392, 0.91139, 1.18309, 1.23657, 5.54303)
+bone_idx = 28
+
+[node name="Thigh_L_2" parent="PreviewMech/Armature/Skeleton3D" index="16"]
+transform = Transform3D(0.94074, -0.306989, 0.328746, -0.133203, 2.48827, 0.621103, -0.311874, -1.98876, 0.726355, -0.312101, -1.14017, -1.76334)
+bone_idx = 29
+
+[node name="AnimationPlayer" parent="PreviewMech" index="1"]
+speed_scale = 0.5
+
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+msaa_2d = 1
+msaa_3d = 1
+canvas_cull_mask = 4293918721
+size = Vector2i(2000, 2000)
+
+[node name="Camera3D" type="Camera3D" parent="SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 0.923712, 0.383087, 0, -0.383087, 0.923712, 0, 23.443, 27.5251)
+cull_mask = 1
+v_offset = -1.655
+fov = 52.3
+size = 30.345
+near = 0.001
+
+[node name="SpotLight3D" type="SpotLight3D" parent="SubViewport/Camera3D"]
+light_energy = 100.0
+light_specular = 3.447
+spot_range = 204.06
+
+[connection signal="mouse_entered" from="MainMenu/Offset/myRobot/myRobotButton" to="MainMenu/Offset/myRobot/myRobotButton" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="MainMenu/Offset/myRobot/myRobotButton" to="MainMenu/Offset/myRobot/myRobotButton" method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="MainMenu/Offset/online/onlineButton" to="MainMenu/Offset/online/onlineButton" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="MainMenu/Offset/online/onlineButton" to="MainMenu/Offset/online/onlineButton" method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="MainMenu/Offset/training/trainingButton" to="MainMenu/Offset/training/trainingButton" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="MainMenu/Offset/training/trainingButton" to="MainMenu/Offset/training/trainingButton" method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="MainMenu/Offset/trials/trialsButton" to="MainMenu/Offset/trials/trialsButton" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="MainMenu/Offset/trials/trialsButton" to="MainMenu/Offset/trials/trialsButton" method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="MainMenu/Offset/options/optionsButton" to="MainMenu/Offset/options/optionsButton" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="MainMenu/Offset/options/optionsButton" to="MainMenu/Offset/options/optionsButton" method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="MainMenu/Offset/back/backButton" to="MainMenu/Offset/back/backButton" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="MainMenu/Offset/back/backButton" to="MainMenu/Offset/back/backButton" method="_on_mouse_exited"]
+[connection signal="pressed" from="MainMenu/Offset/back/backButton" to="." method="_on_back_button_pressed"]
+
+[editable path="PreviewMech"]
