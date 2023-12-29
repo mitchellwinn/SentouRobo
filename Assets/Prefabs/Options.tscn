@@ -1,0 +1,392 @@
+[gd_scene load_steps=18 format=3 uid="uid://c3gxj28budx"]
+
+[ext_resource type="Texture2D" uid="uid://b3nhemscfjfyb" path="res://Assets/OptionsUI/optionsMenu.png" id="1_172ox"]
+[ext_resource type="Script" path="res://Assets/Scripts/OptionsMenu.gd" id="1_sb1o0"]
+[ext_resource type="Texture2D" uid="uid://b436j58skq2ya" path="res://Assets/OptionsUI/general_.png" id="3_s3ins"]
+[ext_resource type="Script" path="res://Assets/Scripts/buttonProperties.gd" id="4_gjdo7"]
+[ext_resource type="Texture2D" uid="uid://8j7rtjrd35q4" path="res://Assets/OptionsUI/audio_.png" id="5_yx210"]
+[ext_resource type="Texture2D" uid="uid://b6j26befxh4cl" path="res://Assets/OptionsUI/video_.png" id="6_81k6w"]
+[ext_resource type="Texture2D" uid="uid://cmaqur6grsut8" path="res://Assets/OptionsUI/closeGame_.png" id="7_vu45j"]
+[ext_resource type="Texture2D" uid="uid://bjeforin4afje" path="res://Assets/OptionsUI/exitToTitle_.png" id="8_54rbq"]
+[ext_resource type="Texture2D" uid="uid://oc3douppfp5d" path="res://Assets/OptionsUI/back_.png" id="9_2pytl"]
+[ext_resource type="FontFile" uid="uid://cj0v2dj4g3gyk" path="res://Assets/Fonts/DFHeiA_0.ttc" id="10_s1xfn"]
+[ext_resource type="VideoStream" path="res://Assets/Videos/Cyber Distort 23.ogv" id="11_d274v"]
+[ext_resource type="Texture2D" uid="uid://b5xok17ki7vt6" path="res://Assets/OptionsUI/slider_.png" id="11_u4bms"]
+[ext_resource type="Texture2D" uid="uid://dncou26qcllqk" path="res://Assets/OptionsUI/slider^.png" id="12_65bap"]
+
+[sub_resource type="Gradient" id="Gradient_dkcyr"]
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_qsba8"]
+gradient = SubResource("Gradient_dkcyr")
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_xk23c"]
+color = Color(0.172549, 0.211765, 0.568627, 1)
+thickness = 6
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_s04id"]
+blend_mode = 1
+
+[node name="OptionsMenu" type="TextureRect" node_paths=PackedStringArray("general", "generalTab", "audio", "audioTab", "video", "videoTab", "bgVideo", "textTitle", "masterVolumeSlider", "masterVolumeValue", "sfxVolumeSlider", "sfxVolumeValue", "musicVolumeSlider", "musicVolumeValue")]
+z_index = 1002
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -189.0
+offset_top = -233.0
+offset_right = 2658.0
+offset_bottom = 2968.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("1_172ox")
+script = ExtResource("1_sb1o0")
+general = NodePath("General")
+generalTab = NodePath("GeneralTab")
+audio = NodePath("Audio")
+audioTab = NodePath("AudioTab")
+video = NodePath("Video")
+videoTab = NodePath("VideoTab")
+bgVideo = NodePath("VideoStreamPlayer")
+textTitle = NodePath("General/RichTextLabel")
+masterVolumeSlider = NodePath("Audio/MasterVolumeSlider")
+masterVolumeValue = NodePath("Audio/MasterVolumeValue")
+sfxVolumeSlider = NodePath("Audio/SoundVolumeSlider")
+sfxVolumeValue = NodePath("Audio/SoundVolumeValue")
+musicVolumeSlider = NodePath("Audio/MusicVolumeSlider")
+musicVolumeValue = NodePath("Audio/MusicVolumeValue")
+
+[node name="BlackOverlay" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0.588235)
+z_index = 999
+z_as_relative = false
+layout_mode = 0
+offset_left = -11360.0
+offset_top = -4136.0
+offset_right = -9477.0
+offset_bottom = -4052.0
+scale = Vector2(17.8655, 146.952)
+mouse_filter = 0
+texture = SubResource("GradientTexture1D_qsba8")
+
+[node name="GeneralTab" type="TextureRect" parent="."]
+show_behind_parent = true
+z_index = 1001
+z_as_relative = false
+layout_mode = 0
+offset_left = 2160.0
+offset_top = 6.66668
+offset_right = 2817.0
+offset_bottom = 542.667
+mouse_filter = 2
+texture = ExtResource("3_s3ins")
+
+[node name="generalButton" type="Button" parent="GeneralTab"]
+modulate = Color(1, 1, 1, 0)
+z_index = 2000
+layout_mode = 0
+offset_left = 224.0
+offset_right = 656.0
+offset_bottom = 528.0
+script = ExtResource("4_gjdo7")
+buttonName = "general"
+path = "OptionsUI"
+
+[node name="AudioTab" type="TextureRect" parent="."]
+show_behind_parent = true
+z_index = 1001
+z_as_relative = false
+layout_mode = 0
+offset_left = 2000.0
+offset_top = 538.997
+offset_right = 2657.0
+offset_bottom = 1075.0
+mouse_filter = 2
+texture = ExtResource("5_yx210")
+
+[node name="audioButton" type="Button" parent="AudioTab"]
+modulate = Color(1, 1, 1, 0)
+z_index = 2000
+layout_mode = 0
+offset_left = 224.0
+offset_right = 656.0
+offset_bottom = 528.0
+script = ExtResource("4_gjdo7")
+buttonName = "audio"
+path = "OptionsUI"
+
+[node name="VideoTab" type="TextureRect" parent="."]
+show_behind_parent = true
+z_index = 1001
+z_as_relative = false
+layout_mode = 0
+offset_left = 2000.0
+offset_top = 1057.27
+offset_right = 2657.0
+offset_bottom = 1593.27
+mouse_filter = 2
+texture = ExtResource("6_81k6w")
+
+[node name="videoButton" type="Button" parent="VideoTab"]
+modulate = Color(1, 1, 1, 0)
+z_index = 2000
+layout_mode = 0
+offset_left = 224.0
+offset_right = 656.0
+offset_bottom = 528.0
+script = ExtResource("4_gjdo7")
+buttonName = "video"
+path = "OptionsUI"
+
+[node name="General" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="closeGame" type="TextureRect" parent="General"]
+z_index = 2000
+layout_mode = 0
+offset_left = -88.0
+offset_top = 1560.0
+offset_right = 3912.0
+offset_bottom = 3810.0
+scale = Vector2(0.6, 0.6)
+mouse_filter = 2
+texture = ExtResource("7_vu45j")
+stretch_mode = 4
+
+[node name="closeGameButton" type="Button" parent="General/closeGame"]
+modulate = Color(1, 1, 1, 0)
+z_index = 20
+layout_mode = 0
+offset_left = 533.0
+offset_right = 3453.0
+offset_bottom = 467.0
+script = ExtResource("4_gjdo7")
+buttonName = "closeGame"
+path = "OptionsUI"
+
+[node name="exit" type="TextureRect" parent="General"]
+layout_mode = 0
+offset_left = -88.0
+offset_top = 2048.0
+offset_right = 3912.0
+offset_bottom = 4298.0
+scale = Vector2(0.6, 0.6)
+mouse_filter = 2
+texture = ExtResource("8_54rbq")
+stretch_mode = 4
+
+[node name="exitButton" type="Button" parent="General/exit"]
+modulate = Color(1, 1, 1, 0)
+z_index = 2000
+layout_mode = 0
+offset_left = 467.0
+offset_right = 3560.0
+offset_bottom = 493.0
+script = ExtResource("4_gjdo7")
+buttonName = "exitToTitle"
+path = "OptionsUI"
+
+[node name="back" type="TextureRect" parent="General"]
+layout_mode = 0
+offset_left = -88.0
+offset_top = 2528.0
+offset_right = 3912.0
+offset_bottom = 4778.0
+scale = Vector2(0.6, 0.6)
+mouse_filter = 2
+texture = ExtResource("9_2pytl")
+stretch_mode = 4
+
+[node name="backButton" type="Button" parent="General/back"]
+modulate = Color(1, 1, 1, 0)
+z_index = 2000
+layout_mode = 0
+offset_left = 907.0
+offset_right = 3107.0
+offset_bottom = 493.0
+script = ExtResource("4_gjdo7")
+buttonName = "back"
+path = "OptionsUI"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="General"]
+layout_mode = 0
+offset_left = 168.0
+offset_top = 864.0
+offset_right = 2080.0
+offset_bottom = 1328.0
+mouse_filter = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("10_s1xfn")
+theme_override_font_sizes/normal_font_size = 395
+bbcode_enabled = true
+text = "[center]TRAINING[/center]"
+
+[node name="Audio" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="MasterVolumeText" type="RichTextLabel" parent="Audio"]
+layout_mode = 0
+offset_left = 273.333
+offset_top = 864.0
+offset_right = 2185.33
+offset_bottom = 1328.0
+mouse_filter = 2
+theme_override_colors/default_color = Color(0.172549, 0.211765, 0.568627, 1)
+theme_override_fonts/normal_font = ExtResource("10_s1xfn")
+theme_override_font_sizes/normal_font_size = 170
+bbcode_enabled = true
+text = "MASTER VOL       dB"
+
+[node name="MasterVolumeValue" type="RichTextLabel" parent="Audio"]
+layout_mode = 0
+offset_left = 1213.0
+offset_top = 864.0
+offset_right = 1707.0
+offset_bottom = 1040.0
+mouse_filter = 2
+theme_override_colors/default_color = Color(0.172549, 0.211765, 0.568627, 1)
+theme_override_fonts/normal_font = ExtResource("10_s1xfn")
+theme_override_font_sizes/normal_font_size = 170
+bbcode_enabled = true
+text = "[right]00"
+
+[node name="MasterVolumeSlider" type="HSlider" parent="Audio"]
+layout_mode = 0
+offset_left = 253.0
+offset_top = 1053.33
+offset_right = 631.0
+offset_bottom = 1095.33
+scale = Vector2(4.635, 4.635)
+theme_override_icons/grabber = ExtResource("11_u4bms")
+theme_override_icons/grabber_highlight = ExtResource("12_65bap")
+theme_override_styles/slider = SubResource("StyleBoxLine_xk23c")
+min_value = -20.0
+max_value = 20.0
+
+[node name="SoundVolumeText" type="RichTextLabel" parent="Audio"]
+layout_mode = 0
+offset_left = 273.333
+offset_top = 1333.33
+offset_right = 2185.33
+offset_bottom = 1797.33
+mouse_filter = 2
+theme_override_colors/default_color = Color(0.172549, 0.211765, 0.568627, 1)
+theme_override_fonts/normal_font = ExtResource("10_s1xfn")
+theme_override_font_sizes/normal_font_size = 170
+bbcode_enabled = true
+text = "SFX VOL          dB"
+
+[node name="SoundVolumeValue" type="RichTextLabel" parent="Audio"]
+layout_mode = 0
+offset_left = 1213.0
+offset_top = 1333.33
+offset_right = 1707.0
+offset_bottom = 1509.33
+mouse_filter = 2
+theme_override_colors/default_color = Color(0.172549, 0.211765, 0.568627, 1)
+theme_override_fonts/normal_font = ExtResource("10_s1xfn")
+theme_override_font_sizes/normal_font_size = 170
+bbcode_enabled = true
+text = "[right]00"
+
+[node name="SoundVolumeSlider" type="HSlider" parent="Audio"]
+layout_mode = 0
+offset_left = 253.0
+offset_top = 1522.67
+offset_right = 631.0
+offset_bottom = 1564.67
+scale = Vector2(4.635, 4.635)
+theme_override_icons/grabber = ExtResource("11_u4bms")
+theme_override_icons/grabber_highlight = ExtResource("12_65bap")
+theme_override_styles/slider = SubResource("StyleBoxLine_xk23c")
+min_value = -20.0
+max_value = 20.0
+
+[node name="MusicVolumeText" type="RichTextLabel" parent="Audio"]
+layout_mode = 0
+offset_left = 273.333
+offset_top = 1806.67
+offset_right = 2185.33
+offset_bottom = 2270.67
+mouse_filter = 2
+theme_override_colors/default_color = Color(0.172549, 0.211765, 0.568627, 1)
+theme_override_fonts/normal_font = ExtResource("10_s1xfn")
+theme_override_font_sizes/normal_font_size = 170
+bbcode_enabled = true
+text = "MUSIC VOL        dB"
+
+[node name="MusicVolumeValue" type="RichTextLabel" parent="Audio"]
+layout_mode = 0
+offset_left = 1213.0
+offset_top = 1806.67
+offset_right = 1707.0
+offset_bottom = 1982.67
+mouse_filter = 2
+theme_override_colors/default_color = Color(0.172549, 0.211765, 0.568627, 1)
+theme_override_fonts/normal_font = ExtResource("10_s1xfn")
+theme_override_font_sizes/normal_font_size = 170
+bbcode_enabled = true
+text = "[right]00"
+
+[node name="MusicVolumeSlider" type="HSlider" parent="Audio"]
+layout_mode = 0
+offset_left = 253.0
+offset_top = 1996.0
+offset_right = 631.0
+offset_bottom = 2038.0
+scale = Vector2(4.635, 4.635)
+theme_override_icons/grabber = ExtResource("11_u4bms")
+theme_override_icons/grabber_highlight = ExtResource("12_65bap")
+theme_override_styles/slider = SubResource("StyleBoxLine_xk23c")
+min_value = -20.0
+max_value = 20.0
+
+[node name="Video" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="."]
+z_index = 998
+z_as_relative = false
+texture_filter = 1
+material = SubResource("CanvasItemMaterial_s04id")
+layout_mode = 0
+offset_left = -3245.0
+offset_top = -987.0
+offset_right = -1325.0
+offset_bottom = 101.0
+scale = Vector2(5, 5)
+mouse_filter = 2
+stream = ExtResource("11_d274v")
+autoplay = true
+buffering_msec = 1000
+
+[connection signal="mouse_entered" from="GeneralTab/generalButton" to="GeneralTab/generalButton" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="GeneralTab/generalButton" to="GeneralTab/generalButton" method="_on_mouse_exited"]
+[connection signal="pressed" from="GeneralTab/generalButton" to="." method="_on_general_button_pressed"]
+[connection signal="mouse_entered" from="AudioTab/audioButton" to="AudioTab/audioButton" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="AudioTab/audioButton" to="AudioTab/audioButton" method="_on_mouse_exited"]
+[connection signal="pressed" from="AudioTab/audioButton" to="." method="_on_audio_button_pressed"]
+[connection signal="mouse_entered" from="VideoTab/videoButton" to="VideoTab/videoButton" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="VideoTab/videoButton" to="VideoTab/videoButton" method="_on_mouse_exited"]
+[connection signal="pressed" from="VideoTab/videoButton" to="." method="_on_video_button_pressed"]
+[connection signal="mouse_entered" from="General/closeGame/closeGameButton" to="General/closeGame/closeGameButton" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="General/closeGame/closeGameButton" to="General/closeGame/closeGameButton" method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="General/exit/exitButton" to="General/exit/exitButton" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="General/exit/exitButton" to="General/exit/exitButton" method="_on_mouse_exited"]
+[connection signal="pressed" from="General/exit/exitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="mouse_entered" from="General/back/backButton" to="General/back/backButton" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="General/back/backButton" to="General/back/backButton" method="_on_mouse_exited"]
+[connection signal="pressed" from="General/back/backButton" to="." method="_on_back_button_pressed"]

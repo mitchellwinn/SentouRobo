@@ -1,17 +1,19 @@
-[gd_scene load_steps=61 format=3 uid="uid://b8ouhl075k4f7"]
+[gd_scene load_steps=71 format=3 uid="uid://b8ouhl075k4f7"]
 
 [ext_resource type="PackedScene" uid="uid://bmlqq80sue4nr" path="res://Assets/Robots/mech.glb" id="1_rmfi6"]
 [ext_resource type="Script" path="res://Assets/Scripts/MechController.gd" id="1_ufi4g"]
 [ext_resource type="Script" path="res://Assets/Scripts/LocalAudio.gd" id="3_5msr7"]
 [ext_resource type="PackedScene" uid="uid://drm7fh1m3fa7w" path="res://Assets/Prefabs/Particles/muzzle.tscn" id="3_t425g"]
 [ext_resource type="Texture2D" uid="uid://bs4mnvx22ni4m" path="res://Assets/ExtraImageTextures/reticle1.png" id="5_3wwlb"]
+[ext_resource type="FontFile" uid="uid://cj0v2dj4g3gyk" path="res://Assets/Fonts/DFHeiA_0.ttc" id="5_6w781"]
+[ext_resource type="Texture2D" uid="uid://pck0ytasmwx6" path="res://Assets/InGameUI/HpSpContainer.png" id="6_x0ctk"]
 [ext_resource type="AudioStream" uid="uid://vjnkjr4s58xw" path="res://Assets/SFX/Lasers 2.wav" id="6_y5orr"]
 [ext_resource type="AudioStream" uid="uid://b0pqjd6co5viw" path="res://Assets/SFX/Lasers 20.wav" id="7_h6gsf"]
+[ext_resource type="Texture2D" uid="uid://dwa22b42rij6l" path="res://Assets/InGameUI/HpBar.png" id="7_loaj4"]
 [ext_resource type="AudioStream" uid="uid://bep7rwmsuu671" path="res://Assets/SFX/Lasers 5.wav" id="8_fda2q"]
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_y6krx"]
-radius = 5.708
-height = 20.271
+[ext_resource type="Texture2D" uid="uid://c6sc0ct3rxedy" path="res://Assets/InGameUI/SpBar.png" id="8_wsku8"]
+[ext_resource type="Texture2D" uid="uid://bym8qaqd5api8" path="res://Assets/InGameUI/Asset 4@4x.png" id="9_id87o"]
+[ext_resource type="Texture2D" uid="uid://bxfadfau7ojew" path="res://Assets/InGameUI/AmmoBar.png" id="10_vb041"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_vonii"]
 radius = 1.815
@@ -2016,7 +2018,8 @@ damping_min = 16.018
 damping_max = 25.511
 angle_min = -30.0
 angle_max = 30.0
-scale_max = 2.0
+scale_min = 4.0
+scale_max = 4.0
 scale_curve = SubResource("CurveTexture_ys6yl")
 color = Color(0.917647, 0.909804, 0, 1)
 color_ramp = SubResource("GradientTexture1D_xt41y")
@@ -2212,6 +2215,16 @@ emission_operator = 1
 [sub_resource type="SphereMesh" id="SphereMesh_8g1nj"]
 material = SubResource("StandardMaterial3D_c6l2f")
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ejrdl"]
+light_mode = 1
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_i6851"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_udvwo"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_nponj"]
+blend_mode = 1
+
 [sub_resource type="Gradient" id="Gradient_brf7s"]
 colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
 
@@ -2223,7 +2236,7 @@ resource_name = "fadeFromBlack"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("UI/BlackOverlay:modulate")
+tracks/0/path = NodePath("Scalar/UI/BlackOverlay:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -2238,14 +2251,14 @@ resource_name = "fadeToBlack"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("BlackOverlay:modulate")
+tracks/0/path = NodePath("Scalar/UI/BlackOverlay:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(0.329877, 1),
+"transitions": PackedFloat32Array(0.406126, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 0), Color(0, 0, 0, 1)]
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_lc830"]
@@ -2394,7 +2407,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("UI/Offset/crosshair:visible")
+tracks/4/path = NodePath("UI/Offset/Crosshair:visible")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -2418,7 +2431,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("UI/Offset/crosshair:scale")
+tracks/6/path = NodePath("UI/Offset/Crosshair:scale")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -2585,7 +2598,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("UI/Offset/crosshair:visible")
+tracks/4/path = NodePath("UI/Offset/Crosshair:visible")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -2609,7 +2622,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("UI/Offset/crosshair:scale")
+tracks/6/path = NodePath("UI/Offset/Crosshair:scale")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -2692,152 +2705,160 @@ _data = {
 "titleOUT": SubResource("Animation_pelwg")
 }
 
-[node name="InGameMech" type="CharacterBody3D" node_paths=PackedStringArray("skeleton", "camera", "floorCheckRay", "wallCheckRay", "waterCheckRay", "rotateCheckRay", "localAnimatorOverlay", "localAnimator", "UIAnimator", "localAudio", "sparkL", "sparkR", "exhaust", "gunArm", "gunShoulder", "muzzleFlash")]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_y6krx"]
+radius = 0.733
+height = 3.741
+
+[node name="CharacterBody3D" type="CharacterBody3D" node_paths=PackedStringArray("skeleton", "camera", "cameraTarget", "cameraBlockCheck", "scalar", "floorCheckRay", "wallCheckRay", "waterCheckRay", "rotateCheckRay", "localAnimatorOverlay", "localAnimator", "UIAnimator", "localAudio", "sparkL", "sparkR", "exhaust", "gunArm", "gunShoulder", "muzzleFlash", "collider", "UIoffset")]
 collision_layer = 2
 wall_min_slide_angle = 0.0
 floor_max_angle = 1.0472
 floor_snap_length = 0.0
 script = ExtResource("1_ufi4g")
-skeleton = NodePath("mech/Armature/Skeleton3D")
-camera = NodePath("Camera3D")
-floorCheckRay = NodePath("FloorCheck")
-wallCheckRay = NodePath("WallCheck")
-waterCheckRay = NodePath("WaterCheck")
-rotateCheckRay = NodePath("RotateCheck")
-localAnimatorOverlay = NodePath("mech/AnimationPlayerLocal2")
-localAnimator = NodePath("mech/AnimationPlayerLocal")
-UIAnimator = NodePath("UI/UIAnimationPlayer")
-localAudio = NodePath("LocalAudio")
-sparkL = NodePath("SparksL")
-sparkR = NodePath("SparksR")
-exhaust = NodePath("Exhaust1")
-gunArm = NodePath("mech/Armature/Skeleton3D/Arm_R_2")
-gunShoulder = NodePath("mech/Armature/Skeleton3D/Shoulder_R_2")
-muzzleFlash = NodePath("mech/Armature/Skeleton3D/NeedleCannon/NeedleCannon/Muzzle")
+skeleton = NodePath("Scalar/mech/Armature/Skeleton3D")
+camera = NodePath("Scalar/Camera3D")
+cameraTarget = NodePath("Scalar/CameraTarget")
+cameraBlockCheck = NodePath("Scalar/CameraTarget/CameraBlockCheck")
+scalar = NodePath("Scalar")
+floorCheckRay = NodePath("Scalar/FloorCheck")
+wallCheckRay = NodePath("Scalar/WallCheck")
+waterCheckRay = NodePath("Scalar/WaterCheck")
+rotateCheckRay = NodePath("Scalar/RotateCheck")
+localAnimatorOverlay = NodePath("Scalar/mech/AnimationPlayerLocal2")
+localAnimator = NodePath("Scalar/mech/AnimationPlayerLocal")
+UIAnimator = NodePath("Scalar/UI/UIAnimationPlayer")
+localAudio = NodePath("Scalar/LocalAudio")
+sparkL = NodePath("Scalar/SparksL")
+sparkR = NodePath("Scalar/SparksR")
+exhaust = NodePath("Scalar/Exhaust1")
+gunArm = NodePath("Scalar/mech/Armature/Skeleton3D/Arm_R_2")
+gunShoulder = NodePath("Scalar/mech/Armature/Skeleton3D/Shoulder_R_2")
+muzzleFlash = NodePath("Scalar/mech/Armature/Skeleton3D/NeedleCannon/NeedleCannon/Muzzle")
+collider = NodePath("CollisionShape3D")
+UIoffset = NodePath("Scalar/UI/Offset")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(0.04, 0, 0, 0, 0.04, 0, 0, 0, 0.04, 0, 0.394292, 0.071)
-shape = SubResource("CapsuleShape3D_y6krx")
+[node name="Scalar" type="Node3D" parent="."]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0, 0)
 
-[node name="mech" parent="." instance=ExtResource("1_rmfi6")]
+[node name="mech" parent="Scalar" instance=ExtResource("1_rmfi6")]
 transform = Transform3D(0.04, 0, 0, 0, 0.04, 0, 0, 0, 0.04, 0, 0, 0)
 
-[node name="Skeleton3D" parent="mech/Armature" index="0"]
-bones/0/position = Vector3(8.95044e-09, -0.0233887, 0.074545)
-bones/0/rotation = Quaternion(0.135571, 1.18109e-07, -1.26707e-09, 0.990767)
-bones/1/rotation = Quaternion(0.124036, 8.6555e-11, 6.54433e-08, 0.992278)
-bones/2/rotation = Quaternion(0.0906048, -2.84649e-11, 2.16177e-08, 0.995887)
-bones/4/position = Vector3(-1.196, 2.05679, -0.107921)
-bones/4/rotation = Quaternion(-0.43483, -0.3871, 0.537621, 0.609951)
-bones/5/rotation = Quaternion(0.285062, 0.163856, 0.490709, 0.806905)
-bones/9/position = Vector3(1.10883, 2.05679, -0.10792)
-bones/9/rotation = Quaternion(-0.425162, 0.38125, -0.539464, 0.61876)
-bones/10/rotation = Quaternion(0.166387, -0.320619, -0.543541, 0.757682)
-bones/18/position = Vector3(-1.51634, -0.844014, -1.2031)
-bones/18/rotation = Quaternion(0.0604097, 0.334498, 0.935186, 0.099441)
-bones/19/rotation = Quaternion(-0.701256, -0.00858098, 0.131879, 0.700553)
-bones/20/rotation = Quaternion(0.581725, -0.0360083, 0.024566, 0.812217)
-bones/24/position = Vector3(1.18502, -0.796741, 0.261577)
-bones/24/rotation = Quaternion(0.0593194, 0.497405, 0.863052, -0.0648964)
-bones/25/rotation = Quaternion(-0.727726, 0.08035, -0.0519269, 0.679162)
-bones/26/rotation = Quaternion(0.837031, 0.00130922, 0.0299314, 0.546335)
+[node name="Skeleton3D" parent="Scalar/mech/Armature" index="0"]
+bones/0/position = Vector3(5.9725e-09, -0.785241, 0.123201)
+bones/0/rotation = Quaternion(-0.171471, 0.00238503, 0.00190116, 0.985184)
+bones/1/rotation = Quaternion(0.451759, 0.000124823, -9.95248e-05, 0.89214)
+bones/2/rotation = Quaternion(0.0801243, 7.03095e-11, 2.35592e-08, 0.996785)
+bones/4/position = Vector3(-1.196, 2.05679, -0.107922)
+bones/4/rotation = Quaternion(0.170516, 0.117191, 0.676628, 0.706658)
+bones/5/rotation = Quaternion(0.215248, 0.179416, 0.489276, 0.825886)
+bones/9/position = Vector3(1.10883, 2.05679, -0.107921)
+bones/9/rotation = Quaternion(-0.036422, 0.121932, -0.732268, 0.669021)
+bones/10/rotation = Quaternion(0.136433, -0.303859, -0.532003, 0.778479)
+bones/18/position = Vector3(-1.29671, -1.37366, -0.695623)
+bones/18/rotation = Quaternion(-0.0334813, 0.0533545, 0.994261, 0.0864685)
+bones/19/rotation = Quaternion(-0.330042, -0.0207526, 0.0650091, 0.941496)
+bones/20/rotation = Quaternion(0.839534, -0.000896455, 0.00777966, 0.543251)
+bones/24/position = Vector3(1.46482, -1.72624, -0.994119)
+bones/24/rotation = Quaternion(0.0313889, 0.191146, 0.973986, -0.117601)
+bones/25/rotation = Quaternion(-0.387219, 0.0663161, -0.0760526, 0.916449)
+bones/26/rotation = Quaternion(0.856057, -0.0235737, 0.0231423, 0.515826)
 
-[node name="Head_2" parent="mech/Armature/Skeleton3D" index="0"]
-transform = Transform3D(-4.92284e-08, -1.62947e-07, 1.07409, 0.481168, 1.18712, 1.12061e-07, -1.18712, 0.481168, 6.70312e-09, 0.0535909, 7.98833, 3.42187)
+[node name="Head_2" parent="Scalar/mech/Armature/Skeleton3D" index="0"]
+transform = Transform3D(-0.00802328, -0.000162695, 1.07407, 0.541158, 1.16099, 0.00296598, -1.16097, 0.541169, -0.00604019, 0.0400651, 6.9788, 1.57191)
 bone_idx = 3
 
-[node name="Area3D" type="Area3D" parent="mech/Armature/Skeleton3D/Head_2/Head_2" index="0"]
+[node name="Area3D" type="Area3D" parent="Scalar/mech/Armature/Skeleton3D/Head_2/Head_2" index="0"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="mech/Armature/Skeleton3D/Head_2/Head_2/Area3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Scalar/mech/Armature/Skeleton3D/Head_2/Head_2/Area3D"]
 transform = Transform3D(1, 0, -1.42109e-14, 0, 1, -1.06581e-14, 5.68434e-14, 0, 1, -0.5594, 0, -7.45058e-09)
 shape = SubResource("SphereShape3D_vonii")
 
-[node name="Arm_R_2" parent="mech/Armature/Skeleton3D" index="1"]
-transform = Transform3D(0.308545, 0.261404, -0.930093, -0.632768, 1.0139, -0.0442447, 0.710214, 0.789772, 0.364649, -2.61819, 0.0220795, -0.43215)
+[node name="Arm_R_2" parent="Scalar/mech/Armature/Skeleton3D" index="1"]
+transform = Transform3D(0.936872, 0.263227, 0.286336, 0.0185862, 1.03495, -0.613946, -0.349178, 0.761347, 0.735582, -0.895986, -0.883316, -2.92226)
 bone_idx = 6
 
-[node name="NeedleCannon" parent="mech/Armature/Skeleton3D" index="2"]
-transform = Transform3D(0.308545, 0.261404, -0.930093, -0.632768, 1.0139, -0.0442447, 0.710214, 0.789772, 0.364649, -7.41133, -3.3058, -3.38825)
+[node name="NeedleCannon" parent="Scalar/mech/Armature/Skeleton3D" index="2"]
+transform = Transform3D(0.936872, 0.263227, 0.286336, 0.0185862, 1.03495, -0.613946, -0.349178, 0.761347, 0.735582, -2.33098, -7.26512, -2.89485)
 bone_idx = 7
 
-[node name="Muzzle" parent="mech/Armature/Skeleton3D/NeedleCannon/NeedleCannon" index="0" instance=ExtResource("3_t425g")]
+[node name="Muzzle" parent="Scalar/mech/Armature/Skeleton3D/NeedleCannon/NeedleCannon" index="0" instance=ExtResource("3_t425g")]
 
-[node name="Shoulder_R_2" parent="mech/Armature/Skeleton3D" index="3"]
-transform = Transform3D(0.294057, 0.228521, -0.939771, -0.646252, 0.997625, -0.0611786, 0.704194, 0.820113, 0.336284, -2.44817, 0.0950532, -0.573437)
+[node name="Shoulder_R_2" parent="Scalar/mech/Armature/Skeleton3D" index="3"]
+transform = Transform3D(0.890962, 0.276976, 0.401977, 0.0680914, 1.06641, -0.57811, -0.448943, 0.711423, 0.710073, -1.10644, -0.599203, -3.23997)
 bone_idx = 8
 
-[node name="Arm_L_2" parent="mech/Armature/Skeleton3D" index="4"]
-transform = Transform3D(0.333929, -0.236946, 0.925122, 0.633765, 1.00925, -0.0784797, -0.697734, 0.803323, 0.37147, 2.42525, 0.0893164, -0.549826)
+[node name="Arm_L_2" parent="Scalar/mech/Armature/Skeleton3D" index="4"]
+transform = Transform3D(0.969002, -0.0640854, 0.242171, 0.208031, 0.905101, -0.69315, -0.133257, 0.946967, 0.678894, 0.507522, -0.492089, -3.5653)
 bone_idx = 11
 
-[node name="Drill" parent="mech/Armature/Skeleton3D" index="5"]
-transform = Transform3D(-0.191889, 1.21854, -1.12471, 0.930251, -0.858177, -1.08849, -1.37275, -0.751881, -0.580401, 10.1276, 2.10176, -5.59111)
+[node name="Drill" parent="Scalar/mech/Armature/Skeleton3D" index="5"]
+transform = Transform3D(1.25757, 0.662823, -0.87511, 0.773366, -1.47935, -0.00911989, -0.779139, -0.398552, -1.42153, 9.02121, -4.51411, -3.20393)
 bone_idx = 12
 
-[node name="Shoulder_L_2" parent="mech/Armature/Skeleton3D" index="6"]
-transform = Transform3D(0.317077, -0.240359, 0.930524, 0.651762, 0.990009, -0.0734174, -0.688961, 0.825937, 0.358797, 2.40722, 0.170938, -0.662949)
+[node name="Shoulder_L_2" parent="Scalar/mech/Armature/Skeleton3D" index="6"]
+transform = Transform3D(0.973047, -0.0800599, 0.222383, 0.194243, 0.966229, -0.647688, -0.124298, 0.883207, 0.728729, 0.508191, -0.493828, -3.32116)
 bone_idx = 13
 
-[node name="Torso_002" parent="mech/Armature/Skeleton3D" index="7"]
-transform = Transform3D(1, -4.67898e-07, -4.48245e-08, 3.23454e-08, 9.0943, -0.366599, 5.4349e-08, 3.19672, 1.04293, -8.75947e-07, 3.54096, 1.1362)
+[node name="Torso_002" parent="Scalar/mech/Armature/Skeleton3D" index="7"]
+transform = Transform3D(0.999981, -0.00279482, 0.00691831, 0.0027613, 8.84026, -0.440799, -0.00562351, 3.84384, 1.01378, -0.0161444, 2.69265, -0.99798)
 bone_idx = 14
 
-[node name="Area3D" type="Area3D" parent="mech/Armature/Skeleton3D/Torso_002/Torso_002" index="0"]
+[node name="Area3D" type="Area3D" parent="Scalar/mech/Armature/Skeleton3D/Torso_002/Torso_002" index="0"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="mech/Armature/Skeleton3D/Torso_002/Torso_002/Area3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Scalar/mech/Armature/Skeleton3D/Torso_002/Torso_002/Area3D"]
 transform = Transform3D(1, 4.9738e-14, 5.32907e-15, -5.55112e-17, 1, 1.11759e-08, 0, 0, 1, -4.54747e-13, 0.103036, 0.570633)
 shape = SubResource("BoxShape3D_ch35e")
 
-[node name="Frills" parent="mech/Armature/Skeleton3D" index="8"]
-transform = Transform3D(1.55129, 9.80604e-08, -9.95082e-08, -7.79958e-08, 4.14115, -0.856967, 6.49176e-08, 2.63214, 1.34827, 0.0689999, 1.91922, 0.619893)
+[node name="Frills" parent="Scalar/mech/Armature/Skeleton3D" index="8"]
+transform = Transform3D(1.55126, -0.0156736, 0.00830205, 0.00454243, 4.9006, 0.0805563, -0.00830114, -0.247346, 1.59552, 0.0598039, 1.11516, -0.555613)
 bone_idx = 15
 
-[node name="Torso" parent="mech/Armature/Skeleton3D" index="9"]
-transform = Transform3D(1, 4.39567e-07, -4.70738e-08, -4.92154e-08, 9.60136, -0.0985948, 3.83454e-08, 0.859742, 1.10108, 5.22516e-07, 3.56093, 1.11173)
+[node name="Torso" parent="Scalar/mech/Armature/Skeleton3D" index="9"]
+transform = Transform3D(0.999981, -0.0503502, 0.00348305, 0.00292815, 8.33022, 0.556307, -0.00535111, -4.85079, 0.955305, -0.016882, 2.73873, -1.10334)
 bone_idx = 16
 
-[node name="Torso_001" parent="mech/Armature/Skeleton3D" index="10"]
-transform = Transform3D(1, 4.39567e-07, -4.70738e-08, -4.92154e-08, 9.60136, -0.0985948, 3.83454e-08, 0.859742, 1.10108, 5.22516e-07, 3.56093, 1.11173)
+[node name="Torso_001" parent="Scalar/mech/Armature/Skeleton3D" index="10"]
+transform = Transform3D(0.999981, -0.0503502, 0.00348305, 0.00292815, 8.33022, 0.556307, -0.00535111, -4.85079, 0.955305, -0.016882, 2.73873, -1.10334)
 bone_idx = 17
 
-[node name="Foot_R_2" parent="mech/Armature/Skeleton3D" index="11"]
-transform = Transform3D(0.991417, 0.146758, 0.123734, 0.112864, 0.551676, -0.988973, -0.0659812, 3.14881, 0.167502, -2.45623, -10.6785, -4.80815)
+[node name="Foot_R_2" parent="Scalar/mech/Armature/Skeleton3D" index="11"]
+transform = Transform3D(0.998082, -0.0899634, -0.0557474, 0.00934059, 3.03738, -0.318074, 0.0612014, 1.00357, 0.957683, -2.21915, -14.8098, -5.39873)
 bone_idx = 21
 
-[node name="Legs_R" parent="mech/Armature/Skeleton3D" index="12"]
-transform = Transform3D(0.996353, -0.148122, 0.0724427, 0.0836486, 2.22586, -0.721199, -0.0168264, 2.29445, 0.704314, -0.556844, 1.36381, 6.9922)
+[node name="Legs_R" parent="Scalar/mech/Armature/Skeleton3D" index="12"]
+transform = Transform3D(0.997421, -0.152425, -0.0542656, 0.0182331, 2.85351, -0.457116, 0.0694204, 1.44054, 0.899742, -0.337947, 0.531482, 2.23837)
 bone_idx = 22
 
-[node name="Thigh_R_2" parent="mech/Armature/Skeleton3D" index="13"]
-transform = Transform3D(0.983342, 0.00929388, 0.183678, -0.0892861, 2.81178, 0.47406, -0.158322, -1.52798, 0.873479, -0.344041, 0.595224, -2.95102)
+[node name="Thigh_R_2" parent="Scalar/mech/Armature/Skeleton3D" index="13"]
+transform = Transform3D(0.998354, -0.0340964, -0.0569574, 0.0071949, 3.19405, -0.0618913, 0.0569018, 0.194351, 1.00715, 0.0148325, 0.772386, -1.11427)
 bone_idx = 23
 
-[node name="Foot_L_2" parent="mech/Armature/Skeleton3D" index="14"]
-transform = Transform3D(0.999271, 0.117894, 0.0101282, -0.0311283, 3.00219, -0.348524, -0.022106, 1.10176, 0.948611, -3.00179, -11.1067, -0.213205)
+[node name="Foot_L_2" parent="Scalar/mech/Armature/Skeleton3D" index="14"]
+transform = Transform3D(0.999346, 0.0135129, 0.0363092, -0.000550777, 3.18358, -0.102685, -0.0361693, 0.324865, 1.00478, -1.66032, -15.3832, -2.79428)
 bone_idx = 27
 
-[node name="Legs_L" parent="mech/Armature/Skeleton3D" index="15"]
-transform = Transform3D(0.998791, 0.153065, 0.0114804, -0.0365136, 2.80485, -0.485176, -0.0329178, 1.53307, 0.886514, 0.421301, 3.83844, 7.83663)
+[node name="Legs_L" parent="Scalar/mech/Armature/Skeleton3D" index="15"]
+transform = Transform3D(0.99932, -0.0828661, 0.0265258, 0.0328985, 3.03255, -0.321056, -0.0166456, 1.01866, 0.957943, 0.513977, 0.767519, 2.38702)
 bone_idx = 28
 
-[node name="Thigh_L_2" parent="mech/Armature/Skeleton3D" index="16"]
-transform = Transform3D(0.999269, 0.0382106, 0.0367045, -0.0355377, 2.04904, 0.775485, -0.0140921, -2.45782, 0.647079, 0.0267411, 0.113138, -1.73547)
+[node name="Thigh_L_2" parent="Scalar/mech/Armature/Skeleton3D" index="16"]
+transform = Transform3D(0.997691, -0.198977, 0.0276166, 0.0548916, 3.12057, 0.216994, -0.0399957, -0.680698, 0.986705, 0.158135, 0.126621, -2.00266)
 bone_idx = 29
 
-[node name="AnimationPlayerLocal" type="AnimationPlayer" parent="mech"]
+[node name="AnimationPlayerLocal" type="AnimationPlayer" parent="Scalar/mech"]
 libraries = {
 "Local": SubResource("AnimationLibrary_327ey")
 }
 
-[node name="AnimationPlayerLocal2" type="AnimationPlayer" parent="mech"]
+[node name="AnimationPlayerLocal2" type="AnimationPlayer" parent="Scalar/mech"]
 libraries = {
 "Local": SubResource("AnimationLibrary_327ey")
 }
 
-[node name="Stats" type="Node" parent="."]
+[node name="Stats" type="Node" parent="Scalar"]
 
-[node name="SparksL" type="GPUParticles3D" parent="."]
-transform = Transform3D(-0.0158, 8.70306e-09, 6.29865e-10, -3.31744e-09, 0.0384443, 0.0121504, 1.58452e-10, 0.0327488, -0.0106515, 0.113366, 0.0276878, 0.67456)
+[node name="SparksL" type="GPUParticles3D" parent="Scalar"]
+transform = Transform3D(-0.035, -1.97471e-08, -4.02306e-09, -7.34876e-09, 0.0844981, 0.0226963, -9.75192e-10, 0.0719797, -0.0266435, 0.113366, 0.0276878, 0.67456)
 emitting = false
 amount = 250
 lifetime = 0.75
@@ -2848,8 +2869,8 @@ collision_base_size = 0.1
 process_material = SubResource("ParticleProcessMaterial_er6s1")
 draw_pass_1 = SubResource("PrismMesh_f6772")
 
-[node name="SparksL" type="GPUParticles3D" parent="SparksL"]
-transform = Transform3D(-0.0158, 1.41051e-08, -9.86262e-11, -3.31744e-09, 0.0134764, 0.0160328, 1.5845e-10, 0.0486706, -0.0020089, 0.113366, 0.0276909, 0.674572)
+[node name="SparksL" type="GPUParticles3D" parent="Scalar/SparksL"]
+transform = Transform3D(-0.035, 5.32931e-09, -8.09056e-09, -7.34876e-09, 0.0296203, 0.0337308, 3.77844e-09, 0.106975, -0.00933973, 0.113366, 0.0276909, 0.674572)
 emitting = false
 amount = 200
 speed_scale = 0.5
@@ -2859,8 +2880,8 @@ collision_base_size = 0.1
 process_material = SubResource("ParticleProcessMaterial_bkexi")
 draw_pass_1 = SubResource("PrismMesh_8j05s")
 
-[node name="SparksR" type="GPUParticles3D" parent="."]
-transform = Transform3D(-0.0158, 8.70306e-09, 6.29865e-10, -3.31744e-09, 0.0384443, 0.0121504, 1.58452e-10, 0.0327488, -0.0106515, -0.101395, 0.0276878, -0.479598)
+[node name="SparksR" type="GPUParticles3D" parent="Scalar"]
+transform = Transform3D(-0.035, -1.97471e-08, -4.02306e-09, -7.34876e-09, 0.0844981, 0.0226963, -9.75192e-10, 0.0719797, -0.0266435, -0.101395, 0.0276878, -0.479598)
 emitting = false
 amount = 250
 lifetime = 0.75
@@ -2871,8 +2892,8 @@ collision_base_size = 0.1
 process_material = SubResource("ParticleProcessMaterial_er6s1")
 draw_pass_1 = SubResource("PrismMesh_f6772")
 
-[node name="SparksR" type="GPUParticles3D" parent="SparksR"]
-transform = Transform3D(-0.0158, 1.41051e-08, -9.86262e-11, -3.31744e-09, 0.0134764, 0.0160328, 1.5845e-10, 0.0486706, -0.0020089, 0.113366, 0.0276909, 0.674572)
+[node name="SparksR" type="GPUParticles3D" parent="Scalar/SparksR"]
+transform = Transform3D(-0.035, 5.32931e-09, -8.09056e-09, -7.34876e-09, 0.0296203, 0.0337308, 3.77844e-09, 0.106975, -0.00933973, 0.113366, 0.0276909, 0.674572)
 emitting = false
 amount = 200
 speed_scale = 0.5
@@ -2882,66 +2903,55 @@ collision_base_size = 0.1
 process_material = SubResource("ParticleProcessMaterial_bkexi")
 draw_pass_1 = SubResource("PrismMesh_8j05s")
 
-[node name="Camera3D" type="Camera3D" parent="."]
+[node name="CameraTarget" type="Node3D" parent="Scalar"]
+transform = Transform3D(-0.25, 1.21012e-09, -2.18223e-08, -4.44089e-15, 0.249617, 0.0138421, 2.18558e-08, 0.0138421, -0.249617, -0.884, 1.27246, -2.78683)
+
+[node name="CameraBlockCheck" type="RayCast3D" parent="Scalar/CameraTarget"]
+transform = Transform3D(1, -1.77636e-15, 0, 0, 1, -4.09782e-08, 0, 4.09782e-08, 1, 1.19209e-06, 0.704552, -12.7053)
+target_position = Vector3(0, -0.99, 18.18)
+
+[node name="Camera3D" type="Camera3D" parent="Scalar"]
 transform = Transform3D(-1, 4.84048e-09, -8.7289e-08, 1.98952e-15, 0.998466, 0.0553684, 8.74231e-08, 0.0553684, -0.998466, -0.884, 1.27246, -2.78683)
 current = true
 fov = 100.0
 far = 99999.0
 
-[node name="FloorCheck" type="ShapeCast3D" parent="."]
+[node name="FloorCheck" type="ShapeCast3D" parent="Scalar"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00709999, 0.233177, 0.0524158)
 shape = SubResource("CylinderShape3D_1cmup")
 target_position = Vector3(0, -0.23, 0)
 
-[node name="WallCheck" type="ShapeCast3D" parent="."]
+[node name="WallCheck" type="ShapeCast3D" parent="Scalar"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.007, 0.602, 0.044)
 shape = SubResource("CylinderShape3D_tqccv")
 target_position = Vector3(0, -0.23, 0)
 
-[node name="RotateCheck" type="RayCast3D" parent="."]
+[node name="RotateCheck" type="RayCast3D" parent="Scalar"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.806676, 0)
-target_position = Vector3(0, -3.2, 0)
+target_position = Vector3(0, -7.5, 0)
 hit_from_inside = true
 
-[node name="WaterCheck" type="RayCast3D" parent="."]
+[node name="WaterCheck" type="RayCast3D" parent="Scalar"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1976, 0)
 collision_mask = 4
 hit_from_inside = true
 
-[node name="LocalAudio" type="Node3D" parent="." node_paths=PackedStringArray("sfx1", "sfx2", "sfx3", "sfxConstant1", "sfxConstant2")]
+[node name="LocalAudio" type="Node3D" parent="Scalar" node_paths=PackedStringArray("sfxConstant1", "sfxConstant2")]
 script = ExtResource("3_5msr7")
-sfx1 = NodePath("SFX1")
-sfx2 = NodePath("SFX2")
-sfx3 = NodePath("SFX3")
 sfxConstant1 = NodePath("SFXconstant1")
 sfxConstant2 = NodePath("SFXconstant2")
 
-[node name="SFX1" type="AudioStreamPlayer3D" parent="LocalAudio"]
+[node name="SFXconstant1" type="AudioStreamPlayer3D" parent="Scalar/LocalAudio"]
 volume_db = -40.0
-max_distance = 12.0
+max_distance = 60.0
 doppler_tracking = 2
 
-[node name="SFX2" type="AudioStreamPlayer3D" parent="LocalAudio"]
+[node name="SFXconstant2" type="AudioStreamPlayer3D" parent="Scalar/LocalAudio"]
 volume_db = -40.0
-max_distance = 12.0
+max_distance = 60.0
 doppler_tracking = 2
 
-[node name="SFX3" type="AudioStreamPlayer3D" parent="LocalAudio"]
-volume_db = -40.0
-max_distance = 12.0
-doppler_tracking = 2
-
-[node name="SFXconstant1" type="AudioStreamPlayer3D" parent="LocalAudio"]
-volume_db = -40.0
-max_distance = 12.0
-doppler_tracking = 2
-
-[node name="SFXconstant2" type="AudioStreamPlayer3D" parent="LocalAudio"]
-volume_db = -40.0
-max_distance = 12.0
-doppler_tracking = 2
-
-[node name="Exhaust1" type="GPUParticles3D" parent="."]
+[node name="Exhaust1" type="GPUParticles3D" parent="Scalar"]
 transform = Transform3D(1, 0, 0, 0, 0.92519, 0.379505, 0, -0.379505, 0.92519, -0.00117898, 0.357826, -0.11946)
 emitting = false
 amount = 200
@@ -2953,7 +2963,7 @@ fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_8ndkm")
 draw_pass_1 = SubResource("SphereMesh_22s01")
 
-[node name="Exhaust2" type="GPUParticles3D" parent="Exhaust1"]
+[node name="Exhaust2" type="GPUParticles3D" parent="Scalar/Exhaust1"]
 transform = Transform3D(1, 0, 0, 0, 1, 8.9407e-08, 0, -8.9407e-08, 1, 0, 0.000970095, 0.0127092)
 emitting = false
 amount = 200
@@ -2965,7 +2975,7 @@ local_coords = true
 process_material = SubResource("ParticleProcessMaterial_hscpy")
 draw_pass_1 = SubResource("SphereMesh_8g1nj")
 
-[node name="UI" type="Control" parent="."]
+[node name="UI" type="Control" parent="Scalar"]
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -2980,14 +2990,32 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.335, 0.335)
 
-[node name="Offset" type="Control" parent="UI"]
+[node name="Offset" type="Control" parent="Scalar/UI"]
 anchors_preset = 0
 offset_left = 1432.84
 offset_top = 805.97
 offset_right = 1472.84
 offset_bottom = 845.97
 
-[node name="crosshair" type="TextureRect" parent="UI/Offset"]
+[node name="RichTextLabel" type="RichTextLabel" parent="Scalar/UI/Offset"]
+layout_mode = 0
+offset_left = 817.906
+offset_top = -791.044
+offset_right = 2089.91
+offset_bottom = -454.044
+scale = Vector2(0.5, 0.5)
+theme_override_colors/default_color = Color(1, 1, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.498039)
+theme_override_colors/font_outline_color = Color(0.721569, 0.580392, 0, 1)
+theme_override_constants/shadow_offset_x = -30
+theme_override_constants/shadow_outline_size = 75
+theme_override_constants/outline_size = 35
+theme_override_fonts/normal_font = ExtResource("5_6w781")
+theme_override_font_sizes/normal_font_size = 266
+bbcode_enabled = true
+text = "[center]00:00:00[/center]"
+
+[node name="Crosshair" type="TextureRect" parent="Scalar/UI/Offset"]
 layout_mode = 2
 offset_left = -50.7461
 offset_top = -50.7461
@@ -2999,7 +3027,110 @@ scale = Vector2(0.25, 0.25)
 texture = ExtResource("5_3wwlb")
 stretch_mode = 4
 
-[node name="BlackOverlay" type="TextureRect" parent="UI"]
+[node name="HpSpContainer" type="TextureRect" parent="Scalar/UI/Offset"]
+texture_filter = 1
+layout_mode = 0
+offset_left = -1701.5
+offset_top = -770.149
+offset_right = 1201.5
+offset_bottom = -206.149
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_x0ctk")
+stretch_mode = 4
+
+[node name="HpBar" type="TextureRect" parent="Scalar/UI/Offset/HpSpContainer"]
+self_modulate = Color(0.180392, 0.192157, 0.568627, 1)
+texture_filter = 1
+material = SubResource("CanvasItemMaterial_ejrdl")
+layout_mode = 0
+offset_left = 1020.94
+offset_top = 60.0
+offset_right = 2874.94
+offset_bottom = 211.0
+texture = ExtResource("7_loaj4")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="HpBar" type="TextureRect" parent="Scalar/UI/Offset/HpSpContainer/HpBar"]
+modulate = Color(0.25098, 0.890196, 0.34902, 1)
+z_index = 1
+texture_filter = 1
+material = SubResource("CanvasItemMaterial_i6851")
+layout_mode = 0
+offset_left = -29.8967
+offset_top = -12.239
+offset_right = 1824.1
+offset_bottom = 138.761
+texture = ExtResource("7_loaj4")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="SpBar" type="TextureRect" parent="Scalar/UI/Offset/HpSpContainer"]
+self_modulate = Color(0.180392, 0.192157, 0.568627, 1)
+texture_filter = 1
+layout_mode = 0
+offset_left = 1128.36
+offset_top = 313.392
+offset_right = 2639.36
+offset_bottom = 354.392
+texture = ExtResource("8_wsku8")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="SpBar" type="TextureRect" parent="Scalar/UI/Offset/HpSpContainer/SpBar"]
+modulate = Color(0.937255, 0.592157, 0, 1)
+texture_filter = 1
+material = SubResource("CanvasItemMaterial_udvwo")
+layout_mode = 0
+offset_left = -11.9404
+offset_top = -8.91492
+offset_right = 1499.06
+offset_bottom = 32.0851
+texture = ExtResource("8_wsku8")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="AmmoContainer" type="TextureRect" parent="Scalar/UI/Offset"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 1014.92
+offset_top = 256.717
+offset_right = 3917.92
+offset_bottom = 1301.72
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("9_id87o")
+stretch_mode = 4
+
+[node name="AmmoBar" type="TextureRect" parent="Scalar/UI/Offset/AmmoContainer"]
+self_modulate = Color(0.180392, 0.192157, 0.568627, 1)
+texture_filter = 1
+layout_mode = 0
+offset_left = 692.538
+offset_top = 955.224
+offset_right = 746.538
+offset_bottom = 1881.22
+rotation = 3.14159
+texture = ExtResource("10_vb041")
+expand_mode = 1
+stretch_mode = 1
+flip_h = true
+
+[node name="AmmoBar" type="TextureRect" parent="Scalar/UI/Offset/AmmoContainer/AmmoBar"]
+modulate = Color(0, 1, 1, 1)
+texture_filter = 1
+material = SubResource("CanvasItemMaterial_nponj")
+layout_mode = 0
+offset_left = 65.6709
+offset_top = 931.343
+offset_right = 119.671
+offset_bottom = 1857.34
+rotation = 3.14159
+texture = ExtResource("10_vb041")
+expand_mode = 1
+stretch_mode = 1
+flip_v = true
+
+[node name="BlackOverlay" type="TextureRect" parent="Scalar/UI"]
 modulate = Color(0, 0, 0, 1)
 z_index = 4096
 layout_mode = 0
@@ -3011,10 +3142,14 @@ scale = Vector2(17.8655, 146.952)
 mouse_filter = 2
 texture = SubResource("GradientTexture1D_exmd8")
 
-[node name="UIAnimationPlayer" type="AnimationPlayer" parent="UI"]
-root_node = NodePath("../..")
+[node name="UIAnimationPlayer" type="AnimationPlayer" parent="Scalar/UI"]
+root_node = NodePath("../../..")
 libraries = {
 "": SubResource("AnimationLibrary_m4143")
 }
 
-[editable path="mech"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7596, 0.071)
+shape = SubResource("CapsuleShape3D_y6krx")
+
+[editable path="Scalar/mech"]

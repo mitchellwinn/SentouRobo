@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://d0jbocu5kkj6l"]
+
+[ext_resource type="PackedScene" uid="uid://bxnijh0bt6g5q" path="res://Assets/Props/grass1.glb" id="1_dtxph"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cxrvr"]
+transparency = 1
+cull_mode = 2
+vertex_color_is_srgb = true
+albedo_color = Color(0.596078, 0.603922, 0.243137, 0.752941)
+metallic = 0.35
+metallic_specular = 0.0
+roughness = 0.5
+ao_enabled = true
+heightmap_scale = 0.696
+subsurf_scatter_enabled = true
+subsurf_scatter_strength = 1.0
+subsurf_scatter_transmittance_color = Color(0, 0, 0, 1)
+
+[node name="Grass1" instance=ExtResource("1_dtxph")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+
+[node name="_3y85_Var18_LOD0" parent="." index="0"]
+transform = Transform3D(0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.00678554, 0, 0, 0)
+surface_material_override/0 = SubResource("StandardMaterial3D_cxrvr")

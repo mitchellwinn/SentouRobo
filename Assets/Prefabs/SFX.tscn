@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://15crnw4odl5f"]
+
+[node name="SFX1" type="AudioStreamPlayer"]
+volume_db = -10.0
+pitch_scale = 2.24

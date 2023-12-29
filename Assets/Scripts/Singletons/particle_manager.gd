@@ -11,7 +11,7 @@ func emitParticle(particleRoot, active):
 	particleRoot.emitting = active
 
 func spawnParticle(path, lifetime, pos):
-	var thisParticle = GameManager.spawn("particleSpawn",path,pos,Vector3.ZERO)
+	var thisParticle = GameManager.spawn("particleSpawn",path,pos,Vector3.ZERO,Vector3(1,1,1))
 	thisParticle.emitting = true
 	await get_tree().create_timer(lifetime).timeout
 	thisParticle.queue_free()

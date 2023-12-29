@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://cewrnxpc2wex"
+path="res://.godot/imported/Seaweed.obj-9c40a9ae599d54eb0a7cb0039aea555f.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Seaweed.obj-9c40a9ae599d54eb0a7cb0039aea555f.mesh"]
+
+source_file="res://Assets/realistic_water_shader/art/seaweed/Seaweed.obj"
+dest_files=["res://.godot/imported/Seaweed.obj-9c40a9ae599d54eb0a7cb0039aea555f.mesh", "res://.godot/imported/Seaweed.obj-9c40a9ae599d54eb0a7cb0039aea555f.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

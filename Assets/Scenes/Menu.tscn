@@ -1,10 +1,11 @@
-[gd_scene load_steps=32 format=3 uid="uid://d1mbdg45asaao"]
+[gd_scene load_steps=37 format=3 uid="uid://d1mbdg45asaao"]
 
 [ext_resource type="Texture2D" uid="uid://xu6lxnwc3c5y" path="res://Assets/TitleScreenAssets/topVisor-01.png" id="1_4tsii"]
 [ext_resource type="Script" path="res://Assets/Scripts/Menu/MainMenu.gd" id="1_8ctrw"]
 [ext_resource type="Texture2D" uid="uid://kl1hfk7gl4sm" path="res://Assets/TitleScreenAssets/bottomVisor-01.png" id="2_30ylj"]
 [ext_resource type="Texture2D" uid="uid://bpyruoepd4a7o" path="res://Assets/TitleScreenAssets/romaji-01.png" id="3_qncem"]
 [ext_resource type="Texture2D" uid="uid://cwgp6mtayfsc1" path="res://Assets/TitleScreenAssets/japanese-01.png" id="4_db7d0"]
+[ext_resource type="PackedScene" uid="uid://15crnw4odl5f" path="res://Assets/Prefabs/SFX.tscn" id="5_gnb10"]
 [ext_resource type="Texture2D" uid="uid://jaibs623edf5" path="res://Assets/TitleScreenAssets/crosshair-01.png" id="6_fmqs1"]
 [ext_resource type="Texture2D" uid="uid://ds7oh75jyb105" path="res://Assets/TitleScreenAssets/pressContinue-01-01.png" id="6_m45dd"]
 [ext_resource type="AudioStream" uid="uid://vjnkjr4s58xw" path="res://Assets/SFX/Lasers 2.wav" id="8_8wrbk"]
@@ -20,6 +21,8 @@
 [ext_resource type="Texture2D" uid="uid://wycb0edc3eve" path="res://Assets/MainMenuAssets/coolBart.png" id="17_k0uy4"]
 [ext_resource type="Texture2D" uid="uid://didkyk7rtjoc0" path="res://Assets/MainMenuAssets/Back3_.png" id="18_0q8eg"]
 [ext_resource type="PackedScene" uid="uid://bm0r1orqsnkcg" path="res://Assets/Prefabs/PreviewMech.tscn" id="21_3k3sq"]
+[ext_resource type="Texture2D" uid="uid://cr72bvo3c66im" path="res://Assets/StageUI/strip.png" id="21_lr63c"]
+[ext_resource type="Texture2D" uid="uid://cpr1ah1781a35" path="res://Assets/StageUI/Valley_.png" id="22_258nu"]
 
 [sub_resource type="Animation" id="Animation_1wu8f"]
 resource_name = "fadeFromBlack"
@@ -89,6 +92,18 @@ tracks/2/keys = {
 "update": 0,
 "values": [Vector2(0.575, 0.575), Vector2(1, 1)]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("MainMenu/Offset/frame:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_hgnyy"]
 resource_name = "mainMenuOUT"
@@ -142,6 +157,84 @@ tracks/3/keys = {
 "values": [true, false, true, false, true, false, true, false]
 }
 
+[sub_resource type="Animation" id="Animation_lcoby"]
+resource_name = "stageSelectIN"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("StageSelect:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StageSelect/Offset/Strip:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 0.225313),
+"update": 0,
+"values": [Vector2(-1758.33, 175), Vector2(0, 175)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("StageSelect:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 17.7531),
+"update": 0,
+"values": [Vector2(0.680001, 0.24), Vector2(0.24, 0.24)]
+}
+
+[sub_resource type="Animation" id="Animation_il3v5"]
+resource_name = "stageSelectOUT"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("StageSelect:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StageSelect/Offset/Strip:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.225313, 1),
+"update": 0,
+"values": [Vector2(0, 175), Vector2(-1758.33, 175)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("StageSelect:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(17.7531, 1),
+"update": 0,
+"values": [Vector2(0.24, 0.24), Vector2(0.680001, 0.24)]
+}
+
 [sub_resource type="Animation" id="Animation_moqvy"]
 resource_name = "titleIN"
 length = 2.0
@@ -149,7 +242,7 @@ step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("UI/Offset/bottomVisor:position")
+tracks/0/path = NodePath("Title/Offset/bottomVisor:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -161,7 +254,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("UI/Offset/topVisor:position")
+tracks/1/path = NodePath("Title/Offset/topVisor:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -173,7 +266,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("UI/Offset/romaji:scale")
+tracks/2/path = NodePath("Title/Offset/romaji:scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -185,7 +278,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("UI/Offset/japanese:scale")
+tracks/3/path = NodePath("Title/Offset/japanese:scale")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -197,7 +290,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("UI/Offset/crosshair:visible")
+tracks/4/path = NodePath("Title/Offset/crosshair:visible")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -209,7 +302,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("UI/Offset/press:visible")
+tracks/5/path = NodePath("Title/Offset/press:visible")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -221,7 +314,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("UI/Offset/crosshair:scale")
+tracks/6/path = NodePath("Title/Offset/crosshair:scale")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -275,7 +368,7 @@ tracks/9/keys = {
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("UI:scale")
+tracks/10/path = NodePath("Title:scale")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
@@ -299,7 +392,7 @@ tracks/11/keys = {
 tracks/12/type = "value"
 tracks/12/imported = false
 tracks/12/enabled = true
-tracks/12/path = NodePath("UI:visible")
+tracks/12/path = NodePath("Title:visible")
 tracks/12/interp = 1
 tracks/12/loop_wrap = true
 tracks/12/keys = {
@@ -311,7 +404,7 @@ tracks/12/keys = {
 tracks/13/type = "value"
 tracks/13/imported = false
 tracks/13/enabled = true
-tracks/13/path = NodePath("UI/Offset/japanese:visible")
+tracks/13/path = NodePath("Title/Offset/japanese:visible")
 tracks/13/interp = 1
 tracks/13/loop_wrap = true
 tracks/13/keys = {
@@ -323,7 +416,7 @@ tracks/13/keys = {
 tracks/14/type = "value"
 tracks/14/imported = false
 tracks/14/enabled = true
-tracks/14/path = NodePath("UI/Offset/romaji:visible")
+tracks/14/path = NodePath("Title/Offset/romaji:visible")
 tracks/14/interp = 1
 tracks/14/loop_wrap = true
 tracks/14/keys = {
@@ -331,6 +424,18 @@ tracks/14/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
+}
+tracks/15/type = "value"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("BlackOverlay:modulate")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"times": PackedFloat32Array(0, 0.95),
+"transitions": PackedFloat32Array(0.46, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(1, 1, 1, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_pelwg"]
@@ -340,7 +445,7 @@ step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("UI/Offset/bottomVisor:position")
+tracks/0/path = NodePath("Title/Offset/bottomVisor:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -352,7 +457,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("UI/Offset/topVisor:position")
+tracks/1/path = NodePath("Title/Offset/topVisor:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -364,7 +469,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("UI/Offset/romaji:scale")
+tracks/2/path = NodePath("Title/Offset/romaji:scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -376,7 +481,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("UI/Offset/japanese:scale")
+tracks/3/path = NodePath("Title/Offset/japanese:scale")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -388,7 +493,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("UI/Offset/crosshair:visible")
+tracks/4/path = NodePath("Title/Offset/crosshair:visible")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -400,7 +505,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("UI/Offset/press:visible")
+tracks/5/path = NodePath("Title/Offset/press:visible")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -412,7 +517,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("UI/Offset/crosshair:scale")
+tracks/6/path = NodePath("Title/Offset/crosshair:scale")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -424,7 +529,7 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("UI/Offset/romaji:visible")
+tracks/7/path = NodePath("Title/Offset/romaji:visible")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
@@ -436,7 +541,7 @@ tracks/7/keys = {
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("UI/Offset/japanese:visible")
+tracks/8/path = NodePath("Title/Offset/japanese:visible")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
@@ -463,7 +568,7 @@ tracks/9/use_blend = true
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("UI:scale")
+tracks/10/path = NodePath("Title:scale")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
@@ -475,7 +580,7 @@ tracks/10/keys = {
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("UI:visible")
+tracks/11/path = NodePath("Title:visible")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/keys = {
@@ -491,6 +596,8 @@ _data = {
 "fadeToBlack": SubResource("Animation_dnjy2"),
 "mainMenuIN": SubResource("Animation_lc830"),
 "mainMenuOUT": SubResource("Animation_hgnyy"),
+"stageSelectIN": SubResource("Animation_lcoby"),
+"stageSelectOUT": SubResource("Animation_il3v5"),
 "titleIN": SubResource("Animation_moqvy"),
 "titleOUT": SubResource("Animation_pelwg")
 }
@@ -505,13 +612,13 @@ spacing_space = 30
 spacing_top = -25
 spacing_bottom = -40
 
-[sub_resource type="Gradient" id="Gradient_dkcyr"]
+[sub_resource type="Gradient" id="Gradient_nnaur"]
 colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_88ctn"]
-gradient = SubResource("Gradient_dkcyr")
+gradient = SubResource("Gradient_nnaur")
 
-[node name="Menu" type="Control" node_paths=PackedStringArray("animTitle", "animMain", "myRobot", "online", "training", "trials", "options", "previewMech", "mainMenuDescription", "press")]
+[node name="Menu" type="Control" node_paths=PackedStringArray("animTitle", "animMain", "animStage", "myRobot", "online", "training", "trials", "options", "previewMech", "mainMenuDescription", "stageSelectDescription", "press", "offset", "SFX1", "SFX2")]
 layout_direction = 1
 layout_mode = 3
 anchors_preset = 8
@@ -531,6 +638,7 @@ mouse_filter = 2
 script = ExtResource("1_8ctrw")
 animTitle = NodePath("TitleAnimationPlayer")
 animMain = NodePath("MainMenuAnimationPlayer")
+animStage = NodePath("StageAnimationPlayer")
 myRobot = NodePath("MainMenu/Offset/myRobot")
 online = NodePath("MainMenu/Offset/online")
 training = NodePath("MainMenu/Offset/training")
@@ -538,7 +646,11 @@ trials = NodePath("MainMenu/Offset/trials")
 options = NodePath("MainMenu/Offset/options")
 previewMech = NodePath("PreviewMech")
 mainMenuDescription = NodePath("MainMenu/Offset/title/RichTextLabel")
-press = NodePath("UI/Offset/press")
+stageSelectDescription = NodePath("StageSelect/Offset/CurrentStage")
+press = NodePath("Title/Offset/press")
+offset = NodePath("MainMenu/Offset")
+SFX1 = NodePath("SFX1")
+SFX2 = NodePath("SFX2")
 
 [node name="TitleAnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -550,16 +662,19 @@ libraries = {
 "": SubResource("AnimationLibrary_m4143")
 }
 
-[node name="SFX1" type="AudioStreamPlayer" parent="."]
-volume_db = -10.0
-pitch_scale = 2.24
+[node name="StageAnimationPlayer" type="AnimationPlayer" parent="."]
+speed_scale = 4.0
+libraries = {
+"": SubResource("AnimationLibrary_m4143")
+}
+
+[node name="SFX1" parent="." instance=ExtResource("5_gnb10")]
 
 [node name="SFX2" type="AudioStreamPlayer" parent="."]
 volume_db = -10.0
 pitch_scale = 2.24
 
-[node name="UI" type="Control" parent="."]
-visible = false
+[node name="Title" type="Control" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -570,46 +685,45 @@ offset_right = 4000.0
 offset_bottom = 2250.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(0.24, 0.24)
+scale = Vector2(0.335, 0.335)
 pivot_offset = Vector2(480, 270)
 
-[node name="Offset" type="Control" parent="UI"]
+[node name="Offset" type="Control" parent="Title"]
 anchors_preset = 0
 offset_left = -1532.5
 offset_top = -855.0
 offset_right = -1492.5
 offset_bottom = -815.0
 
-[node name="topVisor" type="TextureRect" parent="UI/Offset"]
+[node name="topVisor" type="TextureRect" parent="Title/Offset"]
 modulate = Color(1, 1, 1, 0.588235)
 layout_direction = 1
 layout_mode = 2
 offset_left = -1029.17
-offset_top = -500.0
+offset_top = -300.0
 offset_right = 2970.83
-offset_bottom = 1750.0
+offset_bottom = 1950.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1.5, 1)
 texture = ExtResource("1_4tsii")
 stretch_mode = 4
 
-[node name="bottomVisor" type="TextureRect" parent="UI/Offset"]
+[node name="bottomVisor" type="TextureRect" parent="Title/Offset"]
 modulate = Color(1, 1, 1, 0.588235)
 layout_direction = 1
 layout_mode = 2
 offset_left = -1029.17
-offset_top = 500.0
+offset_top = 300.0
 offset_right = 2970.83
-offset_bottom = 2750.0
+offset_bottom = 2550.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1.5, 1)
 texture = ExtResource("2_30ylj")
 stretch_mode = 4
 
-[node name="romaji" type="TextureRect" parent="UI/Offset"]
-visible = false
+[node name="romaji" type="TextureRect" parent="Title/Offset"]
 layout_mode = 2
 offset_left = 4.16846
 offset_top = 41.6667
@@ -617,12 +731,11 @@ offset_right = 4004.17
 offset_bottom = 2291.67
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(1, 0.75)
+scale = Vector2(1, 1e-05)
 texture = ExtResource("3_qncem")
 stretch_mode = 4
 
-[node name="japanese" type="TextureRect" parent="UI/Offset"]
-visible = false
+[node name="japanese" type="TextureRect" parent="Title/Offset"]
 layout_mode = 2
 offset_left = 4.16846
 offset_top = 41.6667
@@ -630,11 +743,12 @@ offset_right = 4004.17
 offset_bottom = 2291.67
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(1, 0.5)
+scale = Vector2(1, 1e-05)
 texture = ExtResource("4_db7d0")
 stretch_mode = 4
 
-[node name="press" type="TextureRect" parent="UI/Offset"]
+[node name="press" type="TextureRect" parent="Title/Offset"]
+visible = false
 layout_mode = 2
 offset_left = 4.16846
 offset_top = 41.6667
@@ -645,7 +759,7 @@ grow_vertical = 2
 texture = ExtResource("6_m45dd")
 stretch_mode = 4
 
-[node name="crosshair" type="TextureRect" parent="UI/Offset"]
+[node name="crosshair" type="TextureRect" parent="Title/Offset"]
 visible = false
 layout_mode = 2
 offset_left = 4.16846
@@ -654,11 +768,12 @@ offset_right = 4004.17
 offset_bottom = 2291.67
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(1, 1e-05)
+scale = Vector2(1, 0.25)
 texture = ExtResource("6_fmqs1")
 stretch_mode = 4
 
 [node name="MainMenu" type="Control" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -669,7 +784,7 @@ offset_right = 4000.0
 offset_bottom = 2250.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(0.24, 0.24)
+scale = Vector2(0.35, 0.35)
 pivot_offset = Vector2(480, 270)
 mouse_filter = 2
 
@@ -718,7 +833,6 @@ theme_override_font_sizes/normal_font_size = 150
 text = "Welcome, cadet! It is always good to see you!"
 
 [node name="frame" type="TextureRect" parent="MainMenu/Offset"]
-visible = false
 layout_mode = 2
 offset_left = 258.333
 offset_top = 137.5
@@ -726,6 +840,7 @@ offset_right = 3787.33
 offset_bottom = 2128.5
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(0.575, 0.575)
 mouse_filter = 2
 texture = ExtResource("12_cxx6n")
 stretch_mode = 4
@@ -749,8 +864,11 @@ offset_right = 3979.0
 offset_bottom = 604.0
 script = ExtResource("12_f5jcp")
 menu = NodePath("../../../..")
+classification = "mainMenu"
 buttonName = "myRobot"
 description = "Outfit your machine with a variety of different parts to prepare for all types of combat situations!"
+path = "MainMenuAssets"
+delay = 0.7
 
 [node name="online" type="TextureRect" parent="MainMenu/Offset"]
 layout_mode = 0
@@ -771,8 +889,11 @@ offset_right = 3979.0
 offset_bottom = 604.0
 script = ExtResource("12_f5jcp")
 menu = NodePath("../../../..")
+classification = "mainMenu"
 buttonName = "online"
 description = "Test  your skill against opponents from all over the world!"
+path = "MainMenuAssets"
+delay = 0.7
 
 [node name="training" type="TextureRect" parent="MainMenu/Offset"]
 layout_mode = 0
@@ -793,8 +914,11 @@ offset_right = 3979.0
 offset_bottom = 604.0
 script = ExtResource("12_f5jcp")
 menu = NodePath("../../../..")
+classification = "mainMenu"
 buttonName = "training"
 description = "Practice for the real thing using powerful training tools!"
+path = "MainMenuAssets"
+delay = 0.7
 
 [node name="trials" type="TextureRect" parent="MainMenu/Offset"]
 layout_mode = 0
@@ -815,8 +939,11 @@ offset_right = 3979.0
 offset_bottom = 604.0
 script = ExtResource("12_f5jcp")
 menu = NodePath("../../../..")
+classification = "mainMenu"
 buttonName = "trials"
 description = "Special challenges designed to teach gameplay concepts."
+path = "MainMenuAssets"
+delay = 0.7
 
 [node name="options" type="TextureRect" parent="MainMenu/Offset"]
 layout_mode = 0
@@ -836,8 +963,11 @@ offset_right = 3979.0
 offset_bottom = 604.0
 script = ExtResource("12_f5jcp")
 menu = NodePath("../../../..")
+classification = "mainMenu"
 buttonName = "options"
 description = "Adjust how the game is played."
+path = "MainMenuAssets"
+delay = 0.7
 
 [node name="back" type="TextureRect" parent="MainMenu/Offset"]
 layout_mode = 0
@@ -859,8 +989,107 @@ offset_right = 1611.0
 offset_bottom = 1222.0
 script = ExtResource("12_f5jcp")
 menu = NodePath("../../../..")
+classification = "mainMenu"
 buttonName = "back3"
 description = "Return to the title screen."
+path = "MainMenuAssets"
+
+[node name="StageSelect" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_right = 8000.0
+offset_bottom = 2250.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.680001, 0.24)
+pivot_offset = Vector2(480, 270)
+mouse_filter = 2
+
+[node name="Offset" type="Control" parent="StageSelect"]
+anchors_preset = 0
+offset_left = -1532.5
+offset_top = -855.0
+offset_right = -1492.5
+offset_bottom = -815.0
+mouse_filter = 2
+
+[node name="Strip" type="TextureRect" parent="StageSelect/Offset"]
+layout_mode = 0
+offset_left = -1758.33
+offset_top = 175.0
+offset_right = 6536.67
+offset_bottom = 575.0
+scale = Vector2(0.215, 0.215)
+texture = ExtResource("21_lr63c")
+
+[node name="CurrentStage" type="RichTextLabel" parent="StageSelect/Offset"]
+z_index = 10
+layout_mode = 0
+offset_left = 79.1667
+offset_top = 58.3333
+offset_right = 4100.16
+offset_bottom = 454.333
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 50
+theme_override_fonts/normal_font = SubResource("FontVariation_8kuo2")
+theme_override_font_sizes/normal_font_size = 150
+text = "CURRENT STAGE"
+
+[node name="Valley" type="TextureRect" parent="StageSelect/Offset"]
+layout_mode = 0
+offset_left = 233.333
+offset_top = 450.0
+offset_right = 3245.33
+offset_bottom = 2700.0
+scale = Vector2(0.35, 0.35)
+mouse_filter = 2
+texture = ExtResource("22_258nu")
+stretch_mode = 4
+
+[node name="ValleyButton" type="Button" parent="StageSelect/Offset/Valley" node_paths=PackedStringArray("menu")]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 42.0
+offset_right = 3000.0
+offset_bottom = 2250.0
+script = ExtResource("12_f5jcp")
+menu = NodePath("../../../..")
+classification = "stageSelect"
+buttonName = "Valley"
+description = "VALLEY"
+path = "StageUI"
+delay = 0.7
+
+[node name="back" type="TextureRect" parent="StageSelect/Offset"]
+layout_mode = 0
+offset_left = 3608.34
+offset_top = 45.8334
+offset_right = 7608.34
+offset_bottom = 1920.84
+scale = Vector2(0.15, 0.15)
+mouse_filter = 2
+texture = ExtResource("18_0q8eg")
+stretch_mode = 4
+
+[node name="backButton" type="Button" parent="StageSelect/Offset/back" node_paths=PackedStringArray("menu")]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 42.0
+offset_top = 21.0
+offset_right = 1611.0
+offset_bottom = 1222.0
+script = ExtResource("12_f5jcp")
+menu = NodePath("../../../..")
+classification = "stageSelect"
+buttonName = "back3"
+description = "BACK"
+path = "MainMenuAssets"
 
 [node name="PreviewMech" parent="." instance=ExtResource("21_3k3sq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.13353, -2.34977)
@@ -961,13 +1190,13 @@ light_specular = 3.447
 spot_range = 204.06
 
 [node name="BlackOverlay" type="TextureRect" parent="."]
-modulate = Color(1, 1, 1, 0)
+modulate = Color(0, 0, 0, 1)
 z_index = 4096
 layout_mode = 0
-offset_left = -1625.0
-offset_top = -1181.0
-offset_right = -1369.0
-offset_bottom = -1141.0
+offset_left = -1626.0
+offset_top = -1170.0
+offset_right = -1370.0
+offset_bottom = -1130.0
 scale = Vector2(17.8655, 146.952)
 mouse_filter = 2
 texture = SubResource("GradientTexture1D_88ctn")
@@ -979,12 +1208,24 @@ texture = SubResource("GradientTexture1D_88ctn")
 [connection signal="mouse_entered" from="MainMenu/Offset/training/trainingButton" to="MainMenu/Offset/training/trainingButton" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="MainMenu/Offset/training/trainingButton" to="MainMenu/Offset/training/trainingButton" method="_on_mouse_exited"]
 [connection signal="pressed" from="MainMenu/Offset/training/trainingButton" to="." method="_on_training_button_pressed"]
+[connection signal="pressed" from="MainMenu/Offset/training/trainingButton" to="MainMenu/Offset/training/trainingButton" method="_on_pressed"]
 [connection signal="mouse_entered" from="MainMenu/Offset/trials/trialsButton" to="MainMenu/Offset/trials/trialsButton" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="MainMenu/Offset/trials/trialsButton" to="MainMenu/Offset/trials/trialsButton" method="_on_mouse_exited"]
 [connection signal="mouse_entered" from="MainMenu/Offset/options/optionsButton" to="MainMenu/Offset/options/optionsButton" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="MainMenu/Offset/options/optionsButton" to="MainMenu/Offset/options/optionsButton" method="_on_mouse_exited"]
+[connection signal="pressed" from="MainMenu/Offset/options/optionsButton" to="." method="_on_options_button_pressed"]
+[connection signal="pressed" from="MainMenu/Offset/options/optionsButton" to="MainMenu/Offset/options/optionsButton" method="_on_pressed"]
 [connection signal="mouse_entered" from="MainMenu/Offset/back/backButton" to="MainMenu/Offset/back/backButton" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="MainMenu/Offset/back/backButton" to="MainMenu/Offset/back/backButton" method="_on_mouse_exited"]
 [connection signal="pressed" from="MainMenu/Offset/back/backButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="MainMenu/Offset/back/backButton" to="MainMenu/Offset/back/backButton" method="_on_pressed"]
+[connection signal="mouse_entered" from="StageSelect/Offset/Valley/ValleyButton" to="StageSelect/Offset/Valley/ValleyButton" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="StageSelect/Offset/Valley/ValleyButton" to="StageSelect/Offset/Valley/ValleyButton" method="_on_mouse_exited"]
+[connection signal="pressed" from="StageSelect/Offset/Valley/ValleyButton" to="." method="_on_valley_button_pressed"]
+[connection signal="pressed" from="StageSelect/Offset/Valley/ValleyButton" to="StageSelect/Offset/Valley/ValleyButton" method="_on_pressed"]
+[connection signal="mouse_entered" from="StageSelect/Offset/back/backButton" to="StageSelect/Offset/back/backButton" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="StageSelect/Offset/back/backButton" to="StageSelect/Offset/back/backButton" method="_on_mouse_exited"]
+[connection signal="pressed" from="StageSelect/Offset/back/backButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="StageSelect/Offset/back/backButton" to="StageSelect/Offset/back/backButton" method="_on_pressed"]
 
 [editable path="PreviewMech"]

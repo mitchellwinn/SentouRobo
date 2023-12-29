@@ -3,6 +3,7 @@ extends Control
 #animators
 @export var animTitle: AnimationPlayer
 @export var animMain: AnimationPlayer
+@export var animStage: AnimationPlayer
 #buttons
 @export var myRobot: TextureRect
 @export var online: TextureRect
@@ -12,29 +13,33 @@ extends Control
 #other
 @export var previewMech: Node3D
 @export var mainMenuDescription: RichTextLabel
+@export var stageSelectDescription: RichTextLabel
 @export var press: TextureRect #press play titlescreen image
-var waiting = true
-var buttonSelection
+@export var offset: Control #used as the parent when spawning new UI elements
+@export var SFX1: AudioStreamPlayer
+@export var SFX2: AudioStreamPlayer
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	RenderingServer.set_default_clear_color(Color(0.38431372549,0.38431372549,0.38431372549,1))
 	GameManager.gamemode = -1 #menuScreens
+	GameManager.mainMenu = self
+	GameManager.waiting = false
 	title()
  
 func _physics_process(delta):
 	previewMech.get_node("AnimationPlayer").play("idle")
-
-func hasControl():
-	if waiting or GameManager.gamemode!=-1:
-		return false
-	return true
+	mainMenuDescription.visible_ratio += 1.0/30
+	stageSelectDescription.visible_ratio += 1.0/30
 
 #transitions to title screen
 #waits for input on the title screen before calling main()
 func title():
-	waiting = true
+	SFX1.volume_db = AudioManager.volumeMixdB+AudioManager.sfxMixdB
+	SFX2.volume_db = SFX1.volume_db
+	GameManager.waiting = true
 	animTitle.play("titleIN")
 	await get_tree().create_timer(1.5).timeout #wait length of animation before yielding control
-	waiting = false
+	GameManager.waiting = false
 	while !Input.is_action_pressed("confirm"):
 		if (Time.get_ticks_msec()%1000)>500:
 			press.modulate = Color(1,1,1,1)
@@ -54,45 +59,58 @@ func title():
 	press.modulate = Color(1,1,1,0)
 #transitions to main menu layout
 func main():
-	buttonSelection = null
+	GameManager.gamemode = -1
+	GameManager.buttonSelection = null
 	mainMenuDescription.text = "Welcome, cadet! It is always good to see you!"
 	mainMenuDescription.visible_ratio = 0
-	waiting = true
+	GameManager.waiting = true
 	animMain.play("mainMenuIN")
 	var t = 0.0
-	while(!buttonSelection and t<1):
-		if t>.3:
-			mainMenuDescription.visible_ratio = t
+	while(!GameManager.buttonSelection and t<1):
 		t+= 1.0/30
 		await get_tree().process_frame
-	waiting = false
+	GameManager.waiting = false
 
+func stageSelect():
+	GameManager.buttonSelection = null
+	stageSelectDescription.text = "SELECT A STAGE"
+	stageSelectDescription.visible_ratio = 0
+	GameManager.waiting = true
+	animStage.play("stageSelectIN")
+	GameManager.waiting = false
 
 func _on_back_button_pressed():
-	if!hasControl():
+	if!GameManager.hasControl():
 		return
-	title()
-	
+	match GameManager.gamemode:
+		-1: #we are on main menu so go to title
+			title()
+		0: #we are on stage select so go to main menu
+			animStage.play("stageSelectOUT")
+			main()
 
 func _on_training_button_pressed():
-	if!hasControl():
+	if!GameManager.hasControl():
 		return
-	buttonFeedback(buttonSelection.get_parent())
+	GameManager.buttonFeedback(GameManager.buttonSelection.get_parent(),"res://Assets/SFX/MenuSelect1.wav")
 	GameManager.gamemode = 0 #training
-	await get_tree().create_timer(.7).timeout
-	animMain.play("menuOUT")
-	animTitle.play("fadeToBlack")
-	await get_tree().create_timer(1).timeout
-	GameManager.change_scene("res://Assets/Scenes/Harbor.tscn")
+	await get_tree().create_timer(.2).timeout
+	animMain.play("mainMenuOUT")
+	stageSelect()
+	#loadStage("Valley")
 
-func buttonFeedback(button):
-	AudioManager.playSound("res://Assets/SFX/MenuSelect1.wav",-10,1,0)
-	var t = 0.0
-	while(t<1.5):
-		t+=1.0/60
-		if ((Time.get_ticks_msec()*16)%1000)>500:
-			button.modulate = Color(1,1,1,1)
-		else:
-			button.modulate = Color(1,1,1,0)
-		await get_tree().process_frame
-	button.modulate = Color(1,1,1,1)
+func _on_options_button_pressed():
+	if!GameManager.hasControl() or GameManager.optionsMenu:
+		return
+	GameManager.buttonFeedback(GameManager.buttonSelection.get_parent(),"res://Assets/SFX/MenuSelect1.wav",)
+	GameManager.optionsMenu = true
+	GameManager.spawnChild(offset,"OptionsMenu","res://Assets/Prefabs/Options.tscn",Vector2(1200,135),0,Vector2(.15*4.166,.15*4.166))
+
+
+func _on_valley_button_pressed():
+	if!GameManager.hasControl():
+		return
+	GameManager.waiting = true
+	GameManager.buttonFeedback(GameManager.buttonSelection.get_parent(),"res://Assets/SFX/MenuSelect1.wav")
+	animTitle.play("fadeToBlack")
+	GameManager.loadScene("Valley/Valley")

@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://caw531sckcgly"
+path="res://.godot/imported/Rock.obj-df73ec96a285ab9f4260bdc704724b11.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Rock.obj-df73ec96a285ab9f4260bdc704724b11.mesh"]
+
+source_file="res://Assets/realistic_water_shader/art/rock/Rock.obj"
+dest_files=["res://.godot/imported/Rock.obj-df73ec96a285ab9f4260bdc704724b11.mesh", "res://.godot/imported/Rock.obj-df73ec96a285ab9f4260bdc704724b11.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(0.2, 0.2, 0.2)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

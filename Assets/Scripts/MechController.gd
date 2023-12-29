@@ -1,11 +1,14 @@
 extends CharacterBody3D
 ########################
-const SPEED = 2
-const THRUST_SPEED = 13
-const JUMP_VELOCITY = 11
+const SPEED = 7
+const THRUST_SPEED = 24
+const JUMP_VELOCITY = 40
 ########################
 @export var skeleton: Skeleton3D
 @export var camera: Camera3D
+@export var cameraTarget: Node3D
+@export var cameraBlockCheck: RayCast3D
+@export var scalar: Node3D
 @export var floorCheckRay: ShapeCast3D
 @export var wallCheckRay: ShapeCast3D
 @export var waterCheckRay: RayCast3D
@@ -20,10 +23,13 @@ const JUMP_VELOCITY = 11
 @export var gunArm: BoneAttachment3D
 @export var gunShoulder: BoneAttachment3D
 @export var muzzleFlash: GPUParticles3D
+@export var collider: CollisionShape3D
+@export var UIoffset: Control
 ########################
 var mouseMovement = Vector3.ZERO
 var direction = Vector3.ZERO
 var usingAbility = ""
+var interruptable = false
 var antiGravity = false
 var airbornLastFrame = false
 var airbornVelocity = 0
@@ -38,13 +44,26 @@ var swinging = false
 var running = false
 var shotTimer = 0
 var drowning = false
+var gravityGain = 0
+var flattening = false
+var optionsMenuInstance
 #initializes mech#######################
 func _ready():
 	UIAnimator.play("fadeFromBlack")
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	GameManager.playerCamera = camera
+	camera.reparent(get_node("/root"),true)
 #main process for mech controller#######################
 func _physics_process(delta):
-	gravity()
+	if Input.is_action_just_pressed("esc"):
+		GameManager.optionsMenu = !GameManager.optionsMenu
+		if GameManager.optionsMenu:
+			GameManager.saveData()
+			optionsMenuInstance = GameManager.spawnChild(get_node("/root"),"OptionsMenu","res://Assets/Prefabs/Options.tscn",Vector2(300,30),0,Vector2(.15,.15))
+			#optionsMenuInstance = GameManager.spawnChild(UIoffset,"OptionsMenu","res://Assets/Prefabs/Options.tscn",Vector2(1200,135),0,Vector2(.15*4.166,.15*4.166))
+		else:
+			optionsMenuInstance.queue_free()
+	gravity(delta)
 	if atAllActionable():
 		if testLanding():
 			localAudio.play("res://Assets/SFX/RobotLand1.wav",-20,1,.035)
@@ -52,10 +71,15 @@ func _physics_process(delta):
 		mouseMovement = Vector3.ZERO
 		attacks(delta)
 		abilities(delta)
-		if fullyActionable():
-			move(delta)
-		testDrown()
+	if fullyActionable():
+		move(delta)
+	if semiActionable():
+		jump(delta)
+	testDrown()
 	move_and_slide()
+	apply_floor_snap()
+	if !drowning:
+		cameraInterpolation(delta)
 	animate()
 	inputBuffers()
 	shotTimer-=delta
@@ -89,41 +113,74 @@ func usingAttack():
 		return false
 #returns false if the player has no authority#######################
 func atAllActionable():
-	if drowning:
+	if optionsMenuInstance!=null:
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		return false
+	if drowning or GameManager.waiting:
 		return false
 	else:
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 		return true
-#returns false if the player is not in an ordinary state#######################
+#returns false if the player is not in an ordinary state########################
 func fullyActionable():
 	if usingAbility == "":
 		return true
 	else:
 		return false
+#returns false if the player cannot interrupt its unordinary state##############
+func semiActionable():
+	if usingAbility == "" or interruptable:
+		return true
+	else:
+		return false
+#responsible for interpolating the camera to match its target position
+#in a way that allows for a smooth gameplay experience
+func cameraInterpolation(delta):
+	var adjustedPosition = checkCameraPositionBlocked()
+	camera.global_position = lerp(camera.global_position,adjustedPosition,delta*5)
+	cameraTarget.reparent(get_node("/root"),true) #ajust parenting to root to make QUAT global instead of local
+	camera.quaternion = camera.quaternion.slerp(cameraTarget.quaternion,delta*5)
+	cameraTarget.reparent(scalar,true) #ajust parenting ^^^
+#checks to see if the camera would be clipping into terrain before lining up with target
+func checkCameraPositionBlocked():
+	if cameraBlockCheck.is_colliding():
+		#print("camera would clip! ["+str(cameraBlockCheck.get_collision_point())+"]")
+		#return cameraBlockCheck.get_collision_point()
+		return cameraTarget.global_position
+	else:
+		return cameraTarget.global_position
 #rotates the player and the camera as the mouse is moved#######################
 func mouseLook(delta):
 	rotate_y(mouseMovement.x/-100)
-	camera.rotation.x+=(-mouseMovement.y/70)
-	if camera.rotation.x > 1.1 :
-		camera.rotation.x = 1.1
-	elif camera.rotation.x < -1.1 :
-		camera.rotation.x = -1.1
-	camera.position.y = camera.rotation.x*-.7+1.195
-	camera.position.z = (abs(camera.rotation.x-1)*.65+-1.39)*1.5
+	cameraTarget.rotation.x+=(-mouseMovement.y/70)
+	if cameraTarget.rotation.x > 1.1 :
+		cameraTarget.rotation.x = 1.1
+	elif cameraTarget.rotation.x < -1.1 :
+		cameraTarget.rotation.x = -1.1
+	cameraTarget.position.y = (cameraTarget.rotation.x*-.7+1.195)
+	cameraTarget.position.z = ((abs(cameraTarget.rotation.x-1)*.65+-1.39)*1.5)
 #determines how much negative velocity player should receive on a given frame#######################
-func gravity():
+func gravity(delta):
 	# Add Gravity.
 	if !antiGravity:
-		if !is_on_floor():
-			velocity.y = lerp(velocity.y,-16.0,.02)
+		if !floorCheckRay.is_colliding():
+			if usingAbility == "thrust":
+				gravityGain += delta*40
+				velocity.y = lerp(velocity.y,-32.0-gravityGain,.02)
+				velocity+= basis.y * -1.5
+			else:
+				gravityGain += delta*15
+				velocity.y = lerp(velocity.y,-32.0-gravityGain,.02)
 		else:
-			velocity.y = lerp(velocity.y,-16.0,.02)
+			gravityGain = 0
+			velocity.y = lerp(velocity.y,-16.0,.04)
 #returns true if the mech was airborn last frame and traveling downwards with speed
 func testLanding():
 	var justLanded = false
-	if is_on_floor() and airbornLastFrame and abs(airbornVelocity)>2:
+	if is_on_floor() and airbornLastFrame and abs(airbornVelocity)>5:
 		justLanded = true
 		airbornLastFrame = false
-	elif !is_on_floor():
+	elif !floorCheckRay.is_colliding():
 		airbornLastFrame=true
 		airbornVelocity = velocity.y
 	return justLanded
@@ -138,32 +195,39 @@ func drown(splashPos):
 		return
 	drowning = true
 	ParticleManager.spawnParticle("res://Assets/Prefabs/Particles/water_splash.tscn",2,splashPos)
-	var posStorage = camera.position
-	var rotStorage = camera.rotation #these are relative so we can restore to them later
-	var basisyStorage = camera.basis.y
-	camera.reparent(get_node("/root"),true)
+	var posStorage = cameraTarget.position
+	var rotStorage = cameraTarget.rotation #these are relative so we can restore to them later
+	var basisyStorage = cameraTarget.basis.y
+	cameraTarget.reparent(get_node("/root"),true)
 	var t =0
+	collider.disabled = true
 	while t<4:
+		if t>.03:
+			visible = false
 		camera.fov = lerp(camera.fov,40.0,.002)
-		camera.basis.y = lerp(camera.basis.y,(splashPos-camera.global_position).normalized(),.002)
+		cameraTarget.basis.y = lerp(cameraTarget.basis.y,(splashPos-cameraTarget.global_position).normalized(),.002)
 		t+=1.0/60
 		await get_tree().physics_frame
 	match GameManager.gamemode:
 		0:
-			camera.reparent(self,false)
+			GameManager.respawn()
+			cameraTarget.reparent(scalar,false)
+			cameraTarget.position = posStorage
+			cameraTarget.rotation = rotStorage
+			cameraTarget.basis.y = basisyStorage
 			camera.position = posStorage
 			camera.rotation = rotStorage
 			camera.basis.y = basisyStorage
-			GameManager.respawn()
 			await get_tree().physics_frame
+	visible = true
+	collider.disabled = false
 	drowning = false
-#determines how the mech will move in response to inputs while in an ordinary state#######################
-func move(delta):	
-	# Handle Jump.
+# Handle Jump.
+func jump(delta):
 	if jumpBuffer>0:
 		if (is_on_floor()):
 			localAudio.play("res://Assets/SFX/RobotJump1.wav",-10,1,.035)
-			velocity += basis.y*JUMP_VELOCITY
+			velocity += (basis.y+Vector3.UP).normalized()*JUMP_VELOCITY
 			jumpBuffer = 0
 		elif (wallCheckRay.is_colliding() and velocity.y<0):
 			localAudio.play("res://Assets/SFX/RobotJump1.wav",-12,1.2,.1)
@@ -172,6 +236,9 @@ func move(delta):
 			velocity += wallCheckRay.get_collision_normal(0)*1.3
 			jumpBuffer = 0
 
+
+#determines how the mech will move in response to inputs while in an ordinary state#######################
+func move(delta):	
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	direction = Vector3.ZERO
@@ -194,16 +261,18 @@ func move(delta):
 		var runBoost = 1
 		if testRunning():
 			runBoost = 3
+		if !atAllActionable():
+			direction = Vector3.ZERO
 		if is_on_floor():
-			velocity.x = lerp(velocity.x,direction.x*SPEED*runBoost,.6)
-			velocity.z = lerp(velocity.z,direction.z*SPEED*runBoost,.6)
+			velocity.x = lerp(velocity.x,direction.x*SPEED*runBoost,.2)
+			velocity.z = lerp(velocity.z,direction.z*SPEED*runBoost,.2)
 		else:
 			velocity.x = lerp(velocity.x,direction.x*SPEED*runBoost,.01)
 			velocity.z = lerp(velocity.z,direction.z*SPEED*runBoost,.01)	
 #checks to see if the mech should be running instead of walking#######################
 func testRunning():
 	running = false
-	if Vector3(velocity.x,0,velocity.z).length()>2.2 and basis.z.dot(velocity.normalized())>.5:
+	if velocity.length()>SPEED*1.5 and basis.z.dot(velocity.normalized())>.5:
 		running = true
 		rotateToNormal()
 	return running
@@ -221,16 +290,16 @@ func abilities(delta):
 		if fullyActionable():
 			thrust(delta)
 	if Input.is_action_just_pressed("up") and upBuffer>0:
-		if fullyActionable():
+		if semiActionable():
 			dash(delta,basis.z,"Forward")
 	elif Input.is_action_just_pressed("down") and downBuffer>0:
-		if fullyActionable():
+		if semiActionable():
 			dash(delta,-basis.z,"Backward")
 	elif Input.is_action_just_pressed("left") and leftBuffer>0:
-		if fullyActionable():
+		if semiActionable():
 			dash(delta,basis.x,"Left")
 	elif Input.is_action_just_pressed("right") and rightBuffer>0:
-		if fullyActionable():
+		if semiActionable():
 			dash(delta,-basis.x,"Right")
 #swings#######################
 func swing(delta):
@@ -283,6 +352,10 @@ func thrust(delta):
 		if !Input.is_action_pressed("thrust"):
 			localAudio.stopAll()
 			break
+		if Input.is_action_pressed("left"):
+			velocity+=basis.x/10
+		if Input.is_action_pressed("right"):
+			velocity-=basis.x/10
 		if localAudio.sfxConstant1.playing == false:
 			localAudio.playConstant("res://Assets/SFX/EngineRev1.wav",-30,2,.025,1)
 		if !floorCheckRay.is_colliding():
@@ -296,7 +369,7 @@ func thrust(delta):
 			antiGravity = true
 			if localAudio.sfxConstant2.playing == false:
 				localAudio.playConstant("res://Assets/SFX/Grinding.wav",-25,1,.025,2)
-		if jumpBuffer>0 and rotateCheckRay.is_colliding():
+		if jumpBuffer>0 and floorCheckRay.is_colliding():
 			jumpBuffer = 0 
 			localAudio.stopAll()
 			localAudio.play("res://Assets/SFX/RobotJump1.wav",-10,1,.135)
@@ -307,9 +380,10 @@ func thrust(delta):
 		rotateToNormal()
 		direction = Vector3.ZERO
 		direction += Vector3(basis.z.x,basis.z.y,basis.z.z).normalized()
-		velocity.x = lerp(velocity.x,direction.x*THRUST_SPEED,.01)
-		velocity.z = lerp(velocity.z,direction.z*THRUST_SPEED,.01)
-		camera.fov = lerp(camera.fov,70+velocity.length()*6,.03)
+		#print(str(direction) + " antigrav: "+ str(antiGravity))
+		velocity.x = lerp(velocity.x,direction.x*THRUST_SPEED,.035)
+		velocity.z = lerp(velocity.z,direction.z*THRUST_SPEED,.035)
+		camera.fov = lerp(camera.fov,clamp(70+velocity.length()*6,0.0,150.0),.03)
 		if camera.fov>150:
 			camera.fov = 150
 			#pass
@@ -326,38 +400,53 @@ func thrust(delta):
 #ability that propels the mech by double tapping in a direction and suspends falling, 
 #can be used in quick succession to "fly kick" across the map#######################
 func dash(delta,dashDir,dir):
-	shotTimer = -1
-	localAnimator.seek(0)
-	usingAbility = "dash"+dir
-	var t = 0
-	velocity = dashDir*10
-	localAudio.play("res://Assets/SFX/RobotWalk1.wav",-15,1,.035)
-	while(t<.8):
-		rotateToNormal()
-		if t>.2:
-			if Input.is_action_just_pressed("thrust"):
-				thrust(delta)
-				return
-		t+=delta*2.4
-		await get_tree().physics_frame
-		camera.fov = lerp(camera.fov,115.0,.03)
-	usingAbility = ""
 	match footAlternation:
 		1:
 			footAlternation = 2
 		2:
 			footAlternation = 1
+	var alternation = footAlternation
+	interruptable = false
+	shotTimer = -1
+	localAnimator.seek(0)
+	usingAbility = "dash"+dir
+	var t = 0
+	velocity = dashDir*5*SPEED
+	localAudio.play("res://Assets/SFX/RobotWalk1.wav",-15,1,.035)
+	while(t<1.4):
+		rotateToNormal()
+		if t>.05:
+			if Input.is_action_just_pressed("thrust"):
+				thrust(delta)
+				return
+		if t>.8:
+			if alternation!=footAlternation:
+				return
+			interruptable = true
+		t+=delta*2.4
+		await get_tree().physics_frame
+		camera.fov = lerp(camera.fov,115.0,.03)
+	usingAbility = ""
 #if near the ground, rotates the mech to match the normal of the ground
 #otherwise, rotateFlatten is called######################
 func rotateToNormal():
 	if rotateCheckRay.is_colliding():
+		flattening = false
+		var length = (global_position - rotateCheckRay.get_collision_point()).length()
 		var normal = rotateCheckRay.get_collision_normal()
-		basis.y = lerp(basis.y,normal,.1) 
-		basis.x = lerp(basis.x,-basis.z.cross(normal),.1)
+		var rotationSpeed = 0
+		if (usingAbility == "thrust"):
+			rotationSpeed = .3
+		else:
+			rotationSpeed = (8-clamp(length,0,8))/50
+		print(rotationSpeed)
+		basis.y = lerp(basis.y,normal,rotationSpeed) 
+		basis.x = lerp(basis.x,-basis.z.cross(normal),rotationSpeed)
 		basis = basis.orthonormalized()
 		up_direction = normal
 		apply_floor_snap()
 	else:
+		flattening = true		
 		rotateFlatten()
 #corrects the rotation caused by rotateToNormal#######################
 func rotateFlatten():
@@ -368,8 +457,12 @@ func rotateFlatten():
 #picks the correct animation for the mech based on the current situation#######################
 func animate():
 	if usingAbility == "thrust":
-		localAnimator.play("Local/thrust",.25)
-		localAnimator.speed_scale = 1.15
+		if flattening:
+			localAnimator.play("Local/fall",.5)
+			localAnimator.speed_scale = 0.75
+		else:
+			localAnimator.play("Local/thrust",.25)
+			localAnimator.speed_scale = 1.15
 	elif usingAbility == "dashForward":
 		localAnimator.play("Local/dashForward"+str(footAlternation),.25)
 		localAnimator.speed_scale = 1.2
@@ -382,7 +475,7 @@ func animate():
 	elif usingAbility == "dashRight":
 		localAnimator.play("Local/dashRight",.25)
 		localAnimator.speed_scale = 1.4
-	elif is_on_floor():
+	elif floorCheckRay.is_colliding():
 		if velocity.length()<1:
 			localAnimator.play("Local/idle",.5)
 			localAnimator.speed_scale = 0.5
@@ -418,6 +511,6 @@ func animate():
 		localAnimatorOverlay.stop()
 	var torso = skeleton.find_bone("Bone")
 	var pose = skeleton.get_bone_global_pose_no_override(torso)
-	pose = pose.rotated_local(Vector3.RIGHT, -camera.rotation.x*2)
+	pose = pose.rotated_local(Vector3.RIGHT, -cameraTarget.rotation.x*1.5)
 	pose = pose.rotated_local(Vector3.UP, -.4)
 	skeleton.set_bone_global_pose_override(torso, pose, .5, true)

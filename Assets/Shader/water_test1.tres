@@ -1,16 +1,15 @@
 [gd_resource type="ShaderMaterial" load_steps=11 format=3 uid="uid://ba1opxmhayck0"]
 
-[ext_resource type="Shader" path="res://Assets/Shader/water_test1.gdshader" id="1_4ghk5"]
+[ext_resource type="Shader" path="res://Assets/Shader/Benji_Water.gdshader" id="1_s71hm"]
 
 [sub_resource type="Gradient" id="Gradient_cor8n"]
 interpolation_mode = 2
-offsets = PackedFloat32Array(0, 0.605442, 0.901361)
+offsets = PackedFloat32Array(0, 0.463333, 0.901361)
 colors = PackedColorArray(0.488599, 0.187462, 4.81308e-08, 1, 0.564114, 0.486993, 0.581499, 1, 0.595024, 0.609598, 0.81952, 1)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_hbim8"]
-noise_type = 5
-seed = 1274
-frequency = 0.0178
+seed = 1379
+frequency = 0.0243
 offset = Vector3(0, 11.15, 0)
 fractal_type = 2
 fractal_lacunarity = 1.989
@@ -23,12 +22,12 @@ domain_warp_frequency = 0.505
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_jj7ol"]
 width = 149
-height = 120
+height = 85
 in_3d_space = true
 seamless = true
 seamless_blend_skirt = 0.244
 as_normal_map = true
-bump_strength = 10.4
+bump_strength = 32.0
 color_ramp = SubResource("Gradient_cor8n")
 noise = SubResource("FastNoiseLite_hbim8")
 
@@ -54,8 +53,8 @@ offsets = PackedFloat32Array(0, 0.725212, 1)
 colors = PackedColorArray(0, 0, 0, 1, 0.529412, 0.576471, 0.964706, 0, 1, 1, 1, 1)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_b27mp"]
-noise_type = 3
-frequency = 0.016
+seed = 240
+frequency = 1.0
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_10x6y"]
 width = 552
@@ -71,23 +70,23 @@ noise = SubResource("FastNoiseLite_b27mp")
 
 [resource]
 render_priority = 0
-shader = ExtResource("1_4ghk5")
-shader_parameter/albedo1 = Color(0.278431, 0.141176, 0.615686, 1)
-shader_parameter/albedo2 = Color(0.129412, 0.666667, 0.486275, 1)
-shader_parameter/metallic = 0.0
+shader = ExtResource("1_s71hm")
+shader_parameter/albedo1 = Color(0.568627, 0.439216, 0.541176, 1)
+shader_parameter/albedo2 = Color(0.521569, 0.498039, 0.956863, 1)
+shader_parameter/metallic = 0.531
 shader_parameter/roughness = 0.0
-shader_parameter/wave_direction = Vector2(20, 5)
-shader_parameter/wave_direction2 = Vector2(10, 10)
-shader_parameter/time_scale = 0.0035
-shader_parameter/noise_scale = 23.725
-shader_parameter/height_scale = 0.0
-shader_parameter/color_deep = Color(0, 1, 0.564706, 1)
-shader_parameter/color_shallow = Color(0, 0.447059, 0.223529, 1)
-shader_parameter/beers_law = 1.897
-shader_parameter/depth_offset = 3.427
-shader_parameter/edge_scale = 1.97
-shader_parameter/near = 5.0
-shader_parameter/far = 300.0
+shader_parameter/wave_direction = Vector2(20.84, 13.6)
+shader_parameter/wave_direction2 = Vector2(3.015, 10)
+shader_parameter/time_scale = 0.001
+shader_parameter/noise_scale = 15.175
+shader_parameter/height_scale = 0.601
+shader_parameter/color_deep = Color(0, 0.356863, 0.372549, 1)
+shader_parameter/color_shallow = Color(1, 1, 1, 1)
+shader_parameter/beers_law = 0.465
+shader_parameter/depth_offset = 7.072
+shader_parameter/edge_scale = 0.0
+shader_parameter/near = 1.0
+shader_parameter/far = 1500.0
 shader_parameter/edge_color = Color(1, 1, 1, 1)
 shader_parameter/wave = SubResource("NoiseTexture2D_10x6y")
 shader_parameter/texture_normal1 = SubResource("NoiseTexture2D_jj7ol")

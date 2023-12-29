@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://cttjkbqyqrpn0"]
+
+[node name="SFX" type="AudioStreamPlayer3D"]
+volume_db = -40.0
+max_distance = 60.0
+doppler_tracking = 2
