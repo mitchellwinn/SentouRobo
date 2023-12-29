@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://d1mbdg45asaao"]
+[gd_scene load_steps=38 format=3 uid="uid://d1mbdg45asaao"]
 
 [ext_resource type="Texture2D" uid="uid://xu6lxnwc3c5y" path="res://Assets/TitleScreenAssets/topVisor-01.png" id="1_4tsii"]
 [ext_resource type="Script" path="res://Assets/Scripts/Menu/MainMenu.gd" id="1_8ctrw"]
@@ -23,6 +23,7 @@
 [ext_resource type="PackedScene" uid="uid://bm0r1orqsnkcg" path="res://Assets/Prefabs/PreviewMech.tscn" id="21_3k3sq"]
 [ext_resource type="Texture2D" uid="uid://cr72bvo3c66im" path="res://Assets/StageUI/strip.png" id="21_lr63c"]
 [ext_resource type="Texture2D" uid="uid://cpr1ah1781a35" path="res://Assets/StageUI/Valley_.png" id="22_258nu"]
+[ext_resource type="Texture2D" uid="uid://cljgfqaatdcm5" path="res://Assets/StageUI/Test_.png" id="23_omylo"]
 
 [sub_resource type="Animation" id="Animation_1wu8f"]
 resource_name = "fadeFromBlack"
@@ -995,7 +996,6 @@ description = "Return to the title screen."
 path = "MainMenuAssets"
 
 [node name="StageSelect" type="Control" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -1063,6 +1063,31 @@ menu = NodePath("../../../..")
 classification = "stageSelect"
 buttonName = "Valley"
 description = "VALLEY"
+path = "StageUI"
+delay = 0.7
+
+[node name="Test" type="TextureRect" parent="StageSelect/Offset"]
+layout_mode = 0
+offset_left = 233.333
+offset_top = 1350.0
+offset_right = 3245.33
+offset_bottom = 3600.0
+scale = Vector2(0.35, 0.35)
+mouse_filter = 2
+texture = ExtResource("23_omylo")
+stretch_mode = 4
+
+[node name="TestButton" type="Button" parent="StageSelect/Offset/Test" node_paths=PackedStringArray("menu")]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 42.0
+offset_right = 3000.0
+offset_bottom = 2250.0
+script = ExtResource("12_f5jcp")
+menu = NodePath("../../../..")
+classification = "stageSelect"
+buttonName = "Test"
+description = "TEST"
 path = "StageUI"
 delay = 0.7
 
@@ -1190,7 +1215,7 @@ light_specular = 3.447
 spot_range = 204.06
 
 [node name="BlackOverlay" type="TextureRect" parent="."]
-modulate = Color(0, 0, 0, 1)
+modulate = Color(1, 1, 1, 0)
 z_index = 4096
 layout_mode = 0
 offset_left = -1626.0
@@ -1223,6 +1248,10 @@ texture = SubResource("GradientTexture1D_88ctn")
 [connection signal="mouse_exited" from="StageSelect/Offset/Valley/ValleyButton" to="StageSelect/Offset/Valley/ValleyButton" method="_on_mouse_exited"]
 [connection signal="pressed" from="StageSelect/Offset/Valley/ValleyButton" to="." method="_on_valley_button_pressed"]
 [connection signal="pressed" from="StageSelect/Offset/Valley/ValleyButton" to="StageSelect/Offset/Valley/ValleyButton" method="_on_pressed"]
+[connection signal="mouse_entered" from="StageSelect/Offset/Test/TestButton" to="StageSelect/Offset/Test/TestButton" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="StageSelect/Offset/Test/TestButton" to="StageSelect/Offset/Test/TestButton" method="_on_mouse_exited"]
+[connection signal="pressed" from="StageSelect/Offset/Test/TestButton" to="." method="_on_test_button_pressed"]
+[connection signal="pressed" from="StageSelect/Offset/Test/TestButton" to="StageSelect/Offset/Test/TestButton" method="_on_pressed"]
 [connection signal="mouse_entered" from="StageSelect/Offset/back/backButton" to="StageSelect/Offset/back/backButton" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="StageSelect/Offset/back/backButton" to="StageSelect/Offset/back/backButton" method="_on_mouse_exited"]
 [connection signal="pressed" from="StageSelect/Offset/back/backButton" to="." method="_on_back_button_pressed"]

@@ -114,3 +114,12 @@ func _on_valley_button_pressed():
 	GameManager.buttonFeedback(GameManager.buttonSelection.get_parent(),"res://Assets/SFX/MenuSelect1.wav")
 	animTitle.play("fadeToBlack")
 	GameManager.loadScene("Valley/Valley")
+
+
+func _on_test_button_pressed():
+	if!GameManager.hasControl():
+		return
+	GameManager.waiting = true
+	GameManager.buttonFeedback(GameManager.buttonSelection.get_parent(),"res://Assets/SFX/MenuSelect1.wav")
+	animTitle.play("fadeToBlack")
+	GameManager.loadScene("Test")

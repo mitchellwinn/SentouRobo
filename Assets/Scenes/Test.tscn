@@ -1,0 +1,160 @@
+[gd_scene load_steps=7 format=3 uid="uid://dg0mcryrn1l8r"]
+
+[ext_resource type="Material" uid="uid://ba1opxmhayck0" path="res://Assets/Shader/water_test1.tres" id="1_3i3st"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_a782d"]
+
+[sub_resource type="Sky" id="Sky_fs5ae"]
+sky_material = SubResource("ProceduralSkyMaterial_a782d")
+
+[sub_resource type="Environment" id="Environment_6scuj"]
+background_mode = 2
+background_energy_multiplier = 10.13
+sky = SubResource("Sky_fs5ae")
+sky_rotation = Vector3(0, -0.242601, 0)
+ambient_light_source = 3
+ambient_light_color = Color(0, 0.729412, 0.368627, 1)
+ambient_light_sky_contribution = 0.18
+ambient_light_energy = 12.8
+reflected_light_source = 2
+tonemap_exposure = 0.15
+tonemap_white = 1.65
+ssr_enabled = true
+ssao_enabled = true
+ssao_radius = 10.7
+ssao_intensity = 2.6
+ssao_power = 1.66435
+ssao_detail = 0.0
+ssao_horizon = 1.0
+ssao_sharpness = 1.0
+ssil_enabled = true
+sdfgi_use_occlusion = true
+sdfgi_bounce_feedback = 1.58
+sdfgi_cascades = 8
+sdfgi_min_cell_size = 5.0
+sdfgi_cascade0_distance = 320.0
+sdfgi_max_distance = 81920.0
+sdfgi_energy = 2.395
+sdfgi_normal_bias = 0.97
+sdfgi_probe_bias = 1.805
+glow_levels/2 = 2.55
+glow_levels/3 = 0.0
+glow_levels/4 = 2.99
+glow_levels/5 = 8.95
+glow_levels/6 = 0.37
+glow_intensity = 0.4
+glow_strength = 0.8
+glow_bloom = 1.0
+glow_blend_mode = 4
+glow_hdr_threshold = 0.0
+glow_hdr_scale = 0.0
+glow_hdr_luminance_cap = 8.66
+fog_light_color = Color(0, 0.996078, 0.996078, 1)
+fog_light_energy = 13.3
+fog_sun_scatter = 0.11
+fog_density = 0.0015
+fog_aerial_perspective = 0.717
+fog_sky_affect = 0.728
+fog_height = -4.01
+fog_height_density = 0.0825
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.018
+volumetric_fog_emission = Color(0.733333, 0.631373, 0.45098, 1)
+volumetric_fog_emission_energy = 1.45
+volumetric_fog_gi_inject = 0.57
+volumetric_fog_anisotropy = -0.8
+volumetric_fog_length = 46.8
+volumetric_fog_temporal_reprojection_amount = 0.99
+adjustment_enabled = true
+adjustment_brightness = 1.04
+adjustment_contrast = 0.96
+adjustment_saturation = 2.09
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_tbtff"]
+exposure_multiplier = 5.315
+auto_exposure_enabled = true
+auto_exposure_scale = 0.25
+auto_exposure_speed = 46.35
+dof_blur_far_enabled = true
+dof_blur_far_distance = 21.44
+dof_blur_far_transition = 8.37
+dof_blur_near_enabled = true
+dof_blur_near_distance = 1.0
+dof_blur_amount = 0.01
+auto_exposure_min_sensitivity = 92.45
+auto_exposure_max_sensitivity = 590.5
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_57da6"]
+size = Vector2(126.495, 127.81)
+subdivide_width = 100
+subdivide_depth = 100
+
+[node name="Test" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_6scuj")
+camera_attributes = SubResource("CameraAttributesPractical_tbtff")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 52.3968, 3.6627, 160.59)
+light_energy = 3.333
+light_indirect_energy = 3.956
+light_volumetric_fog_energy = 0.0
+shadow_enabled = true
+shadow_bias = 0.0
+shadow_reverse_cull_face = true
+shadow_blur = 0.0
+
+[node name="SpawnPoints" type="Node3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="Main" type="Node3D" parent="SpawnPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.7974, 5, 138.086)
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="."]
+use_collision = true
+collision_layer = 4
+collision_mask = 2
+mesh = SubResource("PlaneMesh_57da6")
+material = ExtResource("1_3i3st")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -73.9464, 109.076)
+use_collision = true
+size = Vector3(150, 150, 150)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.405, -73.911, -125.255)
+use_collision = true
+size = Vector3(150, 150, 150)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 100.538, 1.055, -1.567)
+use_collision = true
+size = Vector3(150, 300, 300)
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="CSGBox3D3"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -75.0298, 14.7009, 0.488614)
+operation = 2
+radius = 14.695
+height = 325.225
+sides = 64
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -128.324, -97.2394, -1.567)
+use_collision = true
+size = Vector3(150, 300, 300)
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="CSGBox3D4"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 70.7764, 154.559, 0.673966)
+operation = 2
+radius = 56.405
+height = 325.225
+sides = 64
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.5078, 2.15787, -6.90049)
+use_collision = true
+radius = 20.265
+height = 7.105
+cone = true
