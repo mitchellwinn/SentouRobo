@@ -105,6 +105,30 @@ tracks/3/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("StageSelect:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Title:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_hgnyy"]
 resource_name = "mainMenuOUT"
@@ -686,7 +710,7 @@ offset_right = 4000.0
 offset_bottom = 2250.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(0.335, 0.335)
+scale = Vector2(0.24, 0.24)
 pivot_offset = Vector2(480, 270)
 mouse_filter = 2
 
@@ -703,9 +727,8 @@ modulate = Color(1, 1, 1, 0.588235)
 layout_direction = 1
 layout_mode = 2
 offset_left = -1029.17
-offset_top = -300.0
 offset_right = 2970.83
-offset_bottom = 1950.0
+offset_bottom = 2250.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1.5, 1)
@@ -718,9 +741,8 @@ modulate = Color(1, 1, 1, 0.588235)
 layout_direction = 1
 layout_mode = 2
 offset_left = -1029.17
-offset_top = 300.0
 offset_right = 2970.83
-offset_bottom = 2550.0
+offset_bottom = 2250.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1.5, 1)
@@ -736,7 +758,6 @@ offset_right = 4004.17
 offset_bottom = 2291.67
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(1, 1e-05)
 mouse_filter = 2
 texture = ExtResource("3_qncem")
 stretch_mode = 4
@@ -749,13 +770,11 @@ offset_right = 4004.17
 offset_bottom = 2291.67
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(1, 1e-05)
 mouse_filter = 2
 texture = ExtResource("4_db7d0")
 stretch_mode = 4
 
 [node name="press" type="TextureRect" parent="Title/Offset"]
-visible = false
 layout_mode = 2
 offset_left = 4.16846
 offset_top = 41.6667
@@ -768,7 +787,6 @@ texture = ExtResource("6_m45dd")
 stretch_mode = 4
 
 [node name="crosshair" type="TextureRect" parent="Title/Offset"]
-visible = false
 layout_mode = 2
 offset_left = 4.16846
 offset_top = 41.6667
@@ -776,12 +794,12 @@ offset_right = 4004.17
 offset_bottom = 2291.67
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(1, 0.25)
 mouse_filter = 2
 texture = ExtResource("6_fmqs1")
 stretch_mode = 4
 
 [node name="MainMenu" type="Control" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -792,7 +810,7 @@ offset_right = 4000.0
 offset_bottom = 2250.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(0.24, 0.24)
+scale = Vector2(0.35, 0.35)
 pivot_offset = Vector2(480, 270)
 mouse_filter = 2
 
@@ -848,6 +866,7 @@ offset_right = 3787.33
 offset_bottom = 2128.5
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(0.575, 0.575)
 mouse_filter = 2
 texture = ExtResource("12_cxx6n")
 stretch_mode = 4
