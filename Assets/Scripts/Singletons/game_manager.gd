@@ -1,16 +1,18 @@
 extends Node
-########################
+###SUPER VARIABLES##########################
 var rng = RandomNumberGenerator.new()
-var spawnPoints: Array
 var gamemode = 0
-var myRobot
-var playerCamera
-var mainMenu
-var waiting = false
-var buttonSelection
+var myRobotData #information about what parts your robot is comprised of
 var optionsMenu: bool
-
-var gameSaveData: Dictionary
+var waiting = false
+var buttonSelection #anytime you are hovering over a button, it is saved here
+###IN-GAME VARIABLES########################
+var spawnPoints: Array #all possible spawn points for the player mech
+var myRobot #in-game mech node that is owned by this client
+var playerCamera #in-game camera node that follows the mech
+###OUT-OF-GAME VARIABLES#####################
+var mainMenu #allows other scripts to reference the main menu if applicable
+var gameSaveData: Dictionary #utilized when writing information about the game to the hard drive
 
 const SAVE_PATH: String = "user://saveData.bin"
 ########################

@@ -1,9 +1,10 @@
-[gd_scene load_steps=71 format=3 uid="uid://b8ouhl075k4f7"]
+[gd_scene load_steps=72 format=3 uid="uid://b8ouhl075k4f7"]
 
 [ext_resource type="PackedScene" uid="uid://bmlqq80sue4nr" path="res://Assets/Robots/mech.glb" id="1_rmfi6"]
 [ext_resource type="Script" path="res://Assets/Scripts/MechController.gd" id="1_ufi4g"]
 [ext_resource type="Script" path="res://Assets/Scripts/LocalAudio.gd" id="3_5msr7"]
 [ext_resource type="PackedScene" uid="uid://drm7fh1m3fa7w" path="res://Assets/Prefabs/Particles/muzzle.tscn" id="3_t425g"]
+[ext_resource type="Script" path="res://Assets/Scripts/Stats.gd" id="4_07qo3"]
 [ext_resource type="Texture2D" uid="uid://bs4mnvx22ni4m" path="res://Assets/ExtraImageTextures/reticle1.png" id="5_3wwlb"]
 [ext_resource type="FontFile" uid="uid://cj0v2dj4g3gyk" path="res://Assets/Fonts/DFHeiA_0.ttc" id="5_6w781"]
 [ext_resource type="Texture2D" uid="uid://pck0ytasmwx6" path="res://Assets/InGameUI/HpSpContainer.png" id="6_x0ctk"]
@@ -2856,6 +2857,7 @@ libraries = {
 }
 
 [node name="Stats" type="Node" parent="Scalar"]
+script = ExtResource("4_07qo3")
 
 [node name="SparksL" type="GPUParticles3D" parent="Scalar"]
 transform = Transform3D(-0.035, -1.97471e-08, -4.02306e-09, -7.34876e-09, 0.0844981, 0.0226963, -9.75192e-10, 0.0719797, -0.0266435, 0.113366, 0.0276878, 0.67456)
