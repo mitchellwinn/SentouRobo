@@ -2,7 +2,7 @@ extends Node
 ###SUPER VARIABLES##########################
 var rng = RandomNumberGenerator.new()
 var gamemode = 0
-var myRobotData #information about what parts your robot is comprised of
+var myRobotData: Dictionary #information about what parts your robot is comprised of
 var optionsMenu: bool
 var waiting = false
 var buttonSelection #anytime you are hovering over a button, it is saved here
@@ -13,14 +13,17 @@ var playerCamera #in-game camera node that follows the mech
 ###OUT-OF-GAME VARIABLES#####################
 var mainMenu #allows other scripts to reference the main menu if applicable
 var gameSaveData: Dictionary #utilized when writing information about the game to the hard drive
-
+###CONSTANTS#################################
 const SAVE_PATH: String = "user://saveData.bin"
-########################
+const MECH_SAVE_PATH: String = "user://mechSaveData.bin"
+const Part = preload("res://Assets/Scripts/Part.gd")
+const Weapon = preload("res://Assets/Scripts/Weapon.gd")
+#############################################
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	GameManager.loadData()
-	
+	GameManager.loadMechData()
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -30,7 +33,73 @@ func _process(delta):
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED, 0)
 		else:
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN, 0)
-	
+#updates the graphics of the mech	
+func updatePartGraphics(skeleton):
+	#make all parts invisible
+	for part in skeleton.get_children():
+		part.visible = false
+	#determine head visibility
+	skeleton.get_node(GameManager.myRobotData["Head"].partName+"_Head").visible = true
+	#determine UpperTorso visibility
+	skeleton.get_node(GameManager.myRobotData["UpperTorso"].partName+"_UpperTorso").visible = true
+	#determine Torso visibility
+	skeleton.get_node(GameManager.myRobotData["Torso"].partName+"_Torso").visible = true
+	#determine Right Thigh visibility
+	skeleton.get_node(GameManager.myRobotData["RightThigh"].partName+"_Thigh_R").visible = true
+	#determine Left Thigh visibility
+	skeleton.get_node(GameManager.myRobotData["LeftThigh"].partName+"_Thigh_L").visible = true
+	#determine Right Leg visibility
+	skeleton.get_node(GameManager.myRobotData["RightLeg"].partName+"_Legs_R").visible = true
+	#determine Left Leg visibility
+	skeleton.get_node(GameManager.myRobotData["LeftLeg"].partName+"_Legs_L").visible = true
+	#determine Right Foot visibility
+	skeleton.get_node(GameManager.myRobotData["RightFoot"].partName+"_Foot_R").visible = true
+	#determine Left Foot visibility
+	skeleton.get_node(GameManager.myRobotData["LeftFoot"].partName+"_Foot_L").visible = true
+	#determine Right Shoulder visibility
+	skeleton.get_node(GameManager.myRobotData["RightShoulder"].partName+"_Shoulder_R").visible = true
+	#determine Left Shoulder visibility
+	skeleton.get_node(GameManager.myRobotData["LeftShoulder"].partName+"_Shoulder_L").visible = true
+	#determine Right Arm visibility
+	skeleton.get_node(GameManager.myRobotData["RightArm"].partName+"_Arm_R").visible = true
+	#determine Left Arm visibility
+	skeleton.get_node(GameManager.myRobotData["LeftArm"].partName+"_Arm_L").visible = true
+	#determine left weapon visibility
+	match GameManager.myRobotData["LeftArmWeapon"].partName:
+		"Drill":
+			skeleton.get_node("Drill_L").visible = true
+		"NeedleCannon":
+			skeleton.get_node("NeedleCannon_L").visible = true
+		"PlasmaCannon":
+			skeleton.get_node("PlasmaCannon_L").visible = true
+	#determine right weapon visibility
+	match GameManager.myRobotData["RightArmWeapon"].partName:
+		"Drill":
+			skeleton.get_node("Drill_R").visible = true
+		"NeedleCannon":
+			skeleton.get_node("NeedleCannon_R").visible = true
+		"PlasmaCannon":
+			skeleton.get_node("PlasmaCannon_R").visible = true
+func initializeRobotParts():
+	#Part.new(PART DISTINCTION, PART USE, PART WEIGHT)
+	myRobotData = {
+		"Head":Part.new("Mech1","armor", 2),
+		"UpperTorso":Part.new("Mech1","armor", 3),
+		"Torso":Part.new("Mech1","armor", 4),
+		"RightThigh":Part.new("Mech1","armor", 2),
+		"LeftThigh":Part.new("Mech1","armor", 2),
+		"RightLeg":Part.new("Mech1","armor", 2),
+		"LeftLeg":Part.new("Mech1","armor", 2),
+		"RightFoot":Part.new("Mech1","armor", 2),
+		"LeftFoot":Part.new("Mech1","armor", 2),
+		"RightShoulder":Part.new("Mech1","armor", 2),
+		"LeftShoulder":Part.new("Mech1","armor", 2),
+		"RightArm":Part.new("Mech2","armor", 2),
+		"LeftArm":Part.new("Mech2","armor", 2),
+		"LeftArmWeapon":Weapon.new("left","NeedleCannon","gun",3),
+		"RightArmWeapon":Weapon.new("right","NeedleCannon","gun",2)
+	}
+
 func hasControl():
 	if waiting:
 		return false
@@ -131,6 +200,18 @@ func loadData() -> void:
 				extractedValue = getValueFromDict(current_line,"musicVolume")
 				if extractedValue != null:
 					AudioManager.musicMixdB = extractedValue
+#load mech data from disk
+func loadMechData() -> void:
+	var file = FileAccess.open(MECH_SAVE_PATH, FileAccess.READ)
+	if not file:
+		initializeRobotParts()
+		return
+	if file == null:
+		initializeRobotParts()
+		return
+	if FileAccess.file_exists(SAVE_PATH) == true:
+		if not file.eof_reached():
+			var myRobotData = JSON.parse_string(file.get_line())
 
 func getValueFromDict( dict, key):
 	if dict.has(key):

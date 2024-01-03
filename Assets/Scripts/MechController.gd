@@ -13,16 +13,20 @@ const JUMP_VELOCITY = 40
 @export var wallCheckRay: ShapeCast3D
 @export var waterCheckRay: RayCast3D
 @export var rotateCheckRay: RayCast3D
-@export var localAnimatorOverlay: AnimationPlayer
+@export var localAnimatorOverlayL: AnimationPlayer
+@export var localAnimatorOverlayR: AnimationPlayer
 @export var localAnimator: AnimationPlayer
 @export var UIAnimator: AnimationPlayer
 @export var localAudio: Node
 @export var sparkL: GPUParticles3D
 @export var sparkR: GPUParticles3D
 @export var exhaust: GPUParticles3D
-@export var gunArm: BoneAttachment3D
-@export var gunShoulder: BoneAttachment3D
-@export var muzzleFlash: GPUParticles3D
+@export var leftArm: BoneAttachment3D
+@export var rightArm: BoneAttachment3D
+@export var leftShoulder: BoneAttachment3D
+@export var rightShoulder: BoneAttachment3D
+@export var muzzle1L: GPUParticles3D
+@export var muzzle1R: GPUParticles3D
 @export var collider: CollisionShape3D
 @export var UIoffset: Control
 ########################
@@ -39,10 +43,13 @@ var leftBuffer = 0
 var downBuffer = 0
 var jumpBuffer = 0
 var footAlternation = 1
-var shooting = false
-var swinging = false
+var shootingL = false
+var swingingL = false
+var shootingR = false
+var swingingR = false
 var running = false
-var shotTimer = 0
+var shotTimerL = 0
+var shotTimerR = 0
 var drowning = false
 var gravityGain = 0
 var flattening = false
@@ -53,6 +60,7 @@ func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	GameManager.playerCamera = camera
 	camera.reparent(get_node("/root"),true)
+	GameManager.updatePartGraphics(skeleton)
 #main process for mech controller#######################
 func _physics_process(delta):
 	if Input.is_action_just_pressed("esc"):
@@ -82,7 +90,8 @@ func _physics_process(delta):
 		cameraInterpolation(delta)
 	animate()
 	inputBuffers()
-	shotTimer-=delta
+	shotTimerL-=delta
+	shotTimerR-=delta
 #remembers recently pressed buttons at the end of the main process#######################
 func inputBuffers():
 	upBuffer-=1
@@ -105,9 +114,15 @@ func _input(event):
 	# Mouse in viewport coordinates.
 	if event is InputEventMouseMotion:
 		mouseMovement = event.relative
-#returns true if the player is using an attacking ability#######################
-func usingAttack():
-	if shooting or swinging:
+#returns true if the player is using an attacking ability on the left hand#######################
+func usingAttackL():
+	if (shootingL or swingingL):
+		return true
+	else:
+		return false
+#returns true if the player is using an attacking ability on the right hand#######################
+func usingAttackR():
+	if (shootingR or swingingR):
 		return true
 	else:
 		return false
@@ -235,8 +250,6 @@ func jump(delta):
 			velocity += basis.y*JUMP_VELOCITY
 			velocity += wallCheckRay.get_collision_normal(0)*1.3
 			jumpBuffer = 0
-
-
 #determines how the mech will move in response to inputs while in an ordinary state#######################
 func move(delta):	
 	# Get the input direction and handle the movement/deceleration.
@@ -278,12 +291,20 @@ func testRunning():
 	return running
 #checks for attack usage and prevents from using other attacks until resolved#######################
 func attacks(delta):
-	if Input.is_action_pressed("shoot"):
-		if !usingAttack():
-			shoot(delta)
-	if Input.is_action_just_pressed("swing"):
-		if !usingAttack():
-			swing(delta)
+	if Input.is_action_pressed("weaponR"):
+		if !usingAttackR():
+			match GameManager.myRobotData["RightArmWeapon"].partCategory:
+				"gun":
+					shoot(delta, GameManager.myRobotData["RightArmWeapon"])
+				"melee":
+					swing(delta, GameManager.myRobotData["RightArmWeapon"])
+	if Input.is_action_pressed("weaponL"):
+		if !usingAttackL():
+			match GameManager.myRobotData["LeftArmWeapon"].partCategory:
+				"gun":
+					shoot(delta, GameManager.myRobotData["LeftArmWeapon"])
+				"melee":
+					swing(delta, GameManager.myRobotData["LeftArmWeapon"])
 #checks for ability usage and transitions into an ability state when used in an ordinary state#######################
 func abilities(delta):
 	if Input.is_action_just_pressed("thrust"):
@@ -302,11 +323,17 @@ func abilities(delta):
 		if semiActionable():
 			dash(delta,-basis.x,"Right")
 #swings#######################
-func swing(delta):
-	swinging = true
-	shotTimer=-10
+func swing(delta, weapon):
+	match weapon.leftRight:
+		"left":
+			localAnimatorOverlayL.seek(0)
+			swingingL = true
+		"right":
+			localAnimatorOverlayR.seek(0)
+			swingingR = true
+	shotTimerL=-10
+	shotTimerR=-10
 	#await get_tree().process_frame
-	localAnimatorOverlay.seek(0)
 	var t = 0
 	localAudio.play("res://Assets/SFX/Combat/ArmThrust.wav",-20,1,.035)
 	while(t<.6):
@@ -314,23 +341,42 @@ func swing(delta):
 		t+=delta*2.4
 		await get_tree().physics_frame
 		#camera.fov = lerp(camera.fov,130.0,.003)
-	swinging = false
+	match weapon.leftRight:
+		"left":
+			swingingL = false
+		"right":
+			swingingR = false
 #shoots#######################
-func shoot(delta):
-	shooting = true
-	shotTimer=5
+func shoot(delta, weapon):
+	match weapon.leftRight:
+		"left":
+			shootingL = true
+			shotTimerL =5
+			localAnimatorOverlayL.seek(0)
+		"right":
+			shootingR = true
+			shotTimerR = 5
+			localAnimatorOverlayR.seek(0)
 	#await get_tree().process_frame
-	localAnimatorOverlay.seek(0)
 	var t = 0
 	localAudio.play("res://Assets/SFX/Combat/Guns 8.wav",-25,1,.035)
-	ParticleManager.emitParticle(muzzleFlash,false)
-	ParticleManager.emitParticle(muzzleFlash,true)
+	match weapon.leftRight:
+		"left":
+			ParticleManager.emitParticle(muzzle1L,false)
+			ParticleManager.emitParticle(muzzle1L,true)
+		"right":
+			ParticleManager.emitParticle(muzzle1R,false)
+			ParticleManager.emitParticle(muzzle1R,true)
 	while(t<.6):
 		#rotateToNormal()
 		t+=delta*2.4
 		await get_tree().physics_frame
 		#camera.fov = lerp(camera.fov,130.0,.003)
-	shooting = false
+	match weapon.leftRight:
+		"left":
+			shootingL = false
+		"right":
+			shootingR = false
 #ability that propels the mech forward while holding shift, can ride vertically up ramps#######################
 func thrust(delta):
 	usingAbility = "thrust"
@@ -407,7 +453,8 @@ func dash(delta,dashDir,dir):
 			footAlternation = 1
 	var alternation = footAlternation
 	interruptable = false
-	shotTimer = -1
+	shotTimerL = -1
+	shotTimerR = -1
 	localAnimator.seek(0)
 	usingAbility = "dash"+dir
 	var t = 0
@@ -458,57 +505,78 @@ func rotateFlatten():
 func animate():
 	if usingAbility == "thrust":
 		if flattening:
-			localAnimator.play("Local/fall",.5)
+			localAnimator.play("fall",.5)
 			localAnimator.speed_scale = 0.75
 		else:
-			localAnimator.play("Local/thrust",.25)
+			localAnimator.play("thrust",.25)
 			localAnimator.speed_scale = 1.15
 	elif usingAbility == "dashForward":
-		localAnimator.play("Local/dashForward"+str(footAlternation),.25)
+		localAnimator.play("dashForward"+str(footAlternation),.25)
 		localAnimator.speed_scale = 1.2
 	elif usingAbility == "dashBackward":
-		localAnimator.play("Local/dashBackward"+str(footAlternation),.25)
+		localAnimator.play("dashBackward"+str(footAlternation),.25)
 		localAnimator.speed_scale = 1.2
 	elif usingAbility == "dashLeft":
-		localAnimator.play("Local/dashLeft",.25)
+		localAnimator.play("dashLeft",.25)
 		localAnimator.speed_scale = 1.4
 	elif usingAbility == "dashRight":
-		localAnimator.play("Local/dashRight",.25)
+		localAnimator.play("dashRight",.25)
 		localAnimator.speed_scale = 1.4
 	elif floorCheckRay.is_colliding():
 		if velocity.length()<1:
-			localAnimator.play("Local/idle",.5)
+			localAnimator.play("idle",.5)
 			localAnimator.speed_scale = 0.5
 		elif velocity.dot(Vector3(basis.z.x,0,basis.z.z).normalized()) > 0:
 			if !running:
-				localAnimator.play("Local/walk",.35)
+				localAnimator.play("walk",.35)
 				localAnimator.speed_scale = 0.75
 			else:
-				localAnimator.play("Local/run",.35)
+				localAnimator.play("run",.35)
 				localAnimator.speed_scale = 1 
-		elif localAnimator.current_animation!="Local/walkBack":
-			localAnimator.play("Local/walkBack",.35)
+		elif localAnimator.current_animation!="walkBack":
+			localAnimator.play("walkBack",.35)
 			localAnimator.speed_scale = 0.75
 	else:
 		if velocity.y>0:
-			localAnimator.play("Local/jump",.25)
+			localAnimator.play("jump",.25)
 			localAnimator.speed_scale = 0.45
-		elif localAnimator.current_animation!="Local/fall":
-			localAnimator.play("Local/fall",.5)
+		elif localAnimator.current_animation!="fall":
+			localAnimator.play("fall",.5)
 			localAnimator.speed_scale = 0.75
-	if swinging:
-		localAnimatorOverlay.play("Local/meleeAttack1",.015)
-		localAnimatorOverlay.speed_scale = 1.6
-	elif shooting:
-		localAnimatorOverlay.play("Local/rangedAttack1",.015)
-		localAnimatorOverlay.speed_scale = .6
-	elif shotTimer>0: 
-		localAnimatorOverlay.play("Local/rangedAttack1",.35)
-		localAnimatorOverlay.seek(0)
-	elif shotTimer>-0.5:
-		localAnimatorOverlay.play(localAnimator.current_animation,.35)
+	###
+	if swingingL:
+		localAnimatorOverlayL.play("meleeAttack1_L",.015)
+		localAnimatorOverlayL.speed_scale = 1.6
+	elif shootingL:
+		localAnimatorOverlayL.play("rangedAttack1_L",.015)
+		localAnimatorOverlayL.speed_scale = .6
+	elif shotTimerL>0: 
+		localAnimatorOverlayL.play("rangedAttack1_L",.35)
+		localAnimatorOverlayL.seek(0)
+	elif shotTimerL>-0.5:
+		#localAnimatorOverlayL.play(localAnimator.current_animation,.35)
+		localAnimatorOverlayR.stop()
 	else:
-		localAnimatorOverlay.stop()
+		localAnimatorOverlayL.stop()
+	###
+	if swingingR:
+		localAnimatorOverlayR.play("meleeAttack1_R",.015)
+		localAnimatorOverlayR.speed_scale = 1.6
+	elif shootingR:
+		localAnimatorOverlayR.play("rangedAttack1_R",.015)
+		localAnimatorOverlayR.speed_scale = .6
+	elif shotTimerR>0: 
+		if shotTimerL>0:
+			localAnimatorOverlayR.play("rangedAttack1Done_R",.35)
+		else:
+			localAnimatorOverlayR.play("rangedAttack1_R",.35)
+		localAnimatorOverlayR.seek(0)
+	elif shotTimerR>-0.5:
+		#localAnimatorOverlayR.play(localAnimator.current_animation,.35)
+		localAnimatorOverlayR.stop()
+	else:
+		localAnimatorOverlayR.stop()
+	###
 	var torso = skeleton.find_bone("Bone")
 	var pose = skeleton.get_bone_global_pose_no_override(torso)
 	pose = pose.rotated_local(Vector3.RIGHT, -cameraTarget.rotation.x*1.5)

@@ -12,6 +12,7 @@ extends Control
 @export var options: TextureRect
 #other
 @export var previewMech: Node3D
+@export var previewMechSkeleton: Node3D
 @export var mainMenuDescription: RichTextLabel
 @export var stageSelectDescription: RichTextLabel
 @export var press: TextureRect #press play titlescreen image
@@ -24,6 +25,7 @@ func _ready():
 	GameManager.gamemode = -1 #menuScreens
 	GameManager.mainMenu = self
 	GameManager.waiting = false
+	GameManager.updatePartGraphics(previewMechSkeleton)
 	title()
  
 func _physics_process(delta):
