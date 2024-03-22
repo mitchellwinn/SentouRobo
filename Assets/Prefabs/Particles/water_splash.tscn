@@ -1,10 +1,10 @@
-[gd_scene load_steps=16 format=3 uid="uid://cnc3ukvxjeyij"]
+[gd_scene load_steps=17 format=3 uid="uid://cnc3ukvxjeyij"]
 
 [ext_resource type="Texture2D" uid="uid://b0uv7q17b0myw" path="res://Assets/ExtraImageTextures/splash1.png" id="1_icwga"]
 [ext_resource type="Texture2D" uid="uid://siow1nxgxuvb" path="res://Assets/ExtraImageTextures/splash2.png" id="2_3sofh"]
 
 [sub_resource type="Gradient" id="Gradient_e7rvx"]
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_svtd5"]
 gradient = SubResource("Gradient_e7rvx")
@@ -17,12 +17,12 @@ point_count = 2
 [sub_resource type="CurveTexture" id="CurveTexture_if4q6"]
 curve = SubResource("Curve_nemb7")
 
-[sub_resource type="Curve" id="Curve_ogemt"]
-_data = [Vector2(0, 0), 0.0, 6.32074, 0, 0, Vector2(0.134796, 0.589474), 0.0, 0.0, 0, 0, Vector2(0.99999, 0), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+[sub_resource type="Curve" id="Curve_bldnh"]
+_data = [Vector2(0, 0), 0.0, 6.32074, 0, 0, Vector2(0.342105, 0.68421), -1.84615, -1.84615, 0, 0, Vector2(0.99999, 0), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 4
 
 [sub_resource type="CurveTexture" id="CurveTexture_8fqf1"]
-curve = SubResource("Curve_ogemt")
+curve = SubResource("Curve_bldnh")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_q5ok4"]
 lifetime_randomness = 0.3
@@ -50,14 +50,20 @@ sub_emitter_frequency = 1.0
 sub_emitter_keep_velocity = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pvjh2"]
+transparency = 1
 blend_mode = 1
 cull_mode = 2
-diffuse_mode = 2
-specular_mode = 2
-albedo_color = Color(0.384314, 0.627451, 0.65098, 1)
+shading_mode = 2
+diffuse_mode = 3
+specular_mode = 1
+vertex_color_is_srgb = true
+albedo_color = Color(0.509804, 0.717647, 0.996078, 0.25098)
 albedo_texture = ExtResource("1_icwga")
+albedo_texture_force_srgb = true
+albedo_texture_msdf = true
 emission_enabled = true
 emission = Color(0, 0, 0.803922, 1)
+emission_energy_multiplier = 4.5
 emission_operator = 1
 billboard_mode = 3
 billboard_keep_scale = true
@@ -67,6 +73,10 @@ particles_anim_loop = false
 
 [sub_resource type="QuadMesh" id="QuadMesh_3j1a5"]
 material = SubResource("StandardMaterial3D_pvjh2")
+
+[sub_resource type="Curve" id="Curve_ogemt"]
+_data = [Vector2(0, 0), 0.0, 6.32074, 0, 0, Vector2(0.342105, 0.68421), -1.84615, -1.84615, 0, 0, Vector2(0.539474, 0.515789), 2.08, 2.08, 0, 0, Vector2(0.809211, 0.242105), 2.8, 2.8, 0, 0, Vector2(0.99999, 0), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 6
 
 [sub_resource type="CurveTexture" id="CurveTexture_ibofu"]
 curve = SubResource("Curve_ogemt")
@@ -120,7 +130,7 @@ material = SubResource("StandardMaterial3D_ribpi")
 [node name="WaterSplash" type="GPUParticles3D"]
 transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
 emitting = false
-amount = 60
+amount = 20
 sub_emitter = NodePath("WaterSplash")
 lifetime = 0.8
 one_shot = true

@@ -1,0 +1,164 @@
+[gd_scene load_steps=5 format=3 uid="uid://tidbybl5vdin"]
+
+[ext_resource type="PackedScene" uid="uid://bmlqq80sue4nr" path="res://Assets/Robots/mech.glb" id="1_gti31"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wqiay"]
+resource_name = "Material.002"
+cull_mode = 2
+vertex_color_use_as_albedo = true
+metallic = 1.0
+roughness = 0.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_om6el"]
+resource_name = "Material.002"
+cull_mode = 2
+vertex_color_use_as_albedo = true
+metallic = 1.0
+roughness = 0.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_btkjb"]
+resource_name = "Material.001"
+cull_mode = 2
+vertex_color_use_as_albedo = true
+albedo_color = Color(0, 0, 0, 1)
+metallic = 1.0
+roughness = 0.5
+
+[node name="mech" instance=ExtResource("1_gti31")]
+
+[node name="Mech1_Head" parent="Armature/Skeleton3D" index="0"]
+transform = Transform3D(1.6792e-07, -7.61279e-08, 1.07409, -0.164414, 1.27033, 7.03583e-08, -1.27033, -0.164414, 1.43758e-07, 0.0535915, 8.80946, -0.182627)
+bone_idx = 3
+
+[node name="Mech2_Head" parent="Armature/Skeleton3D" index="1"]
+transform = Transform3D(2.2259e-08, 0.388315, 0.388315, 0.00595726, 0.388108, -0.388108, -0.182215, 0.0126887, -0.0126885, -0.0179988, 9.11087, 0.893875)
+bone_idx = 4
+
+[node name="Mech2_Head" parent="Armature/Skeleton3D/Mech2_Head" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_wqiay")
+surface_material_override/1 = SubResource("StandardMaterial3D_om6el")
+surface_material_override/3 = SubResource("StandardMaterial3D_btkjb")
+
+[node name="Drill_R" parent="Armature/Skeleton3D" index="2"]
+transform = Transform3D(1.66932, -1.63913e-07, 1.19209e-07, 1.04308e-07, 1.66932, -5.96046e-08, 2.98023e-08, 1.19209e-07, 1.66932, -1.90735e-06, -14.7833, -1.50684)
+bone_idx = 7
+
+[node name="Mech1_Arm_R" parent="Armature/Skeleton3D" index="3"]
+transform = Transform3D(1, 0, 1.49012e-08, -4.47035e-08, 1.31151, -1.78814e-07, 4.47035e-08, 2.98023e-07, 1, -9.53674e-07, -0.0141206, 0.741733)
+bone_idx = 8
+
+[node name="Mech2_Arm_R" parent="Armature/Skeleton3D" index="4"]
+transform = Transform3D(1, -1.11759e-07, 7.45058e-08, 4.47035e-08, 1, 5.96046e-08, 2.98023e-08, 2.98023e-08, 1, -4.29153e-05, -0.000203609, -1.40151e-05)
+bone_idx = 9
+
+[node name="NeedleCannon_R" parent="Armature/Skeleton3D" index="5"]
+transform = Transform3D(1, -1.3411e-07, 7.45058e-08, 4.47035e-08, 1.31151, 5.96046e-08, 2.98023e-08, 1.19209e-07, 1, -1.90735e-06, -14.7833, -1.50684)
+bone_idx = 10
+
+[node name="PlasmaCannon_L" parent="Armature/Skeleton3D" index="6"]
+transform = Transform3D(5.34051, -1.49012e-07, 4.47035e-08, 4.76837e-07, 1.28112, -2.98023e-08, 1.78814e-07, 1.19209e-07, 1.00399, -1.90735e-06, -14.7833, -1.50684)
+bone_idx = 11
+
+[node name="Mech1_Shoulder_R" parent="Armature/Skeleton3D" index="7"]
+transform = Transform3D(1, -1.63913e-07, 3.16529e-08, 8.9407e-08, 1.31151, -4.33146e-08, -3.1653e-08, 5.68076e-08, 1, -2.38419e-07, 0.0899172, 0.638069)
+bone_idx = 12
+
+[node name="Mech2_Shoulder_R" parent="Armature/Skeleton3D" index="8"]
+transform = Transform3D(1, -2.98023e-08, 5.02852e-08, -2.98023e-08, 1.31151, 8.52651e-14, -5.02854e-08, 2.84217e-14, 1, -2.38419e-07, 0.0636487, 0.297113)
+bone_idx = 13
+
+[node name="Drill_L" parent="Armature/Skeleton3D" index="9"]
+transform = Transform3D(1.66932, 2.08616e-07, 8.9407e-08, -2.98023e-07, 1.66932, 2.38419e-07, -1.49012e-07, -3.57628e-07, 1.66932, 0, -14.7833, -1.50683)
+bone_idx = 16
+
+[node name="Mech1_Arm_L" parent="Armature/Skeleton3D" index="10"]
+transform = Transform3D(1, 1.78814e-07, -4.47035e-08, -1.49012e-07, 1.31151, 5.96046e-08, -4.47035e-08, -1.78814e-07, 1, 1.90735e-06, -0.0141168, 0.741737)
+bone_idx = 17
+
+[node name="Mech2_Arm_L" parent="Armature/Skeleton3D" index="11"]
+transform = Transform3D(1, 1.19209e-07, -1.49012e-08, -1.63913e-07, 1, -8.9407e-08, -5.96046e-08, -8.9407e-08, 1, -3.86238e-05, -0.000201702, -9.75585e-06)
+bone_idx = 18
+
+[node name="NeedleCannon_L" parent="Armature/Skeleton3D" index="12"]
+transform = Transform3D(1, 2.08616e-07, 0, -1.93715e-07, 1.31151, -5.96046e-08, -4.47035e-08, 0, 1, 0, -14.7833, -1.50683)
+bone_idx = 19
+
+[node name="PlasmaCannon_R" parent="Armature/Skeleton3D" index="13"]
+transform = Transform3D(5.34051, 2.23517e-07, -1.49012e-08, -1.01328e-06, 1.28112, 5.96046e-08, 1.78814e-07, 0, 1.00399, 0, -14.7833, -1.50683)
+bone_idx = 20
+
+[node name="Mech1_Shoulder_L" parent="Armature/Skeleton3D" index="14"]
+transform = Transform3D(1, 1.49014e-08, -2.28297e-08, 1.49013e-08, 1.31151, 1.31768e-08, 2.28298e-08, -1.72815e-08, 1, 0, 0.0899172, 0.63807)
+bone_idx = 21
+
+[node name="Mech2_Shoulder_L" parent="Armature/Skeleton3D" index="15"]
+transform = Transform3D(1, 1.06572e-07, -6.45137e-08, -1.3411e-07, 0.691177, -0.555722, -9.05669e-09, 0.942067, 0.407723, 0.0365117, 8.78212, -1.75162)
+bone_idx = 22
+
+[node name="Mech1_BackFire" parent="Armature/Skeleton3D" index="16"]
+transform = Transform3D(0.293135, 4.16571e-15, 0, -4.16571e-15, 0.293135, 1.77636e-15, -7.10543e-15, -1.77636e-15, 0.293135, -4.0642e-05, 5.89286, -1.26249e-05)
+bone_idx = 23
+
+[node name="Mech1_UpperTorso" parent="Armature/Skeleton3D" index="17"]
+transform = Transform3D(1, 1.42109e-13, -2.84217e-14, -8.88178e-15, 9.47938, 0.200822, 0, -1.75116, 1.08709, 8.55222e-14, 3.81311, 0.0361768)
+bone_idx = 24
+
+[node name="Mech2_UpperTorso" parent="Armature/Skeleton3D" index="18"]
+transform = Transform3D(1, 1.42109e-14, 0, -1.42109e-14, 1, 7.10543e-15, -2.84217e-14, -7.10543e-15, 1, -4.0642e-05, 5.81314, -1.26202e-05)
+bone_idx = 25
+
+[node name="Mech1_Torso" parent="Armature/Skeleton3D" index="19"]
+transform = Transform3D(1, 1.13687e-13, -5.68434e-14, -8.88178e-15, 9.47938, 0.200822, 1.42109e-14, -1.75116, 1.08709, 8.34888e-14, 3.81311, 0.0361765)
+bone_idx = 26
+
+[node name="Mech2_Torso" parent="Armature/Skeleton3D" index="20"]
+transform = Transform3D(1, 1.42109e-14, -1.42109e-14, -1.42109e-14, 1, 7.10543e-15, -1.42109e-14, -7.10543e-15, 1, 1.13687e-13, -14.7833, -1.50683)
+bone_idx = 27
+
+[node name="Mech1_Foot_R" parent="Armature/Skeleton3D" index="21"]
+transform = Transform3D(1, -1.2666e-07, 5.86733e-08, -7.63685e-08, 3.15215, -0.174375, -5.27361e-08, 0.552136, 0.995504, -2.6152, -14.6938, -3.83507)
+bone_idx = 31
+
+[node name="Mech2_Foot_R" parent="Armature/Skeleton3D" index="22"]
+transform = Transform3D(1, -4.84288e-08, 6.31262e-08, -8.3819e-08, 1, -2.14204e-08, -6.5731e-08, -1.13621e-07, 1, -3.95775e-05, -13.8038, 3.37937)
+bone_idx = 32
+
+[node name="Mech1_Legs_R" parent="Armature/Skeleton3D" index="23"]
+transform = Transform3D(0.999927, -0.031754, -0.00697702, 0.00722916, 3.03568, -0.319738, 0.00968785, 1.01218, 0.958725, -0.0954695, 1.55426, 1.34828)
+bone_idx = 33
+
+[node name="Mech2_Legs_R" parent="Armature/Skeleton3D" index="24"]
+transform = Transform3D(1, -2.44007e-07, 2.23517e-08, -5.40167e-08, 3.15215, -0.174374, -1.11759e-08, 0.552136, 0.995504, 0.0683045, 1.4794, 0.280637)
+bone_idx = 34
+
+[node name="Mech1_Thigh_R" parent="Armature/Skeleton3D" index="25"]
+transform = Transform3D(1, -1.87499e-07, 1.70461e-08, -5.96048e-08, 3.15215, -0.174375, -5.03906e-09, 0.552136, 0.995504, 0.0232544, 1.63736, 1.19209e-07)
+bone_idx = 35
+
+[node name="Mech2_Thigh_R" parent="Armature/Skeleton3D" index="26"]
+transform = Transform3D(-1, -1.76916e-07, 1.79684e-08, 5.96048e-08, 3.19004, -0.0802252, 1.24901e-08, 0.254024, 1.00747, 0.0232546, 1.10086, 0.483985)
+bone_idx = 36
+
+[node name="Mech1_Foot_L" parent="Armature/Skeleton3D" index="27"]
+transform = Transform3D(1, 1.49012e-07, -1.08965e-07, 1.19209e-07, 3.15215, -0.174374, 8.98763e-08, 0.552136, 0.995504, -2.6152, -14.6938, -3.83507)
+bone_idx = 40
+
+[node name="Mech2_Foot_L" parent="Armature/Skeleton3D" index="28"]
+transform = Transform3D(1, 5.21541e-08, -1.15358e-07, 1.04308e-07, 1, 1.10813e-07, 1.1223e-07, -1.19428e-07, 1, -4.00543e-05, -13.8038, 3.37937)
+bone_idx = 41
+
+[node name="Mech1_Legs_L" parent="Armature/Skeleton3D" index="29"]
+transform = Transform3D(0.999927, 0.0317539, 0.00697748, -0.00722895, 3.03568, -0.319738, -0.00968828, 1.01218, 0.958725, 0.162225, 1.55035, 1.48351)
+bone_idx = 42
+
+[node name="Mech2_Legs_L" parent="Armature/Skeleton3D" index="30"]
+transform = Transform3D(1, 2.5332e-07, -3.72529e-08, 7.31088e-08, 3.15215, -0.174375, 1.67638e-08, 0.552137, 0.995504, 0.0683038, 1.4794, 0.280639)
+bone_idx = 43
+
+[node name="Mech1_Thigh_L" parent="Armature/Skeleton3D" index="31"]
+transform = Transform3D(1, 1.83389e-07, -2.57756e-08, 8.94073e-08, 3.15215, -0.174374, 1.14798e-08, 0.552136, 0.995504, 0.0232558, 1.63736, 2.68221e-07)
+bone_idx = 44
+
+[node name="Mech2_Thigh_L" parent="Armature/Skeleton3D" index="32"]
+transform = Transform3D(-1, 3.51349e-07, -1.86773e-08, -7.45062e-08, 3.19004, -0.0802252, -1.24112e-08, 0.254024, 1.00747, 0.0232557, 1.10086, 0.483985)
+bone_idx = 45

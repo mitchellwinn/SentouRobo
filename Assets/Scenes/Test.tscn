@@ -4,13 +4,13 @@
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_a782d"]
 
-[sub_resource type="Sky" id="Sky_fs5ae"]
+[sub_resource type="Sky" id="Sky_plimb"]
 sky_material = SubResource("ProceduralSkyMaterial_a782d")
 
 [sub_resource type="Environment" id="Environment_6scuj"]
 background_mode = 2
 background_energy_multiplier = 10.13
-sky = SubResource("Sky_fs5ae")
+sky = SubResource("Sky_plimb")
 sky_rotation = Vector3(0, -0.242601, 0)
 ambient_light_source = 3
 ambient_light_color = Color(0, 0.729412, 0.368627, 1)
@@ -110,6 +110,9 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 
 
 [node name="Main" type="Node3D" parent="SpawnPoints"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.7974, 5, 138.086)
+
+[node name="Main2" type="Node3D" parent="SpawnPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.7974, 5, -121.778)
 
 [node name="CSGMesh3D" type="CSGMesh3D" parent="."]
 use_collision = true

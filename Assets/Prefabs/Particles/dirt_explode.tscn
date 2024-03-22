@@ -1,0 +1,100 @@
+[gd_scene load_steps=14 format=3 uid="uid://cr5gu5u2pcpxa"]
+
+[ext_resource type="Texture2D" uid="uid://bdnk2ud61563j" path="res://Assets/textures/dustcloud.png" id="1_c22ub"]
+[ext_resource type="AudioStream" uid="uid://cjv0ctd3hg7dm" path="res://Assets/SFX/Combat/BulletWhir.wav" id="2_upttt"]
+[ext_resource type="Script" path="res://Assets/Scripts/PitchModulator.gd" id="3_6oj8e"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bni6x"]
+transparency = 3
+alpha_hash_scale = 2.0
+alpha_antialiasing_mode = 0
+blend_mode = 1
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("1_c22ub")
+
+[sub_resource type="Gradient" id="Gradient_yn75c"]
+interpolation_color_space = 1
+colors = PackedColorArray(1, 1, 1, 1, 0.29166, 0.128716, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_y0ffx"]
+gradient = SubResource("Gradient_yn75c")
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_l74kq"]
+gradient = SubResource("Gradient_yn75c")
+
+[sub_resource type="Curve" id="Curve_d6p5b"]
+max_value = 100.0
+_data = [Vector2(0, 2.10526), 0.0, 18.1508, 0, 0, Vector2(1, 22.1053), 58.1174, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_b7le4"]
+curve = SubResource("Curve_d6p5b")
+
+[sub_resource type="Curve" id="Curve_qofsj"]
+_data = [Vector2(0, 0), 0.0, 3.6, 0, 0, Vector2(0.283626, 0), 0.0, 0.0, 0, 0, Vector2(0.99999, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_n1pn7"]
+curve = SubResource("Curve_qofsj")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ptnx4"]
+lifetime_randomness = 1.0
+direction = Vector3(2, 2, 2)
+spread = 180.0
+flatness = 1.0
+gravity = Vector3(0, 20, 0)
+initial_velocity_min = 3.0
+initial_velocity_max = 5.0
+angular_velocity_min = -20.0
+angular_velocity_max = 20.0
+linear_accel_min = -1.0
+linear_accel_max = 1.0
+radial_accel_min = 2.15
+radial_accel_max = 4.6
+damping_min = 2.296
+damping_max = 2.431
+damping_curve = SubResource("CurveTexture_b7le4")
+angle_min = -180.0
+angle_max = 180.0
+scale_min = 15.0
+scale_max = 20.0
+scale_curve = SubResource("CurveTexture_n1pn7")
+color_ramp = SubResource("GradientTexture1D_l74kq")
+color_initial_ramp = SubResource("GradientTexture1D_y0ffx")
+hue_variation_min = -0.17
+hue_variation_max = 0.46
+turbulence_noise_strength = 0.15
+turbulence_noise_scale = 0.83
+turbulence_noise_speed = Vector3(0.97, 0, 1)
+turbulence_noise_speed_random = 0.35
+sub_emitter_mode = 1
+sub_emitter_frequency = 1.0
+sub_emitter_keep_velocity = true
+
+[sub_resource type="TorusMesh" id="TorusMesh_5xo0e"]
+inner_radius = 1.505
+outer_radius = 1.83
+rings = 6
+ring_segments = 6
+
+[node name="DirtExplode" type="GPUParticles3D"]
+material_override = SubResource("StandardMaterial3D_bni6x")
+emitting = false
+amount = 10
+one_shot = true
+speed_scale = 0.1
+explosiveness = 1.0
+randomness = 1.0
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_ptnx4")
+draw_pass_1 = SubResource("TorusMesh_5xo0e")
+
+[node name="SFXconstant1" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_upttt")
+volume_db = -5.016
+pitch_scale = 1.15
+autoplay = true
+max_distance = 60.0
+doppler_tracking = 2
+script = ExtResource("3_6oj8e")

@@ -23,6 +23,7 @@ func _ready():
 	sfxVolumeSlider.value = AudioManager.sfxMixdB
 	musicVolumeSlider.value = AudioManager.musicMixdB
 	activeTab = general
+	multiplayer.server_disconnected.connect(_on_back_button_pressed)
 	displayActiveTab()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -72,6 +73,7 @@ func displayActiveTab():
 			audioTab.position.x = 2160 
 		video:
 			videoTab.position.x = 2160 
+			
 #----------------------------------------------
 #-------DETERMINE ACTIVE TAB-------------------
 #----------------------------------------------
@@ -95,19 +97,31 @@ func _on_back_button_pressed():
 	
 func _on_exit_button_pressed():
 	#close options menu
+	#GameManager.myRobot.UIAnimator.play("fadeToBlack")
+	GameManager.mainMenu.animTitle.play("fadeToBlack")
+	GameManager.buttonFeedback(GameManager.buttonSelection.get_parent(),"res://Assets/SFX/MenuSelect1.wav")
+	await get_tree().create_timer(1).timeout
+	if multiplayer.multiplayer_peer != null:
+			print("disconnect attempt")
+			#GameManager.myRobot.queue_free()
+			GameManager.menu.network.remove_multiplayer_peer()
+			GameManager.menu.network.clearConnectionList()
 	GameManager.optionsMenu = false
 	GameManager.saveData()
-	GameManager.buttonFeedback(GameManager.buttonSelection.get_parent(),"res://Assets/SFX/MenuSelect1.wav")
-	await get_tree().create_timer(.5).timeout
+	
 	#go to title
-	if get_tree().get_current_scene().get_name() != "Menu":
+	if GameManager.gamemode >= 0:
+		GameManager.menu.network.level.currentStage = null
+		for player in GameManager.players.get_children():
+			player.queue_free()
 		GameManager.waiting = true
 		GameManager.gamemode = -1
-		GameManager.myRobot.UIAnimator.play("fadeToBlack")
-		GameManager.loadScene("Menu")
-		await get_tree().create_timer(1).timeout
+		GameManager.clear_level()
+		GameManager.menu.network.showUI()
+		GameManager.menu.title()
 	else:
 		GameManager.waiting = true
+		GameManager.menu.animOnline.play("onlineROOM_OUT")
 		GameManager.mainMenu.animTitle.play("fadeToBlack")
 		await get_tree().create_timer(1).timeout
 		GameManager.waiting = false

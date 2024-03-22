@@ -1,7 +1,9 @@
 extends Node
 ###SUPER VARIABLES##########################
+var menu
 var rng = RandomNumberGenerator.new()
 var gamemode = 0
+var globalDelta
 var myRobotData: Dictionary #information about what parts your robot is comprised of
 var optionsMenu: bool
 var waiting = false
@@ -9,11 +11,17 @@ var buttonSelection #anytime you are hovering over a button, it is saved here
 ###IN-GAME VARIABLES########################
 var spawnPoints: Array #all possible spawn points for the player mech
 var myRobot #in-game mech node that is owned by this client
+var activePlayerName = ""
 var playerCamera #in-game camera node that follows the mech
+var players
+var entities
+var props
+var gameTimer: float
 ###OUT-OF-GAME VARIABLES#####################
 var mainMenu #allows other scripts to reference the main menu if applicable
 var gameSaveData: Dictionary #utilized when writing information about the game to the hard drive
 ###CONSTANTS#################################
+const MECH_PREFAB_PATH: String = "res://Assets/Prefabs/InGameMech.tscn"
 const SAVE_PATH: String = "user://saveData.bin"
 const MECH_SAVE_PATH: String = "user://mechSaveData.bin"
 const Part = preload("res://Assets/Scripts/Part.gd")
@@ -28,6 +36,11 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	globalDelta = delta
+	if myRobot != null:
+		gameTimer+=delta
+	else:
+		gameTimer = 0
 	if Input.is_action_just_pressed("fullscreen"):
 		if DisplayServer.window_get_mode(0) == DisplayServer.WINDOW_MODE_FULLSCREEN:
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED, 0)
@@ -96,39 +109,22 @@ func initializeRobotParts():
 		"LeftShoulder":Part.new("Mech1","armor", 2),
 		"RightArm":Part.new("Mech2","armor", 2),
 		"LeftArm":Part.new("Mech2","armor", 2),
-		"LeftArmWeapon":Weapon.new("left","NeedleCannon","gun",3),
-		"RightArmWeapon":Weapon.new("right","NeedleCannon","gun",2)
+		"LeftArmWeapon":Weapon.new("left","NeedleCannon","gun",3,true,30,20,0),
+		"RightArmWeapon":Weapon.new("right","Drill","melee",2,true,20,50,200),
+		"Color1":Color(.9,.51,.04,1.00),
+		"Color2":Color(1,1,1,1.00)
 	}
 
 func hasControl():
 	if waiting:
 		return false
 	return true
-
-func change_scene(scene):
-	var sceneFrom = get_tree().get_current_scene().get_name()
-	if sceneFrom == "Menu":
-		RenderingServer.set_default_clear_color(Color(0,0,0,1)) #makes background black
-	get_tree().change_scene_to_file(scene)
-	await get_tree().process_frame
-	#while get_tree().get_current_scene().get_name() == sceneFrom:
-		#await get_tree().process_frame
-	match gamemode:
-		-1:#menu; spawn nothing
-			myRobot.queue_free()
-			playerCamera.queue_free()
-		0:#training mode; spawn player, make BG black
-			print("spawn bullshit. Current game mode is: "+str(gamemode))
-			RenderingServer.set_default_clear_color(Color(0,0,0,1)) #makes background black
-			spawn_playerMech()
-	GameManager.waiting = false
-
-func spawn_playerMech():
-	#print(get_tree().get_current_scene().get_name())
-	spawnPoints = get_node("/root/"+get_tree().get_current_scene().get_name()+"/SpawnPoints").get_children()
-	var point = spawnPoints[rng.randi_range(0,spawnPoints.size()-1)]
-	myRobot = spawn("Player","res://Assets/Prefabs/InGameMech.tscn",point.global_position,point.global_rotation,Vector3(1,1,1))
 	
+func clear_level():
+	for c in menu.network.level.get_children():
+		menu.network.level.remove_child(c)
+		c.queue_free()
+
 func spawn(name_,path,globalPos,globalRot,scale):
 	var scene = load(path)
 	var entity = scene.instantiate()
@@ -150,15 +146,15 @@ func spawnChild(parent,name_,path,pos,rot,scale):
 	return entity
 	
 func respawn():
-	spawnPoints = get_node("/root/"+get_tree().get_current_scene().get_name()+"/SpawnPoints").get_children()
 	var point = spawnPoints[rng.randi_range(0,spawnPoints.size()-1)]
-	myRobot.global_position = point.global_position+Vector3.UP*2
+	myRobot.global_position = point.global_position
+	myRobot.global_rotation = point.global_rotation
 	
 func buttonFeedback(button, path):
-	AudioManager.playSound(path,-10,1,0)
+	AudioManager.playSound(path,-10,1,.05)
 	var t = 0.0
 	while(t<1.5):
-		t+=1.0/60
+		t+=3.0*globalDelta
 		if ((Time.get_ticks_msec()*16)%1000)>500:
 			if button != null:
 				button.modulate = Color(1,1,1,1)
@@ -177,6 +173,12 @@ func saveData() -> void:
 	#--And then writes it to a JSON file------------------------------------------------------------
 	var file = FileAccess.open(SAVE_PATH, FileAccess.WRITE)
 	var jstr = JSON.stringify(gameSaveData)
+	file.store_line(jstr)
+#save data to disk
+func saveMechData() -> void:
+	#--And then writes it to a JSON file------------------------------------------------------------
+	var file = FileAccess.open(MECH_SAVE_PATH, FileAccess.WRITE)
+	var jstr = JSON.stringify(myRobotData)
 	file.store_line(jstr)
 #load data from disk
 func loadData() -> void:
@@ -218,7 +220,30 @@ func getValueFromDict( dict, key):
 		return dict[key]
 	else:
 		return null
-	
+
+func hideUI():
+	GameManager.menu.menuBG1.visible = false
+	GameManager.menu.menuBG2.visible = false
+	GameManager.menu.menuBG3.visible = false
+	GameManager.menu.menuBG4.visible = false
+	GameManager.menu.get_node("DirectionalLight3D").visible = false
+	GameManager.menu.get_node("Title").visible = false
+	GameManager.menu.get_node("Online").visible = false
+	GameManager.menu.get_node("MainMenu").visible = false
+	GameManager.menu.get_node("StageSelect").visible = false
+	GameManager.menu.get_node("Earth").visible = false
+	GameManager.menu.get_node("PreviewMech").visible = false
+	GameManager.menu.get_node("SubViewport/Camera3D").current = false
+	GameManager.menu.get_node("SubViewport2/Camera3D").current = false
+	GameManager.menu.get_node("SubViewport3/Camera3D").current = false
+
 func loadScene(scene):
-	await get_tree().create_timer(1).timeout
-	GameManager.change_scene("res://Assets/Scenes/"+scene+".tscn")
+	var level = menu.network.level
+	for c in level.get_children():
+		level.remove_child(c)
+		c.queue_free()
+	var stageToLoad = load("res://Assets/Scenes/"+scene+".tscn")
+	var stage = stageToLoad.instantiate()
+	hideUI()
+	level.add_child(stage)
+	level.currentStage = stage

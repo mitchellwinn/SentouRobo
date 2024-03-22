@@ -1,0 +1,95 @@
+[gd_scene load_steps=14 format=3 uid="uid://trhfs564bcum"]
+
+[sub_resource type="Gradient" id="Gradient_yn75c"]
+interpolation_color_space = 1
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_y0ffx"]
+gradient = SubResource("Gradient_yn75c")
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_l74kq"]
+gradient = SubResource("Gradient_yn75c")
+
+[sub_resource type="Curve" id="Curve_d6p5b"]
+max_value = 100.0
+_data = [Vector2(0, 2.10526), 0.0, 18.1508, 0, 0, Vector2(1, 22.1053), 58.1174, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_b7le4"]
+curve = SubResource("Curve_d6p5b")
+
+[sub_resource type="Curve" id="Curve_qofsj"]
+_data = [Vector2(0, 0), 0.0, 6.32074, 0, 0, Vector2(0.453216, 0), 0.0, 0.0, 0, 0, Vector2(0.99999, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_n1pn7"]
+curve = SubResource("Curve_qofsj")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7up8i"]
+lifetime_randomness = 0.4
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+direction = Vector3(0, 3, 0)
+spread = 180.0
+flatness = 1.0
+gravity = Vector3(0, 3, 0)
+initial_velocity_min = 3.0
+initial_velocity_max = 5.0
+angular_velocity_min = -20.0
+angular_velocity_max = 20.0
+linear_accel_min = -1.0
+linear_accel_max = 1.0
+radial_accel_min = 2.15
+radial_accel_max = 4.6
+damping_min = 1.436
+damping_max = 2.431
+damping_curve = SubResource("CurveTexture_b7le4")
+angle_min = -180.0
+angle_max = 180.0
+scale_min = 0.1
+scale_max = 0.2
+scale_curve = SubResource("CurveTexture_n1pn7")
+color_ramp = SubResource("GradientTexture1D_l74kq")
+color_initial_ramp = SubResource("GradientTexture1D_y0ffx")
+hue_variation_min = -0.12
+hue_variation_max = 0.07
+turbulence_noise_strength = 0.15
+turbulence_noise_scale = 0.83
+turbulence_noise_speed = Vector3(1, 0, 1)
+turbulence_noise_speed_random = 0.35
+sub_emitter_mode = 1
+sub_emitter_frequency = 1.0
+sub_emitter_keep_velocity = true
+
+[sub_resource type="Gradient" id="Gradient_v4jke"]
+offsets = PackedFloat32Array(0, 0.247525, 1)
+colors = PackedColorArray(1, 0.407235, 0, 1, 1, 0.568627, 0, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_7ycdd"]
+gradient = SubResource("Gradient_v4jke")
+fill_from = Vector2(1, 0)
+fill_to = Vector2(0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_r7hvw"]
+gradient = SubResource("Gradient_v4jke")
+fill_from = Vector2(0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xcq5j"]
+albedo_texture = SubResource("GradientTexture2D_7ycdd")
+emission_enabled = true
+emission_texture = SubResource("GradientTexture2D_r7hvw")
+
+[sub_resource type="PrismMesh" id="PrismMesh_rqsfo"]
+material = SubResource("StandardMaterial3D_xcq5j")
+
+[node name="SparkExplode" type="GPUParticles3D"]
+emitting = false
+amount = 150
+lifetime = 3.17
+one_shot = true
+speed_scale = 5.0
+explosiveness = 1.0
+randomness = 1.0
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_7up8i")
+draw_pass_1 = SubResource("PrismMesh_rqsfo")

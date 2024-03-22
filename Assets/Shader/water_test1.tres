@@ -36,7 +36,13 @@ offsets = PackedFloat32Array(0, 0.00333333, 0.0133333, 0.0266667, 0.0733333, 0.5
 colors = PackedColorArray(0, 0, 0, 1, 0.0420161, 0.0420161, 0.0420161, 1, 0.0424929, 0.0424929, 0.0424929, 1, 0.0384136, 0.0384136, 0.0384136, 1, 0.0420467, 0.0420467, 0.0420467, 1, 1, 1, 1, 1)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_xp7hr"]
-frequency = 0.048
+noise_type = 2
+seed = 355
+frequency = 0.0011
+fractal_type = 3
+fractal_gain = 1.295
+fractal_weighted_strength = 0.3
+fractal_ping_pong_strength = 5.975
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_0exo3"]
 in_3d_space = true
@@ -71,23 +77,23 @@ noise = SubResource("FastNoiseLite_b27mp")
 [resource]
 render_priority = 0
 shader = ExtResource("1_s71hm")
-shader_parameter/albedo1 = Color(0.568627, 0.439216, 0.541176, 1)
-shader_parameter/albedo2 = Color(0.521569, 0.498039, 0.956863, 1)
-shader_parameter/metallic = 0.531
-shader_parameter/roughness = 0.0
+shader_parameter/albedo1 = Color(0.109804, 0.168627, 0.203922, 1)
+shader_parameter/albedo2 = Color(0.231373, 0.313726, 0.282353, 1)
+shader_parameter/metallic = 0.05
+shader_parameter/roughness = 0.55
 shader_parameter/wave_direction = Vector2(20.84, 13.6)
 shader_parameter/wave_direction2 = Vector2(3.015, 10)
-shader_parameter/time_scale = 0.001
-shader_parameter/noise_scale = 15.175
-shader_parameter/height_scale = 0.601
-shader_parameter/color_deep = Color(0, 0.356863, 0.372549, 1)
-shader_parameter/color_shallow = Color(1, 1, 1, 1)
-shader_parameter/beers_law = 0.465
-shader_parameter/depth_offset = 7.072
-shader_parameter/edge_scale = 0.0
+shader_parameter/time_scale = 0.005
+shader_parameter/noise_scale = 25.0
+shader_parameter/height_scale = 1.0
+shader_parameter/color_deep = Color(0.439216, 0.541176, 0.6, 1)
+shader_parameter/color_shallow = Color(0, 0, 0, 1)
+shader_parameter/beers_law = 0.4
+shader_parameter/depth_offset = 0.0
+shader_parameter/edge_scale = 0.565
 shader_parameter/near = 1.0
 shader_parameter/far = 1500.0
-shader_parameter/edge_color = Color(1, 1, 1, 1)
+shader_parameter/edge_color = Color(0.909804, 0.662745, 0.662745, 1)
 shader_parameter/wave = SubResource("NoiseTexture2D_10x6y")
 shader_parameter/texture_normal1 = SubResource("NoiseTexture2D_jj7ol")
 shader_parameter/texture_normal2 = SubResource("NoiseTexture2D_0exo3")

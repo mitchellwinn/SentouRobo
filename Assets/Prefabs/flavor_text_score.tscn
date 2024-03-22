@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://v743ge2u5lxu"]
+
+[ext_resource type="Script" path="res://Assets/Scripts/FlavorTextScore.gd" id="2_cft2u"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_ofb62"]
+
+[node name="FlavorTextScore" type="Sprite2D"]
+position = Vector2(-997.019, -480.597)
+scale = Vector2(1.76716, 1.76716)
+texture = SubResource("ImageTexture_ofb62")
+script = ExtResource("2_cft2u")

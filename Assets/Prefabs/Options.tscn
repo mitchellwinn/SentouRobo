@@ -226,7 +226,9 @@ offset_top = 864.0
 offset_right = 2080.0
 offset_bottom = 1328.0
 mouse_filter = 2
-theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0.976471, 0.694118, 0.286275, 1)
+theme_override_constants/outline_size = 115
 theme_override_fonts/normal_font = ExtResource("10_s1xfn")
 theme_override_font_sizes/normal_font_size = 395
 bbcode_enabled = true
@@ -367,6 +369,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="."]
+self_modulate = Color(0, 0.54902, 0.313726, 1)
 z_index = 998
 z_as_relative = false
 texture_filter = 1

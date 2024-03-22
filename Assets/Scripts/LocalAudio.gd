@@ -7,6 +7,8 @@ extends Node3D
 @export var sfxConstant2: AudioStreamPlayer3D
 var rng = RandomNumberGenerator.new()
 
+
+@rpc("any_peer", "reliable", "call_local")
 func play(path, volume, pitch, pitchRandomize):
 	var sfx
 	sfx = preload("res://Assets/Prefabs/SFX3D.tscn")
@@ -20,6 +22,7 @@ func play(path, volume, pitch, pitchRandomize):
 	await get_tree().create_timer(2.0).timeout
 	sfxInstance.queue_free()
 
+@rpc("any_peer", "reliable", "call_local")
 func playConstant(path, volume, pitch, pitchRandomize, channel):
 	var sfx
 	match channel:
@@ -32,6 +35,7 @@ func playConstant(path, volume, pitch, pitchRandomize, channel):
 	sfx.pitch_scale = pitch + rng.randf_range(-pitchRandomize,pitchRandomize)
 	sfx.play()
 	
+@rpc("any_peer", "reliable", "call_local")
 func stopConstant(channel):
 	var sfx
 	match channel:
@@ -40,7 +44,8 @@ func stopConstant(channel):
 		2:
 			sfx = sfxConstant2
 	sfx.playing = false
-	
+
+@rpc("any_peer", "reliable", "call_local")	
 func stopAll():
 	sfxConstant1.playing=false
 	sfxConstant2.playing=false

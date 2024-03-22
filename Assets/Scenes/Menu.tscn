@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://d1mbdg45asaao"]
+[gd_scene load_steps=79 format=3 uid="uid://d1mbdg45asaao"]
 
 [ext_resource type="Texture2D" uid="uid://xu6lxnwc3c5y" path="res://Assets/TitleScreenAssets/topVisor-01.png" id="1_4tsii"]
 [ext_resource type="Script" path="res://Assets/Scripts/Menu/MainMenu.gd" id="1_8ctrw"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://15crnw4odl5f" path="res://Assets/Prefabs/SFX.tscn" id="5_gnb10"]
 [ext_resource type="Texture2D" uid="uid://jaibs623edf5" path="res://Assets/TitleScreenAssets/crosshair-01.png" id="6_fmqs1"]
 [ext_resource type="Texture2D" uid="uid://ds7oh75jyb105" path="res://Assets/TitleScreenAssets/pressContinue-01-01.png" id="6_m45dd"]
+[ext_resource type="Texture2D" uid="uid://bfgrckt6s5r68" path="res://Assets/ExtraImageTextures/nhq201708210205orig.jpg" id="7_w6yjf"]
 [ext_resource type="AudioStream" uid="uid://vjnkjr4s58xw" path="res://Assets/SFX/Lasers 2.wav" id="8_8wrbk"]
 [ext_resource type="AudioStream" uid="uid://b0pqjd6co5viw" path="res://Assets/SFX/Lasers 20.wav" id="9_rykqp"]
 [ext_resource type="Texture2D" uid="uid://br6x64mquqptq" path="res://Assets/MainMenuAssets/MyRobot_.png" id="11_4xmbv"]
@@ -15,15 +16,29 @@
 [ext_resource type="Texture2D" uid="uid://c04d8j7csvl4p" path="res://Assets/MainMenuAssets/Frame (2).png" id="12_cxx6n"]
 [ext_resource type="Script" path="res://Assets/Scripts/buttonProperties.gd" id="12_f5jcp"]
 [ext_resource type="Texture2D" uid="uid://cxnn7s7qjxeue" path="res://Assets/MainMenuAssets/Online_.png" id="12_giv2s"]
+[ext_resource type="Texture2D" uid="uid://bdl433g8eywad" path="res://Assets/ExtraImageTextures/eclipse.jpg" id="12_hugth"]
 [ext_resource type="Texture2D" uid="uid://bfme7pak6r6bn" path="res://Assets/MainMenuAssets/Training_.png" id="13_u6rtu"]
 [ext_resource type="Texture2D" uid="uid://tv4a8jnn4apm" path="res://Assets/MainMenuAssets/Trials_.png" id="14_57qq6"]
+[ext_resource type="FontFile" uid="uid://cj0v2dj4g3gyk" path="res://Assets/Fonts/DFHeiA_0.ttc" id="15_cv2qv"]
 [ext_resource type="Texture2D" uid="uid://8xml88p410bv" path="res://Assets/MainMenuAssets/Options_.png" id="15_xxs4p"]
+[ext_resource type="Texture2D" uid="uid://w2bpyun21lxq" path="res://Assets/MainMenuAssets/NewCel_.png" id="16_dogmo"]
+[ext_resource type="Texture2D" uid="uid://nuk3e3sfe5td" path="res://Assets/MainMenuAssets/EnterCeIIP.png" id="16_t4l0r"]
 [ext_resource type="Texture2D" uid="uid://wycb0edc3eve" path="res://Assets/MainMenuAssets/coolBart.png" id="17_k0uy4"]
 [ext_resource type="Texture2D" uid="uid://didkyk7rtjoc0" path="res://Assets/MainMenuAssets/Back3_.png" id="18_0q8eg"]
-[ext_resource type="PackedScene" uid="uid://bm0r1orqsnkcg" path="res://Assets/Prefabs/PreviewMech.tscn" id="21_3k3sq"]
+[ext_resource type="Texture2D" uid="uid://bls5j8lbksmaj" path="res://Assets/MainMenuAssets/JoinCel_.png" id="18_a3gl4"]
+[ext_resource type="Texture2D" uid="uid://dhsy6u3b5ujx4" path="res://Assets/MainMenuAssets/ChatBar_.png" id="18_cqj0j"]
+[ext_resource type="Script" path="res://Assets/Scripts/TextEditProperties.gd" id="18_r821g"]
+[ext_resource type="Texture2D" uid="uid://dkei6d1fkqch5" path="res://Assets/MainMenuAssets/Asset 25@4x.png" id="20_il8lr"]
+[ext_resource type="Texture2D" uid="uid://dodcwpqfp0afr" path="res://Assets/MainMenuAssets/Ready_.png" id="21_crj0k"]
 [ext_resource type="Texture2D" uid="uid://cr72bvo3c66im" path="res://Assets/StageUI/strip.png" id="21_lr63c"]
 [ext_resource type="Texture2D" uid="uid://cpr1ah1781a35" path="res://Assets/StageUI/Valley_.png" id="22_258nu"]
+[ext_resource type="Texture2D" uid="uid://bfofavb053ufi" path="res://Assets/MainMenuAssets/Start_.png" id="22_k4unc"]
+[ext_resource type="Texture2D" uid="uid://cpryinmwimwyk" path="res://Assets/MainMenuAssets/Arrow_.png" id="22_qu2pl"]
 [ext_resource type="Texture2D" uid="uid://cljgfqaatdcm5" path="res://Assets/StageUI/Test_.png" id="23_omylo"]
+[ext_resource type="PackedScene" uid="uid://bj5x1e0ipkjcu" path="res://Assets/Prefabs/Earth.tscn" id="26_3d5dg"]
+[ext_resource type="Script" path="res://Assets/Scripts/Network.gd" id="35_hlpyk"]
+[ext_resource type="Script" path="res://Assets/Scripts/Level.gd" id="36_mo5lr"]
+[ext_resource type="PackedScene" uid="uid://tidbybl5vdin" path="res://Assets/Prefabs/mech.tscn" id="39_6rsxr"]
 
 [sub_resource type="Animation" id="Animation_1wu8f"]
 resource_name = "fadeFromBlack"
@@ -124,10 +139,34 @@ tracks/5/path = NodePath("Title:visible")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(1),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
 "update": 1,
-"values": [false]
+"values": []
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("MainMenu/Offset/Earth:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Eclipse2:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.138696, 1),
+"update": 0,
+"values": [Vector2(1246, 290), Vector2(621, 290)]
 }
 
 [sub_resource type="Animation" id="Animation_hgnyy"]
@@ -180,6 +219,1056 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [true, false, true, false, true, false, true, false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("MainMenu/Offset/Earth:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_xmt0q"]
+resource_name = "onlineIN"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Online/Offset/Earth:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.101532, 1.10957),
+"update": 0,
+"values": [Vector2(-3570.83, 1616.67), Vector2(-3570.83, 587.5)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Online/Offset/Host:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.101532, 1),
+"update": 0,
+"values": [Vector2(-3450, 137.5), Vector2(300, 137.5)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Online/Offset/Join:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.101532, 1),
+"update": 0,
+"values": [Vector2(4079.17, 733.333), Vector2(300, 733.333)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Online/Offset/EnterIP:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(300, -900)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Online/Offset/back:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.101532, 1),
+"update": 0,
+"values": [Vector2(4095.84, 45.8334), Vector2(3608.34, 45.8334)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Online:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Online/Offset/EnterName:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.101, 0.101),
+"update": 0,
+"values": [Vector2(320.833, 2445.83), Vector2(320.833, 1562.5)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Online/Offset/PreviewMech:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(0.101532),
+"update": 0,
+"values": [Vector2(-162.5, -2341.67)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Online/Offset/Control/GameMode:position")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(0.101),
+"update": 0,
+"values": [Vector2(908.333, -562.5)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Online/Offset/Control/leftArrow1:position")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(0.101),
+"update": 0,
+"values": [Vector2(883.333, -290.75)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Online/Offset/Control/rightArrow1:position")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(0.101),
+"update": 0,
+"values": [Vector2(1570.83, -290.75)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("Online/Offset/Control/leftArrow2:position")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(0.101),
+"update": 0,
+"values": [Vector2(787.598, -249.084)]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("Online/Offset/Control/rightArrow2:position")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(0.101),
+"update": 0,
+"values": [Vector2(1687.5, -249.084)]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("Online/Offset/Control/Stage:position")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(0.101),
+"update": 0,
+"values": [Vector2(837.5, -545.833)]
+}
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("Online/Offset/Control/StageName:position")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(0.101),
+"update": 0,
+"values": [Vector2(87.5, -400)]
+}
+tracks/15/type = "value"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("Online/Offset/Control/ModeName:position")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(0.101),
+"update": 0,
+"values": [Vector2(-75, -487.5)]
+}
+tracks/16/type = "value"
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/path = NodePath("Online/Offset/Control/GradientBG:size")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(0.101),
+"update": 0,
+"values": [Vector2(1684, 0)]
+}
+tracks/17/type = "value"
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/path = NodePath("Online/Offset/Control/PlayersConnected:scale")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(0.101),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/18/type = "value"
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/path = NodePath("Online/Offset/Control/GradientBG2:scale")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(0.101),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/19/type = "value"
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/path = NodePath("Online/Offset/EnterIP:position")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 0,
+"values": []
+}
+tracks/20/type = "value"
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/path = NodePath("Online/Offset/ChatBar:position")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(0.101),
+"update": 0,
+"values": [Vector2(-2329.17, 1970.83)]
+}
+tracks/21/type = "value"
+tracks/21/imported = false
+tracks/21/enabled = true
+tracks/21/path = NodePath("Online/Offset/Ready:position")
+tracks/21/interp = 1
+tracks/21/loop_wrap = true
+tracks/21/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(0.101),
+"update": 0,
+"values": [Vector2(1745.83, -412.5)]
+}
+tracks/22/type = "value"
+tracks/22/imported = false
+tracks/22/enabled = true
+tracks/22/path = NodePath("Online/Offset/Control/GradientBG3:scale")
+tracks/22/interp = 1
+tracks/22/loop_wrap = true
+tracks/22/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(0.101),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/23/type = "value"
+tracks/23/imported = false
+tracks/23/enabled = true
+tracks/23/path = NodePath("Online/Offset/EnterIP:position")
+tracks/23/interp = 1
+tracks/23/loop_wrap = true
+tracks/23/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 0,
+"values": []
+}
+tracks/24/type = "value"
+tracks/24/imported = false
+tracks/24/enabled = true
+tracks/24/path = NodePath("Online/Offset/Control/TimeLimit:scale")
+tracks/24/interp = 1
+tracks/24/loop_wrap = true
+tracks/24/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(0.101),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/25/type = "value"
+tracks/25/imported = false
+tracks/25/enabled = true
+tracks/25/path = NodePath("Online/Offset/Control/ScoreLimit:scale")
+tracks/25/interp = 1
+tracks/25/loop_wrap = true
+tracks/25/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(0.101),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_yt4tj"]
+resource_name = "onlineJOIN"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Online/Offset/Earth:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(0.101532),
+"update": 0,
+"values": [Vector2(-3570.83, 587.5)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Online/Offset/Host:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.101532, 0.101532),
+"update": 0,
+"values": [Vector2(300, 137.5), Vector2(-3450, 137.5)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Online/Offset/Join:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.101532, 0.101532),
+"update": 0,
+"values": [Vector2(300, 733.333), Vector2(4079.17, 733.333)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Online/Offset/EnterIP:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.101532, 1),
+"update": 0,
+"values": [Vector2(300, -781.407), Vector2(300, 575)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Online/Offset/EnterIP:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(0.101532),
+"update": 0,
+"values": [Vector2(0.75, 0.75)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Online/Offset/EnterName:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 0,
+"values": []
+}
+
+[sub_resource type="Animation" id="Animation_wwao2"]
+resource_name = "onlineJOIN_OUT"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Online/Offset/Earth:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(0.101532),
+"update": 0,
+"values": [Vector2(-3570.83, 587.5)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Online/Offset/Host:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.101532, 0.101532),
+"update": 0,
+"values": [Vector2(-3450, 137.5), Vector2(300, 137.5)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Online/Offset/Join:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.101532, 0.101532),
+"update": 0,
+"values": [Vector2(4079.17, 733.333), Vector2(300, 733.333)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Online/Offset/EnterIP:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.101532, 0.101532),
+"update": 0,
+"values": [Vector2(300, 575), Vector2(300, -900)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Online/Offset/EnterIP:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(0.101532),
+"update": 0,
+"values": [Vector2(0.75, 0.75)]
+}
+
+[sub_resource type="Animation" id="Animation_vk1dl"]
+resource_name = "onlineOUT"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Online/Offset/Earth:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.101532, 0.101532),
+"update": 0,
+"values": [Vector2(-3570.83, 587.5), Vector2(-3570.83, 1616.67)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Online/Offset/Host:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.101532, 0.101532),
+"update": 0,
+"values": [Vector2(300, 137.5), Vector2(-3450, 137.5)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Online/Offset/Join:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.101532, 0.101532),
+"update": 0,
+"values": [Vector2(300, 733.333), Vector2(4079.17, 733.333)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Online/Offset/EnterIP:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(300, -900), Vector2(300, -900)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Online/Offset/back:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.101532, 0.101532),
+"update": 0,
+"values": [Vector2(3608.34, 45.8334), Vector2(4095.84, 45.8334)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Online/Offset/EnterName:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.101, 0.101),
+"update": 0,
+"values": [Vector2(320.833, 1562.5), Vector2(320.833, 2445.83)]
+}
+
+[sub_resource type="Animation" id="Animation_ar1ds"]
+resource_name = "onlineROOM"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Online/Offset/Earth:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.101532, 1),
+"update": 0,
+"values": [Vector2(-3570.83, 587.5), Vector2(-1308.33, 587.5)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Online/Offset/Host:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.101532, 0.101532),
+"update": 0,
+"values": [Vector2(300, 137.5), Vector2(-3450, 137.5)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Online/Offset/Join:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.101532, 0.101532),
+"update": 0,
+"values": [Vector2(300, 733.333), Vector2(4079.17, 733.333)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Online/Offset/PreviewMech:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.101532, 1),
+"update": 0,
+"values": [Vector2(-162.5, -2341.67), Vector2(-400, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Online/Offset/Control/GameMode:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.101, 1),
+"update": 0,
+"values": [Vector2(908.333, -562.5), Vector2(908.333, 150)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Online/Offset/Control/leftArrow1:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.101, 1),
+"update": 0,
+"values": [Vector2(883.333, -290.75), Vector2(858.908, 450)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Online/Offset/Control/rightArrow1:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.101, 1),
+"update": 0,
+"values": [Vector2(1570.83, -290.75), Vector2(1570.83, 450)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Online/Offset/Control/leftArrow2:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.101, 1),
+"update": 0,
+"values": [Vector2(787.598, -249.084), Vector2(787.598, 1046.75)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Online/Offset/Control/rightArrow2:position")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.101, 1),
+"update": 0,
+"values": [Vector2(1687.5, -249.084), Vector2(1677.3, 1046.75)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Online/Offset/Control/Stage:position")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.101, 1),
+"update": 0,
+"values": [Vector2(837.5, -545.833), Vector2(837.5, 750)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Online/Offset/Control/StageName:position")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.101, 1),
+"update": 0,
+"values": [Vector2(87.5, -400), Vector2(87.5, 1146)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("Online/Offset/Control/ModeName:position")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.101, 1),
+"update": 0,
+"values": [Vector2(-75, -487.5), Vector2(-75, 533)]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("Online/Offset/Control/GradientBG:size")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.101, 1),
+"update": 0,
+"values": [Vector2(1684, 0), Vector2(1684, 1054)]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("Online/Offset/EnterName:position")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.101, 0.101),
+"update": 0,
+"values": [Vector2(320.833, 1562.5), Vector2(320.833, 2445.83)]
+}
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("Online/Offset/Control/PlayersConnected:scale")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.101, 0.101),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(1, 1)]
+}
+tracks/15/type = "value"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("Online/Offset/Control/GradientBG2:scale")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.101, 0.101),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(1, 1)]
+}
+tracks/16/type = "value"
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/path = NodePath("Online/Offset/EnterIP:position")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 0,
+"values": []
+}
+tracks/17/type = "value"
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/path = NodePath("Online/Offset/ChatBar:position")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.101, 0.101),
+"update": 0,
+"values": [Vector2(-2329.17, 1970.83), Vector2(58.3333, 1970.83)]
+}
+tracks/18/type = "value"
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/path = NodePath("Online/Offset/Ready:position")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.101, 0.101),
+"update": 0,
+"values": [Vector2(1745.83, -412.5), Vector2(1745.83, 87.5)]
+}
+tracks/19/type = "value"
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/path = NodePath("Online/Offset/Control/GradientBG3:scale")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.101, 0.101),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(1, 1)]
+}
+tracks/20/type = "value"
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/path = NodePath("Online/Offset/Control/TimeLimit:scale")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.101, 0.101),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(1, 1)]
+}
+tracks/21/type = "value"
+tracks/21/imported = false
+tracks/21/enabled = true
+tracks/21/path = NodePath("Online/Offset/Control/ScoreLimit:scale")
+tracks/21/interp = 1
+tracks/21/loop_wrap = true
+tracks/21/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.101, 0.101),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_1nnyn"]
+resource_name = "onlineROOM_OUT"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Online/Offset/Earth:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.101532, 0.101532),
+"update": 0,
+"values": [Vector2(-1308.33, 587.5), Vector2(-3570.83, 587.5)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Online/Offset/Host:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.101532, 0.101532),
+"update": 0,
+"values": [Vector2(-3450, 137.5), Vector2(300, 137.5)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Online/Offset/Join:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.101532, 0.101532),
+"update": 0,
+"values": [Vector2(4079.17, 733.333), Vector2(300, 733.333)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Online/Offset/PreviewMech:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.101532, 0.101532),
+"update": 0,
+"values": [Vector2(-400, 0), Vector2(-162.5, -2341.67)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Online/Offset/Control/GameMode:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.101, 0.101),
+"update": 0,
+"values": [Vector2(908.333, 150), Vector2(908.333, -562.5)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Online/Offset/Control/leftArrow1:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.101, 0.101),
+"update": 0,
+"values": [Vector2(858.333, 450), Vector2(858.333, -290.75)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Online/Offset/Control/rightArrow1:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.101, 0.101),
+"update": 0,
+"values": [Vector2(1570.83, 450), Vector2(1570.83, -290.75)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Online/Offset/Control/leftArrow2:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.101, 0.101),
+"update": 0,
+"values": [Vector2(787.598, 1046.75), Vector2(787.598, -249.084)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Online/Offset/Control/rightArrow2:position")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.101, 0.101),
+"update": 0,
+"values": [Vector2(1687.5, 1046.75), Vector2(1687.5, -249.084)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Online/Offset/Control/Stage:position")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.101, 0.101),
+"update": 0,
+"values": [Vector2(837.5, 750), Vector2(837.5, -545.833)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Online/Offset/Control/StageName:position")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.101, 0.101),
+"update": 0,
+"values": [Vector2(87.5, 1146), Vector2(87.5, -495.833)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("Online/Offset/Control/ModeName:position")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.101, 0.101),
+"update": 0,
+"values": [Vector2(-75, 533), Vector2(-75, -487.5)]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("Online/Offset/Control/GradientBG:size")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.101, 0.101),
+"update": 0,
+"values": [Vector2(1684, 1054), Vector2(1684, 0)]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("Online/Offset/EnterName:position")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.101, 0.101),
+"update": 0,
+"values": [Vector2(320.833, 2445.83), Vector2(320.833, 1562.5)]
+}
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("Online/Offset/Control/PlayersConnected:scale")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.101, 0.101),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0, 0)]
+}
+tracks/15/type = "value"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("Online/Offset/Control/GradientBG2:scale")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.101, 0.101),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0, 0)]
+}
+tracks/16/type = "value"
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/path = NodePath("Online/Offset/ChatBar:position")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.101, 0.101),
+"update": 0,
+"values": [Vector2(58.3333, 1970.83), Vector2(-2329.17, 1970.83)]
+}
+tracks/17/type = "value"
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/path = NodePath("Online/Offset/Ready:position")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.101, 0.101),
+"update": 0,
+"values": [Vector2(1745.83, 87.5), Vector2(1745.83, -412.5)]
+}
+tracks/18/type = "value"
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/path = NodePath("Online/Offset/Control/TimeLimit:scale")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.101, 0.101),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0, 0)]
+}
+tracks/19/type = "value"
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/path = NodePath("Online/Offset/Control/ScoreLimit:scale")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.101, 0.101),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_lcoby"]
@@ -351,31 +1440,31 @@ tracks/6/keys = {
 tracks/7/type = "audio"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("SFX1")
+tracks/7/path = NodePath("SFX2")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
 "clips": [{
 "end_offset": 0.0,
 "start_offset": 0.0,
-"stream": ExtResource("8_8wrbk")
+"stream": ExtResource("9_rykqp")
 }],
-"times": PackedFloat32Array(0.7)
+"times": PackedFloat32Array(0.1)
 }
 tracks/7/use_blend = true
 tracks/8/type = "audio"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("SFX2")
+tracks/8/path = NodePath("SFX1")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
 "clips": [{
 "end_offset": 0.0,
 "start_offset": 0.0,
-"stream": ExtResource("9_rykqp")
+"stream": ExtResource("8_8wrbk")
 }],
-"times": PackedFloat32Array(0.1)
+"times": PackedFloat32Array(0.7)
 }
 tracks/8/use_blend = true
 tracks/9/type = "value"
@@ -461,6 +1550,54 @@ tracks/15/keys = {
 "transitions": PackedFloat32Array(0.46, 1),
 "update": 0,
 "values": [Color(0, 0, 0, 1), Color(1, 1, 1, 0)]
+}
+tracks/16/type = "value"
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/path = NodePath("Online:visible")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/17/type = "value"
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/path = NodePath("Earth:visible")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/18/type = "value"
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/path = NodePath("Eclipse:scale")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/keys = {
+"times": PackedFloat32Array(0.05, 2),
+"transitions": PackedFloat32Array(0.189465, 1),
+"update": 0,
+"values": [Vector2(0.61375, 0.61375), Vector2(1, 1)]
+}
+tracks/19/type = "value"
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/path = NodePath("Eclipse:modulate")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1.93187),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_pelwg"]
@@ -614,6 +1751,30 @@ tracks/11/keys = {
 "update": 1,
 "values": [true, false]
 }
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("Eclipse:scale")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(4.92458, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(4, 4)]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("Eclipse:modulate")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0.25, 0.55),
+"transitions": PackedFloat32Array(1.93187, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_m4143"]
 _data = {
@@ -621,14 +1782,65 @@ _data = {
 "fadeToBlack": SubResource("Animation_dnjy2"),
 "mainMenuIN": SubResource("Animation_lc830"),
 "mainMenuOUT": SubResource("Animation_hgnyy"),
+"onlineIN": SubResource("Animation_xmt0q"),
+"onlineJOIN": SubResource("Animation_yt4tj"),
+"onlineJOIN_OUT": SubResource("Animation_wwao2"),
+"onlineOUT": SubResource("Animation_vk1dl"),
+"onlineROOM": SubResource("Animation_ar1ds"),
+"onlineROOM_OUT": SubResource("Animation_1nnyn"),
 "stageSelectIN": SubResource("Animation_lcoby"),
 "stageSelectOUT": SubResource("Animation_il3v5"),
 "titleIN": SubResource("Animation_moqvy"),
 "titleOUT": SubResource("Animation_pelwg")
 }
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_4vt61"]
+blend_mode = 1
+
+[sub_resource type="Gradient" id="Gradient_t4t6a"]
+offsets = PackedFloat32Array(0.137026, 0.422741, 0.994169)
+colors = PackedColorArray(0, 0, 0, 1, 0.160319, 0.109083, 0.0669371, 1, 0.545098, 0.545098, 0.545098, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ovp53"]
+gradient = SubResource("Gradient_t4t6a")
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_o3cyt"]
+blend_mode = 1
+
 [sub_resource type="ViewportTexture" id="ViewportTexture_efw7l"]
+viewport_path = NodePath("SubViewport3")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_d7b6q"]
 viewport_path = NodePath("SubViewport")
+
+[sub_resource type="Gradient" id="Gradient_87xl0"]
+offsets = PackedFloat32Array(0, 0.516129, 1)
+colors = PackedColorArray(0, 0.25098, 0.886275, 1, 0.24086, 0.483744, 0.432891, 1, 0.466667, 0.701961, 0.00784314, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_4jh5l"]
+gradient = SubResource("Gradient_87xl0")
+
+[sub_resource type="Gradient" id="Gradient_qt3wu"]
+colors = PackedColorArray(0.466667, 0, 0.580392, 1, 0.00812469, 0, 0.41073, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_2ocqx"]
+gradient = SubResource("Gradient_qt3wu")
+
+[sub_resource type="Gradient" id="Gradient_gi0ke"]
+colors = PackedColorArray(0.345098, 0.603922, 0.431373, 0, 0.0419948, 0.140118, 0.104132, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ojmqs"]
+gradient = SubResource("Gradient_gi0ke")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_iyfss"]
+viewport_path = NodePath("SubViewport2")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_5hqpm"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="Theme" id="Theme_aex3l"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_d6ueg"]
 
 [sub_resource type="FontVariation" id="FontVariation_8kuo2"]
 variation_embolden = 0.57
@@ -637,13 +1849,100 @@ spacing_space = 30
 spacing_top = -25
 spacing_bottom = -40
 
-[sub_resource type="Gradient" id="Gradient_nnaur"]
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ro1e3"]
+
+[sub_resource type="Sky" id="Sky_fs5ae"]
+sky_material = SubResource("ProceduralSkyMaterial_ro1e3")
+
+[sub_resource type="Environment" id="Environment_4ptv0"]
+background_color = Color(0, 1, 0, 0)
+background_energy_multiplier = 10.13
+sky = SubResource("Sky_fs5ae")
+sky_rotation = Vector3(0, -0.242601, 0)
+ambient_light_source = 3
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_sky_contribution = 0.54
+ambient_light_energy = 8.38
+reflected_light_source = 2
+tonemap_exposure = 0.15
+tonemap_white = 1.65
+ssao_radius = 10.7
+ssao_intensity = 2.6
+ssao_power = 1.66435
+ssao_detail = 0.0
+ssao_horizon = 1.0
+ssao_sharpness = 1.0
+sdfgi_use_occlusion = true
+sdfgi_bounce_feedback = 1.58
+sdfgi_cascades = 8
+sdfgi_min_cell_size = 5.0
+sdfgi_cascade0_distance = 320.0
+sdfgi_max_distance = 81920.0
+sdfgi_energy = 2.395
+sdfgi_normal_bias = 0.97
+sdfgi_probe_bias = 1.805
+glow_levels/2 = 2.55
+glow_levels/3 = 0.0
+glow_levels/4 = 2.99
+glow_levels/5 = 8.95
+glow_levels/6 = 0.37
+glow_intensity = 0.4
+glow_strength = 0.8
+glow_bloom = 1.0
+glow_blend_mode = 4
+glow_hdr_threshold = 0.0
+glow_hdr_scale = 0.0
+glow_hdr_luminance_cap = 8.66
+fog_light_color = Color(0, 0.996078, 0.996078, 1)
+fog_light_energy = 13.3
+fog_sun_scatter = 0.11
+fog_density = 0.0015
+fog_sky_affect = 0.728
+fog_height = -4.01
+fog_height_density = 0.0825
+volumetric_fog_density = 0.018
+volumetric_fog_emission = Color(0.733333, 0.631373, 0.45098, 1)
+volumetric_fog_emission_energy = 1.45
+volumetric_fog_gi_inject = 0.57
+volumetric_fog_anisotropy = -0.8
+volumetric_fog_length = 46.8
+volumetric_fog_temporal_reprojection_amount = 0.99
+adjustment_enabled = true
+adjustment_brightness = 1.04
+adjustment_contrast = 0.96
+adjustment_saturation = 2.09
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_ou6wi"]
+
+[sub_resource type="Gradient" id="Gradient_nj2m7"]
 colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_88ctn"]
-gradient = SubResource("Gradient_nnaur")
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_djasq"]
+gradient = SubResource("Gradient_nj2m7")
 
-[node name="Menu" type="Control" node_paths=PackedStringArray("animTitle", "animMain", "animStage", "myRobot", "online", "training", "trials", "options", "previewMech", "previewMechSkeleton", "mainMenuDescription", "stageSelectDescription", "press", "offset", "SFX1", "SFX2")]
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_u8bs7"]
+properties/0/path = NodePath(".:connectionList")
+properties/0/spawn = true
+properties/0/sync = true
+properties/0/watch = false
+properties/1/path = NodePath("../Online/Offset/Control/TimeLimit/TextEdit:text")
+properties/1/spawn = true
+properties/1/sync = true
+properties/1/watch = false
+properties/2/path = NodePath("../Online/Offset/Control/ScoreLimit/TextEdit:text")
+properties/2/spawn = true
+properties/2/sync = true
+properties/2/watch = false
+properties/3/path = NodePath("../Online/Offset/Control/ModeName:text")
+properties/3/spawn = true
+properties/3/sync = true
+properties/3/watch = false
+properties/4/path = NodePath("../Online/Offset/Control/StageName:text")
+properties/4/spawn = true
+properties/4/sync = true
+properties/4/watch = false
+
+[node name="Menu" type="Control" node_paths=PackedStringArray("animTitle", "animMain", "animStage", "animOnline", "myRobot", "online", "training", "trials", "options", "host", "join", "network", "previewMech", "earth", "previewMechSkeleton", "mainMenuDescription", "stageSelectDescription", "press", "offset", "SFX1", "SFX2")]
 layout_direction = 1
 layout_mode = 3
 anchors_preset = 8
@@ -664,13 +1963,18 @@ script = ExtResource("1_8ctrw")
 animTitle = NodePath("TitleAnimationPlayer")
 animMain = NodePath("MainMenuAnimationPlayer")
 animStage = NodePath("StageAnimationPlayer")
-myRobot = NodePath("MainMenu/Offset/myRobot")
+animOnline = NodePath("OnlineAnimationPlayer")
+myRobot = NodePath("MainMenu/Offset/PreviewMech")
 online = NodePath("MainMenu/Offset/online")
 training = NodePath("MainMenu/Offset/training")
 trials = NodePath("MainMenu/Offset/trials")
 options = NodePath("MainMenu/Offset/options")
-previewMech = NodePath("PreviewMech")
-previewMechSkeleton = NodePath("PreviewMech/Armature/Skeleton3D")
+host = NodePath("Online/Offset/Host")
+join = NodePath("Online/Offset/Join")
+network = NodePath("Network")
+previewMech = NodePath("mech")
+earth = NodePath("Earth")
+previewMechSkeleton = NodePath("mech/Armature/Skeleton3D")
 mainMenuDescription = NodePath("MainMenu/Offset/title/RichTextLabel")
 stageSelectDescription = NodePath("StageSelect/Offset/CurrentStage")
 press = NodePath("Title/Offset/press")
@@ -688,6 +1992,11 @@ libraries = {
 "": SubResource("AnimationLibrary_m4143")
 }
 
+[node name="OnlineAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_m4143")
+}
+
 [node name="StageAnimationPlayer" type="AnimationPlayer" parent="."]
 speed_scale = 4.0
 libraries = {
@@ -700,7 +2009,43 @@ libraries = {
 volume_db = -10.0
 pitch_scale = 2.24
 
+[node name="Eclipse" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+z_index = -100
+texture_filter = 4
+material = SubResource("CanvasItemMaterial_4vt61")
+position = Vector2(495, 280)
+rotation = -2.16023
+scale = Vector2(4, 4)
+texture = ExtResource("12_hugth")
+
+[node name="TextureRect" type="TextureRect" parent="Eclipse"]
+z_index = -1
+offset_left = -2109.0
+offset_top = -2227.0
+offset_right = 1721.0
+offset_bottom = 2200.0
+texture = SubResource("GradientTexture1D_ovp53")
+
+[node name="Eclipse2" type="Sprite2D" parent="."]
+z_index = -110
+texture_filter = 4
+material = SubResource("CanvasItemMaterial_o3cyt")
+position = Vector2(621, 290)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("7_w6yjf")
+
+[node name="TextureRect" type="TextureRect" parent="Eclipse2"]
+z_index = -1
+texture_filter = 4
+offset_left = -3977.0
+offset_top = -2227.0
+offset_right = 2850.0
+offset_bottom = 2200.0
+texture = SubResource("GradientTexture1D_ovp53")
+
 [node name="Title" type="Control" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -728,8 +2073,9 @@ modulate = Color(1, 1, 1, 0.588235)
 layout_direction = 1
 layout_mode = 2
 offset_left = -1029.17
+offset_top = -500.0
 offset_right = 2970.83
-offset_bottom = 2250.0
+offset_bottom = 1750.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1.5, 1)
@@ -742,8 +2088,9 @@ modulate = Color(1, 1, 1, 0.588235)
 layout_direction = 1
 layout_mode = 2
 offset_left = -1029.17
+offset_top = 500.0
 offset_right = 2970.83
-offset_bottom = 2250.0
+offset_bottom = 2750.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1.5, 1)
@@ -752,6 +2099,8 @@ texture = ExtResource("2_30ylj")
 stretch_mode = 4
 
 [node name="romaji" type="TextureRect" parent="Title/Offset"]
+visible = false
+self_modulate = Color(0.988235, 0.690196, 0.25098, 1)
 layout_mode = 2
 offset_left = 4.16846
 offset_top = 41.6667
@@ -759,11 +2108,14 @@ offset_right = 4004.17
 offset_bottom = 2291.67
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(1, 0.75)
 mouse_filter = 2
 texture = ExtResource("3_qncem")
 stretch_mode = 4
 
 [node name="japanese" type="TextureRect" parent="Title/Offset"]
+visible = false
+self_modulate = Color(0.988235, 0.690196, 0.25098, 1)
 layout_mode = 2
 offset_left = 4.16846
 offset_top = 41.6667
@@ -771,11 +2123,13 @@ offset_right = 4004.17
 offset_bottom = 2291.67
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(1, 0.5)
 mouse_filter = 2
 texture = ExtResource("4_db7d0")
 stretch_mode = 4
 
 [node name="press" type="TextureRect" parent="Title/Offset"]
+self_modulate = Color(0.988235, 0.690196, 0.25098, 1)
 layout_mode = 2
 offset_left = 4.16846
 offset_top = 41.6667
@@ -788,6 +2142,7 @@ texture = ExtResource("6_m45dd")
 stretch_mode = 4
 
 [node name="crosshair" type="TextureRect" parent="Title/Offset"]
+visible = false
 layout_mode = 2
 offset_left = 4.16846
 offset_top = 41.6667
@@ -795,11 +2150,12 @@ offset_right = 4004.17
 offset_bottom = 2291.67
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(1, 1e-05)
 mouse_filter = 2
 texture = ExtResource("6_fmqs1")
 stretch_mode = 4
 
-[node name="MainMenu" type="Control" parent="."]
+[node name="Online" type="Control" parent="."]
 visible = false
 layout_mode = 1
 anchors_preset = 8
@@ -811,7 +2167,701 @@ offset_right = 4000.0
 offset_bottom = 2250.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(0.24, 0.24)
+pivot_offset = Vector2(480, 270)
+mouse_filter = 2
+
+[node name="Offset" type="Control" parent="Online"]
+anchors_preset = 0
+offset_left = -1532.5
+offset_top = -855.0
+offset_right = -1492.5
+offset_bottom = -815.0
+mouse_filter = 2
+
+[node name="EnterName" type="TextureRect" parent="Online/Offset"]
+z_index = 10
+layout_mode = 0
+offset_left = 320.833
+offset_top = 2445.83
+offset_right = 4802.83
+offset_bottom = 3127.83
+scale = Vector2(0.75, 0.75)
+mouse_filter = 2
+texture = ExtResource("20_il8lr")
+stretch_mode = 4
+
+[node name="TextEdit" type="TextEdit" parent="Online/Offset/EnterName"]
+layout_mode = 0
+offset_left = 422.0
+offset_top = 50.0
+offset_right = 5122.0
+offset_bottom = 317.0
+scale = Vector2(0.777778, 0.777778)
+focus_mode = 1
+theme_override_colors/background_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/caret_width = 0
+theme_override_fonts/font = ExtResource("15_cv2qv")
+theme_override_font_sizes/font_size = 246
+placeholder_text = "What's your name? "
+scroll_fit_content_height = true
+caret_blink = true
+script = ExtResource("18_r821g")
+
+[node name="ChatBar" type="TextureRect" parent="Online/Offset"]
+z_index = 10
+layout_mode = 0
+offset_left = -2329.17
+offset_top = 1970.83
+offset_right = 3191.83
+offset_bottom = 2667.83
+scale = Vector2(0.5, 0.5)
+mouse_filter = 2
+texture = ExtResource("18_cqj0j")
+stretch_mode = 4
+
+[node name="TextEdit" type="TextEdit" parent="Online/Offset/ChatBar"]
+layout_mode = 0
+offset_left = 125.0
+offset_top = 142.0
+offset_right = 4496.0
+offset_bottom = 409.0
+scale = Vector2(0.777778, 0.777778)
+focus_mode = 1
+theme_override_colors/background_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/caret_width = 0
+theme_override_fonts/font = ExtResource("15_cv2qv")
+theme_override_font_sizes/font_size = 246
+placeholder_text = "Say Something..."
+scroll_fit_content_height = true
+caret_blink = true
+script = ExtResource("18_r821g")
+allowSpace = true
+
+[node name="sendChat" type="Button" parent="Online/Offset/ChatBar" node_paths=PackedStringArray("menu")]
+modulate = Color(1, 1, 1, 0)
+z_index = 10
+layout_mode = 0
+offset_left = 3550.0
+offset_top = 83.0
+offset_right = 4167.0
+offset_bottom = 425.0
+mouse_filter = 1
+script = ExtResource("12_f5jcp")
+menu = NodePath("../../../..")
+classification = "online"
+buttonName = "ChatBar"
+path = "MainMenuAssets"
+metadata/_edit_group_ = true
+
+[node name="Ready" type="TextureRect" parent="Online/Offset"]
+layout_mode = 0
+offset_left = 1745.83
+offset_top = -412.5
+offset_right = 6227.76
+offset_bottom = 1837.51
+scale = Vector2(0.5, 0.5)
+mouse_filter = 2
+texture = ExtResource("21_crj0k")
+stretch_mode = 4
+
+[node name="Ready_Button" type="Button" parent="Online/Offset/Ready" node_paths=PackedStringArray("menu")]
+modulate = Color(1, 1, 1, 0)
+z_index = 10
+layout_mode = 0
+offset_left = 42.0
+offset_top = -6.0
+offset_right = 2100.0
+offset_bottom = 525.0
+mouse_filter = 1
+script = ExtResource("12_f5jcp")
+menu = NodePath("../../../..")
+classification = "online"
+buttonName = "Ready"
+path = "MainMenuAssets"
+
+[node name="Start" type="TextureRect" parent="Online/Offset/Ready"]
+layout_mode = 0
+offset_right = 4481.93
+offset_bottom = 2250.01
+mouse_filter = 2
+texture = ExtResource("22_k4unc")
+stretch_mode = 4
+
+[node name="Start_Button" type="Button" parent="Online/Offset/Ready/Start" node_paths=PackedStringArray("menu")]
+modulate = Color(1, 1, 1, 0)
+z_index = 10
+layout_mode = 0
+offset_left = 42.0
+offset_top = -6.0
+offset_right = 2075.0
+offset_bottom = 525.0
+mouse_filter = 1
+script = ExtResource("12_f5jcp")
+menu = NodePath("../../../../..")
+classification = "online"
+buttonName = "Start"
+path = "MainMenuAssets"
+
+[node name="EnterIP" type="TextureRect" parent="Online/Offset"]
+z_index = 1
+layout_mode = 0
+offset_left = 300.0
+offset_top = -900.0
+offset_right = 4782.0
+offset_bottom = -218.0
+scale = Vector2(0.75, 0.75)
+mouse_filter = 2
+texture = ExtResource("16_t4l0r")
+stretch_mode = 4
+
+[node name="Connect" type="TextureRect" parent="Online/Offset/EnterIP"]
+layout_mode = 0
+offset_left = 2688.89
+offset_top = 700.0
+offset_right = 7170.82
+offset_bottom = 2950.01
 scale = Vector2(0.35, 0.35)
+mouse_filter = 2
+texture = ExtResource("18_a3gl4")
+stretch_mode = 4
+
+[node name="Connect" type="Button" parent="Online/Offset/EnterIP/Connect" node_paths=PackedStringArray("menu")]
+modulate = Color(1, 1, 1, 0)
+z_index = 10
+layout_mode = 0
+offset_left = 42.0
+offset_top = -6.0
+offset_right = 4522.0
+offset_bottom = 772.0
+mouse_filter = 1
+script = ExtResource("12_f5jcp")
+menu = NodePath("../../../../..")
+classification = "online"
+buttonName = "joinCel"
+path = "MainMenuAssets"
+
+[node name="TextEdit" type="TextEdit" parent="Online/Offset/EnterIP"]
+layout_mode = 0
+offset_left = 278.0
+offset_top = 294.0
+offset_right = 4172.0
+offset_bottom = 561.0
+focus_mode = 1
+theme_override_colors/background_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/caret_width = 0
+theme_override_fonts/font = ExtResource("15_cv2qv")
+theme_override_font_sizes/font_size = 246
+placeholder_text = "ENTER ROOM IP ADDRESS"
+scroll_fit_content_height = true
+caret_blink = true
+script = ExtResource("18_r821g")
+
+[node name="Join" type="TextureRect" parent="Online/Offset"]
+layout_mode = 0
+offset_left = 4079.17
+offset_top = 733.333
+offset_right = 8561.2
+offset_bottom = 2983.34
+scale = Vector2(0.75, 0.75)
+mouse_filter = 2
+texture = ExtResource("18_a3gl4")
+stretch_mode = 4
+
+[node name="joinButton" type="Button" parent="Online/Offset/Join" node_paths=PackedStringArray("menu")]
+modulate = Color(1, 1, 1, 0)
+z_index = 10
+layout_mode = 0
+offset_left = 42.0
+offset_top = -6.0
+offset_right = 4522.0
+offset_bottom = 772.0
+mouse_filter = 1
+script = ExtResource("12_f5jcp")
+menu = NodePath("../../../..")
+classification = "online"
+buttonName = "joinCel"
+path = "MainMenuAssets"
+
+[node name="Host" type="TextureRect" parent="Online/Offset"]
+layout_mode = 0
+offset_left = -3450.0
+offset_top = 137.5
+offset_right = 1032.0
+offset_bottom = 2387.5
+scale = Vector2(0.75, 0.75)
+mouse_filter = 2
+texture = ExtResource("16_dogmo")
+stretch_mode = 4
+
+[node name="hostButton" type="Button" parent="Online/Offset/Host" node_paths=PackedStringArray("menu")]
+modulate = Color(1, 1, 1, 0)
+z_index = 10
+layout_mode = 0
+offset_left = 42.0
+offset_right = 4483.0
+offset_bottom = 789.0
+mouse_filter = 1
+script = ExtResource("12_f5jcp")
+menu = NodePath("../../../..")
+classification = "online"
+buttonName = "newCel"
+path = "MainMenuAssets"
+
+[node name="PreviewMech" type="TextureRect" parent="Online/Offset"]
+z_index = 2
+layout_mode = 0
+offset_left = -162.5
+offset_top = -2341.67
+offset_right = 3837.5
+offset_bottom = -341.66
+scale = Vector2(1.2, 1.2)
+mouse_filter = 2
+texture = SubResource("ViewportTexture_efw7l")
+
+[node name="Earth" type="TextureRect" parent="Online/Offset"]
+z_index = 1
+layout_mode = 0
+offset_left = -3570.83
+offset_top = 1616.67
+offset_right = -570.83
+offset_bottom = 3616.68
+scale = Vector2(3.68, 3.68)
+mouse_filter = 2
+texture = SubResource("ViewportTexture_d7b6q")
+
+[node name="back" type="TextureRect" parent="Online/Offset"]
+z_index = 1000
+layout_mode = 0
+offset_left = 4095.84
+offset_top = 45.8334
+offset_right = 8095.84
+offset_bottom = 1920.84
+scale = Vector2(0.15, 0.15)
+mouse_filter = 2
+texture = ExtResource("18_0q8eg")
+stretch_mode = 4
+
+[node name="backButton" type="Button" parent="Online/Offset/back" node_paths=PackedStringArray("menu")]
+modulate = Color(1, 1, 1, 0)
+z_index = 1000
+layout_mode = 0
+offset_left = 42.0
+offset_top = 21.0
+offset_right = 1611.0
+offset_bottom = 1222.0
+script = ExtResource("12_f5jcp")
+menu = NodePath("../../../..")
+classification = "online"
+buttonName = "back3"
+path = "MainMenuAssets"
+
+[node name="Control" type="Control" parent="Online/Offset"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(0.745, 0.745)
+
+[node name="GameMode" type="RichTextLabel" parent="Online/Offset/Control"]
+layout_mode = 0
+offset_left = 908.333
+offset_top = -562.5
+offset_right = 3771.33
+offset_bottom = 195.5
+mouse_filter = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 150
+theme_override_fonts/normal_font = ExtResource("15_cv2qv")
+theme_override_font_sizes/normal_font_size = 311
+bbcode_enabled = true
+text = "[left]MODE"
+
+[node name="ModeName" type="RichTextLabel" parent="Online/Offset/Control"]
+layout_mode = 0
+offset_left = -75.0
+offset_top = -487.5
+offset_right = 2425.0
+offset_bottom = 270.488
+scale = Vector2(1, 0.5)
+mouse_filter = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 150
+theme_override_fonts/normal_font = ExtResource("15_cv2qv")
+theme_override_font_sizes/normal_font_size = 311
+bbcode_enabled = true
+text = "[center]DEATHgracwwMATCH"
+metadata/_edit_group_ = true
+
+[node name="leftArrow1" type="TextureRect" parent="Online/Offset/Control"]
+layout_mode = 0
+offset_left = 883.333
+offset_top = -290.75
+offset_right = 1214.34
+offset_bottom = 88.2512
+scale = Vector2(-0.75, -0.75)
+mouse_filter = 2
+texture = ExtResource("22_qu2pl")
+stretch_mode = 4
+
+[node name="leftArrowButton" type="Button" parent="Online/Offset/Control/leftArrow1" node_paths=PackedStringArray("menu")]
+modulate = Color(1, 1, 1, 0)
+z_index = 10
+layout_mode = 0
+offset_left = 42.0
+offset_right = 295.0
+offset_bottom = 375.0
+mouse_filter = 1
+script = ExtResource("12_f5jcp")
+menu = NodePath("../../../../..")
+classification = "online"
+buttonName = "Arrow"
+path = "MainMenuAssets"
+
+[node name="rightArrow1" type="TextureRect" parent="Online/Offset/Control"]
+layout_mode = 0
+offset_left = 1570.83
+offset_top = -290.75
+offset_right = 1901.83
+offset_bottom = 88.2512
+scale = Vector2(0.75, -0.75)
+mouse_filter = 2
+texture = ExtResource("22_qu2pl")
+stretch_mode = 4
+
+[node name="rightArrowButton" type="Button" parent="Online/Offset/Control/rightArrow1" node_paths=PackedStringArray("menu")]
+modulate = Color(1, 1, 1, 0)
+z_index = 10
+layout_mode = 0
+offset_left = 42.0
+offset_right = 295.0
+offset_bottom = 375.0
+mouse_filter = 1
+script = ExtResource("12_f5jcp")
+menu = NodePath("../../../../..")
+classification = "online"
+buttonName = "Arrow"
+path = "MainMenuAssets"
+
+[node name="leftArrow2" type="TextureRect" parent="Online/Offset/Control"]
+layout_mode = 0
+offset_left = 787.598
+offset_top = -249.084
+offset_right = 1118.6
+offset_bottom = 129.916
+scale = Vector2(-0.75, -0.75)
+mouse_filter = 2
+texture = ExtResource("22_qu2pl")
+stretch_mode = 4
+
+[node name="leftArrowButton2" type="Button" parent="Online/Offset/Control/leftArrow2" node_paths=PackedStringArray("menu")]
+modulate = Color(1, 1, 1, 0)
+z_index = 10
+layout_mode = 0
+offset_left = 42.0
+offset_right = 295.0
+offset_bottom = 375.0
+mouse_filter = 1
+script = ExtResource("12_f5jcp")
+menu = NodePath("../../../../..")
+classification = "online"
+buttonName = "Arrow"
+path = "MainMenuAssets"
+
+[node name="rightArrow2" type="TextureRect" parent="Online/Offset/Control"]
+layout_mode = 0
+offset_left = 1687.5
+offset_top = -249.084
+offset_right = 2018.5
+offset_bottom = 129.916
+scale = Vector2(0.75, -0.75)
+mouse_filter = 2
+texture = ExtResource("22_qu2pl")
+stretch_mode = 4
+
+[node name="rightArrowButton2" type="Button" parent="Online/Offset/Control/rightArrow2" node_paths=PackedStringArray("menu")]
+modulate = Color(1, 1, 1, 0)
+z_index = 10
+layout_mode = 0
+offset_left = 42.0
+offset_right = 295.0
+offset_bottom = 375.0
+mouse_filter = 1
+script = ExtResource("12_f5jcp")
+menu = NodePath("../../../../..")
+classification = "online"
+buttonName = "Arrow"
+path = "MainMenuAssets"
+
+[node name="Stage" type="RichTextLabel" parent="Online/Offset/Control"]
+layout_mode = 0
+offset_left = 837.5
+offset_top = -545.833
+offset_right = 3700.5
+offset_bottom = 212.167
+mouse_filter = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 150
+theme_override_fonts/normal_font = ExtResource("15_cv2qv")
+theme_override_font_sizes/normal_font_size = 311
+bbcode_enabled = true
+text = "[left]STAGE"
+
+[node name="TimeLimit" type="RichTextLabel" parent="Online/Offset/Control"]
+z_index = 100
+layout_mode = 0
+offset_left = 2215.0
+offset_top = 542.506
+offset_right = 4072.0
+offset_bottom = 978.506
+scale = Vector2(1e-05, 1e-05)
+mouse_filter = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 75
+theme_override_fonts/normal_font = ExtResource("15_cv2qv")
+theme_override_font_sizes/normal_font_size = 121
+bbcode_enabled = true
+text = "[left]time limit       seconds"
+
+[node name="TextEdit" type="TextEdit" parent="Online/Offset/Control/TimeLimit"]
+layout_mode = 0
+offset_left = 682.221
+offset_right = 1085.22
+offset_bottom = 224.0
+scale = Vector2(0.695, 1)
+theme_override_colors/background_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_readonly_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 25
+theme_override_font_sizes/font_size = 161
+text = "1200"
+
+[node name="ScoreLimit" type="RichTextLabel" parent="Online/Offset/Control"]
+z_index = 100
+layout_mode = 0
+offset_left = 2153.24
+offset_top = 961.505
+offset_right = 3847.24
+offset_bottom = 1408.51
+scale = Vector2(1e-05, 1e-05)
+mouse_filter = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 75
+theme_override_fonts/normal_font = ExtResource("15_cv2qv")
+theme_override_font_sizes/normal_font_size = 121
+bbcode_enabled = true
+text = "[left]score limit     kills"
+
+[node name="TextEdit" type="TextEdit" parent="Online/Offset/Control/ScoreLimit"]
+layout_mode = 0
+offset_left = 744.0
+offset_right = 986.0
+offset_bottom = 224.0
+scale = Vector2(0.695, 1)
+theme_override_colors/background_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_readonly_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 25
+theme_override_font_sizes/font_size = 161
+text = "10"
+
+[node name="StageName" type="RichTextLabel" parent="Online/Offset/Control"]
+layout_mode = 0
+offset_left = 87.5
+offset_top = -400.0
+offset_right = 2341.5
+offset_bottom = 358.0
+scale = Vector2(1, 0.5)
+mouse_filter = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 150
+theme_override_fonts/normal_font = ExtResource("15_cv2qv")
+theme_override_font_sizes/normal_font_size = 311
+bbcode_enabled = true
+text = "[center]VALLEY"
+
+[node name="PlayersConnected" type="RichTextLabel" parent="Online/Offset/Control"]
+layout_mode = 0
+offset_left = 352.0
+offset_top = 1443.0
+offset_right = 3803.0
+offset_bottom = 2601.0
+scale = Vector2(1e-05, 1e-05)
+mouse_filter = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 150
+theme_override_fonts/normal_font = ExtResource("15_cv2qv")
+theme_override_font_sizes/normal_font_size = 161
+bbcode_enabled = true
+text = "[center]PLAYERS CONNECTED"
+
+[node name="Player1" type="RichTextLabel" parent="Online/Offset/Control/PlayersConnected"]
+layout_mode = 0
+offset_left = -480.635
+offset_top = 224.047
+offset_right = 1319.36
+offset_bottom = 524.047
+mouse_filter = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 150
+theme_override_fonts/normal_font = ExtResource("15_cv2qv")
+theme_override_font_sizes/normal_font_size = 161
+bbcode_enabled = true
+text = "[center]Player1"
+
+[node name="Player2" type="RichTextLabel" parent="Online/Offset/Control/PlayersConnected"]
+layout_mode = 0
+offset_left = 733.011
+offset_top = 223.713
+offset_right = 2533.01
+offset_bottom = 523.713
+mouse_filter = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 150
+theme_override_fonts/normal_font = ExtResource("15_cv2qv")
+theme_override_font_sizes/normal_font_size = 161
+bbcode_enabled = true
+text = "[center]Player2"
+
+[node name="Player3" type="RichTextLabel" parent="Online/Offset/Control/PlayersConnected"]
+layout_mode = 0
+offset_left = -480.635
+offset_top = 464.206
+offset_right = 1319.36
+offset_bottom = 764.206
+mouse_filter = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 150
+theme_override_fonts/normal_font = ExtResource("15_cv2qv")
+theme_override_font_sizes/normal_font_size = 161
+bbcode_enabled = true
+text = "[center]Player3"
+
+[node name="Player4" type="RichTextLabel" parent="Online/Offset/Control/PlayersConnected"]
+layout_mode = 0
+offset_left = 733.011
+offset_top = 463.872
+offset_right = 2533.01
+offset_bottom = 763.872
+mouse_filter = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 150
+theme_override_fonts/normal_font = ExtResource("15_cv2qv")
+theme_override_font_sizes/normal_font_size = 161
+bbcode_enabled = true
+text = "[center]Player4"
+
+[node name="Player5" type="RichTextLabel" parent="Online/Offset/Control/PlayersConnected"]
+layout_mode = 0
+offset_left = -480.635
+offset_top = 687.919
+offset_right = 1319.36
+offset_bottom = 987.919
+mouse_filter = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 150
+theme_override_fonts/normal_font = ExtResource("15_cv2qv")
+theme_override_font_sizes/normal_font_size = 161
+bbcode_enabled = true
+text = "[center]Player5"
+
+[node name="Player6" type="RichTextLabel" parent="Online/Offset/Control/PlayersConnected"]
+layout_mode = 0
+offset_left = 733.011
+offset_top = 687.585
+offset_right = 2533.01
+offset_bottom = 987.585
+mouse_filter = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 150
+theme_override_fonts/normal_font = ExtResource("15_cv2qv")
+theme_override_font_sizes/normal_font_size = 161
+bbcode_enabled = true
+text = "[center]Player6"
+
+[node name="Player7" type="RichTextLabel" parent="Online/Offset/Control/PlayersConnected"]
+layout_mode = 0
+offset_left = -480.635
+offset_top = 928.079
+offset_right = 1319.36
+offset_bottom = 1228.08
+mouse_filter = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 150
+theme_override_fonts/normal_font = ExtResource("15_cv2qv")
+theme_override_font_sizes/normal_font_size = 161
+bbcode_enabled = true
+text = "[center]Player7"
+
+[node name="Player8" type="RichTextLabel" parent="Online/Offset/Control/PlayersConnected"]
+layout_mode = 0
+offset_left = 733.011
+offset_top = 927.745
+offset_right = 2533.01
+offset_bottom = 1227.74
+mouse_filter = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 150
+theme_override_fonts/normal_font = ExtResource("15_cv2qv")
+theme_override_font_sizes/normal_font_size = 161
+bbcode_enabled = true
+text = "[center]Player8"
+
+[node name="GradientBG" type="TextureRect" parent="Online/Offset/Control"]
+z_index = -500
+layout_mode = 0
+offset_left = 358.0
+offset_top = 217.0
+offset_right = 2042.0
+offset_bottom = 218.0
+mouse_filter = 2
+texture = SubResource("GradientTexture1D_4jh5l")
+
+[node name="GradientBG2" type="TextureRect" parent="Online/Offset/Control"]
+z_index = -500
+layout_mode = 0
+offset_left = 330.0
+offset_top = 1555.0
+offset_right = 3820.0
+offset_bottom = 2609.0
+scale = Vector2(1e-05, 1e-05)
+mouse_filter = 2
+texture = SubResource("GradientTexture1D_2ocqx")
+
+[node name="GradientBG3" type="TextureRect" parent="Online/Offset/Control"]
+z_index = -500
+layout_mode = 0
+offset_left = 2142.0
+offset_top = 213.0
+offset_right = 4049.0
+offset_bottom = 1267.0
+scale = Vector2(1e-05, 1e-05)
+mouse_filter = 2
+texture = SubResource("GradientTexture1D_ojmqs")
+
+[node name="chatSpawnPoint" type="Control" parent="Online/Offset"]
+anchors_preset = 0
+offset_left = 2004.17
+offset_top = 2083.33
+offset_right = 2044.17
+offset_bottom = 2123.33
+
+[node name="MainMenu" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_right = 4000.0
+offset_bottom = 2250.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.24, 0.24)
 pivot_offset = Vector2(480, 270)
 mouse_filter = 2
 
@@ -823,13 +2873,23 @@ offset_right = -1492.5
 offset_bottom = -815.0
 mouse_filter = 2
 
-[node name="previewMech" type="TextureRect" parent="MainMenu/Offset"]
+[node name="PreviewMech" type="TextureRect" parent="MainMenu/Offset"]
 layout_mode = 0
 offset_left = 133.333
 offset_top = 337.5
 offset_right = 2133.33
 offset_bottom = 2337.5
-texture = SubResource("ViewportTexture_efw7l")
+mouse_filter = 2
+texture = SubResource("ViewportTexture_iyfss")
+
+[node name="Earth" type="TextureRect" parent="MainMenu/Offset"]
+layout_mode = 0
+offset_left = 133.333
+offset_top = 337.5
+offset_right = 2133.33
+offset_bottom = 2337.5
+mouse_filter = 2
+texture = SubResource("ViewportTexture_5hqpm")
 
 [node name="title" type="TextureRect" parent="MainMenu/Offset"]
 self_modulate = Color(0.545098, 0.545098, 0.545098, 1)
@@ -852,14 +2912,17 @@ offset_left = 458.334
 offset_top = 90.0
 offset_right = 4479.33
 offset_bottom = 486.0
+theme = SubResource("Theme_aex3l")
 theme_override_colors/default_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 50
-theme_override_fonts/normal_font = SubResource("FontVariation_8kuo2")
-theme_override_font_sizes/normal_font_size = 150
+theme_override_font_sizes/normal_font_size = 120
 text = "Welcome, cadet! It is always good to see you!"
 
 [node name="frame" type="TextureRect" parent="MainMenu/Offset"]
+modulate = Color(1, 1, 1, 0.803922)
+texture_filter = 1
+material = SubResource("CanvasItemMaterial_d6ueg")
 layout_mode = 2
 offset_left = 258.333
 offset_top = 137.5
@@ -867,7 +2930,6 @@ offset_right = 3787.33
 offset_bottom = 2128.5
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(0.575, 0.575)
 mouse_filter = 2
 texture = ExtResource("12_cxx6n")
 stretch_mode = 4
@@ -889,7 +2951,6 @@ layout_mode = 0
 offset_left = 42.0
 offset_right = 3979.0
 offset_bottom = 604.0
-mouse_default_cursor_shape = 2
 script = ExtResource("12_f5jcp")
 menu = NodePath("../../../..")
 classification = "mainMenu"
@@ -915,7 +2976,6 @@ layout_mode = 0
 offset_left = 42.0
 offset_right = 3979.0
 offset_bottom = 604.0
-mouse_default_cursor_shape = 2
 script = ExtResource("12_f5jcp")
 menu = NodePath("../../../..")
 classification = "mainMenu"
@@ -941,7 +3001,6 @@ layout_mode = 0
 offset_left = 42.0
 offset_right = 3979.0
 offset_bottom = 604.0
-mouse_default_cursor_shape = 2
 script = ExtResource("12_f5jcp")
 menu = NodePath("../../../..")
 classification = "mainMenu"
@@ -967,7 +3026,6 @@ layout_mode = 0
 offset_left = 42.0
 offset_right = 3979.0
 offset_bottom = 604.0
-mouse_default_cursor_shape = 2
 script = ExtResource("12_f5jcp")
 menu = NodePath("../../../..")
 classification = "mainMenu"
@@ -992,7 +3050,6 @@ layout_mode = 0
 offset_left = 42.0
 offset_right = 3979.0
 offset_bottom = 604.0
-mouse_default_cursor_shape = 2
 script = ExtResource("12_f5jcp")
 menu = NodePath("../../../..")
 classification = "mainMenu"
@@ -1019,7 +3076,6 @@ offset_left = 42.0
 offset_top = 21.0
 offset_right = 1611.0
 offset_bottom = 1222.0
-mouse_default_cursor_shape = 2
 script = ExtResource("12_f5jcp")
 menu = NodePath("../../../..")
 classification = "mainMenu"
@@ -1152,71 +3208,12 @@ buttonName = "back3"
 description = "BACK"
 path = "MainMenuAssets"
 
-[node name="PreviewMech" parent="." instance=ExtResource("21_3k3sq")]
+[node name="Earth" parent="." instance=ExtResource("26_3d5dg")]
+transform = Transform3D(10.105, 0, 0, 0, 10.105, 0, 0, 0, 10.105, 0, 1.30095, -24.69)
 visible = false
 
-[node name="Mech1_Head" parent="PreviewMech/Armature/Skeleton3D" index="0"]
-transform = Transform3D(-2.87386e-07, -1.25447e-07, 1.07409, 0.554656, 1.15461, 2.16499e-07, -1.15461, 0.554656, -1.41197e-07, 0.0535915, 6.07775, 0.862032)
-
-[node name="Drill_R" parent="PreviewMech/Armature/Skeleton3D" index="1"]
-transform = Transform3D(1.5464, -0.0117616, -0.628599, -0.0715204, 1.65491, -0.206911, 0.624628, 0.218607, 1.53254, 0.735403, -16.5119, -4.67516)
-
-[node name="Mech1_Arm_R" parent="PreviewMech/Armature/Skeleton3D" index="2"]
-transform = Transform3D(0.926365, -0.00924068, -0.376559, -0.042844, 1.30018, -0.123949, 0.37418, 0.17175, 0.918063, -0.215377, -2.1489, -0.676724)
-
-[node name="Mech2_Arm_R" parent="PreviewMech/Armature/Skeleton3D" index="3"]
-transform = Transform3D(0.926366, -0.00704575, -0.376559, -0.042844, 0.991364, -0.123949, 0.37418, 0.130955, 0.918063, 0.0637999, -2.04316, -1.35589)
-
-[node name="NeedleCannon_R" parent="PreviewMech/Armature/Skeleton3D" index="4"]
-transform = Transform3D(0.926366, -0.00924058, -0.376559, -0.042844, 1.30018, -0.123949, 0.37418, 0.17175, 0.918063, 0.735403, -16.5119, -4.67516)
-
-[node name="PlasmaCannon_L" parent="PreviewMech/Armature/Skeleton3D" index="5"]
-transform = Transform3D(4.94727, -0.00902641, -0.378063, -0.228809, 1.27006, -0.124444, 1.99831, 0.16777, 0.921729, 0.735403, -16.5119, -4.67516)
-
-[node name="Mech1_Shoulder_R" parent="PreviewMech/Armature/Skeleton3D" index="6"]
-transform = Transform3D(0.906211, -0.0885952, -0.417394, -0.121734, 1.18518, -0.410551, 0.404922, 0.554582, 0.810697, 0.0108346, -2.14541, -2.17981)
-
-[node name="Drill_L" parent="PreviewMech/Armature/Skeleton3D" index="7"]
-transform = Transform3D(1.07708, 0.38455, 1.216, -0.668959, 1.52545, 0.110121, -1.08584, -0.558349, 1.13835, -5.46201, -13.4921, 5.08684)
-
-[node name="Mech1_Arm_L" parent="PreviewMech/Armature/Skeleton3D" index="8"]
-transform = Transform3D(0.645218, 0.302123, 0.728441, -0.400736, 1.19848, 0.0659672, -0.650465, -0.438669, 0.681925, -0.421785, 0.152595, 1.68024)
-
-[node name="Mech2_Arm_L" parent="PreviewMech/Armature/Skeleton3D" index="9"]
-transform = Transform3D(0.645218, 0.230363, 0.728442, -0.400736, 0.913815, 0.0659672, -0.650465, -0.334476, 0.681925, -0.958926, 0.116398, 1.1698)
-
-[node name="NeedleCannon_L" parent="PreviewMech/Armature/Skeleton3D" index="10"]
-transform = Transform3D(0.645218, 0.302123, 0.728442, -0.400736, 1.19848, 0.065967, -0.650465, -0.438669, 0.681925, -5.46201, -13.4921, 5.08684)
-
-[node name="PlasmaCannon_R" parent="PreviewMech/Armature/Skeleton3D" index="11"]
-transform = Transform3D(3.44579, 0.295123, 0.73135, -2.14014, 1.17071, 0.0662307, -3.47381, -0.428504, 0.684648, -5.46201, -13.4921, 5.08684)
-
-[node name="Mech1_Shoulder_L" parent="PreviewMech/Armature/Skeleton3D" index="12"]
-transform = Transform3D(0.641933, 0.285078, 0.735306, 0.0328065, 1.24635, -0.309565, -0.766059, 0.292261, 0.602905, -0.386542, -2.24055, -0.794501)
-
-[node name="Mech1_UpperTorso" parent="PreviewMech/Armature/Skeleton3D" index="13"]
-transform = Transform3D(1, 6.08207e-08, -2.03306e-09, -6.53202e-09, 8.90167, -0.424246, -7.23091e-10, 3.6994, 1.02084, 2.28891e-08, 1.76977, -1.67819)
-
-[node name="Mech1_Torso" parent="PreviewMech/Armature/Skeleton3D" index="14"]
-transform = Transform3D(1, 2.07478e-12, -2.55795e-13, -8.52651e-14, 8.27488, 0.567074, 2.84217e-13, -4.94486, 0.948959, 2.22796e-08, 1.81418, -1.78366)
-
-[node name="Mech1_Foot_R" parent="PreviewMech/Armature/Skeleton3D" index="15"]
-transform = Transform3D(0.761121, -0.409311, -0.642653, 0.0209501, 3.15118, -0.174837, 0.648271, 0.378726, 0.760175, -1.34758, -14.7168, -7.60696)
-
-[node name="Mech1_Legs_R" parent="PreviewMech/Armature/Skeleton3D" index="16"]
-transform = Transform3D(0.707057, -0.604652, -0.688711, -0.25516, 2.65791, -0.500317, 0.659518, 1.67655, 0.544789, -2.4837, -1.06278, 2.97542)
-
-[node name="Mech1_Thigh_R" parent="PreviewMech/Armature/Skeleton3D" index="17"]
-transform = Transform3D(0.724469, 0.532387, -0.676062, -0.292327, 3.04974, -0.0804326, 0.624252, 0.810283, 0.746931, 0.431005, -0.804996, 0.424641)
-
-[node name="Mech1_Foot_L" parent="PreviewMech/Armature/Skeleton3D" index="18"]
-transform = Transform3D(0.963517, 0.086688, 0.26911, 0.0194803, 3.15255, -0.172531, -0.266936, 0.542969, 0.958774, -2.51895, -14.8292, 0.543928)
-
-[node name="Mech1_Legs_L" parent="PreviewMech/Armature/Skeleton3D" index="19"]
-transform = Transform3D(0.963768, 0.228207, 0.25977, 0.0199201, 3.01347, -0.339534, -0.265995, 1.05253, 0.91579, 1.18651, 1.33869, 5.35743)
-
-[node name="Mech1_Thigh_L" parent="PreviewMech/Armature/Skeleton3D" index="20"]
-transform = Transform3D(0.94074, -0.306989, 0.328745, -0.133653, 2.48539, 0.622152, -0.311681, -1.99235, 0.725458, -0.312101, -1.07298, -1.85363)
+[node name="mech" parent="." instance=ExtResource("39_6rsxr")]
+visible = false
 
 [node name="SubViewport" type="SubViewport" parent="."]
 transparent_bg = true
@@ -1227,33 +3224,158 @@ size = Vector2i(2000, 2000)
 
 [node name="Camera3D" type="Camera3D" parent="SubViewport"]
 transform = Transform3D(1, 0, 0, 0, 0.923712, 0.383087, 0, -0.383087, 0.923712, 0, 23.443, 27.5251)
-cull_mask = 1
+cull_mask = 2
+environment = SubResource("Environment_4ptv0")
+attributes = SubResource("CameraAttributesPractical_ou6wi")
 v_offset = -1.655
+projection = 1
 fov = 52.3
 size = 30.345
 near = 0.001
 
-[node name="SpotLight3D" type="SpotLight3D" parent="SubViewport/Camera3D"]
-light_energy = 100.0
-light_specular = 3.447
-spot_range = 204.06
+[node name="SubViewport2" type="SubViewport" parent="."]
+transparent_bg = true
+msaa_2d = 1
+msaa_3d = 1
+canvas_cull_mask = 4293918721
+size = Vector2i(2000, 2000)
+
+[node name="Camera3D" type="Camera3D" parent="SubViewport2"]
+transform = Transform3D(1, 0, 0, 0, 0.923712, 0.383087, 0, -0.383087, 0.923712, 0, 23.443, 27.5251)
+cull_mask = 1
+environment = SubResource("Environment_4ptv0")
+attributes = SubResource("CameraAttributesPractical_ou6wi")
+v_offset = -1.655
+projection = 1
+fov = 52.3
+size = 30.345
+near = 0.001
+
+[node name="SubViewport3" type="SubViewport" parent="."]
+transparent_bg = true
+msaa_2d = 1
+msaa_3d = 1
+canvas_cull_mask = 4293918721
+size = Vector2i(4000, 2000)
+
+[node name="Camera3D" type="Camera3D" parent="SubViewport3"]
+transform = Transform3D(0.737277, -0.258537, 0.624164, 0, 0.923879, 0.382683, -0.67559, -0.282144, 0.681155, 0, 23.443, 27.5251)
+cull_mask = 1
+environment = SubResource("Environment_4ptv0")
+attributes = SubResource("CameraAttributesPractical_ou6wi")
+v_offset = -5.525
+projection = 1
+fov = 52.3
+size = 30.345
+near = 0.001
 
 [node name="BlackOverlay" type="TextureRect" parent="."]
 modulate = Color(1, 1, 1, 0)
 z_index = 4096
 layout_mode = 0
-offset_left = -1626.0
+offset_left = -1154.0
 offset_top = -1170.0
-offset_right = -1370.0
+offset_right = -898.0
 offset_bottom = -1130.0
 scale = Vector2(17.8655, 146.952)
 mouse_filter = 2
-texture = SubResource("GradientTexture1D_88ctn")
+texture = SubResource("GradientTexture1D_djasq")
+metadata/_edit_group_ = true
 
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 52.3968, 3.6627, 160.59)
+light_energy = 3.333
+light_indirect_energy = 3.956
+light_volumetric_fog_energy = 0.0
+shadow_enabled = true
+shadow_bias = 0.0
+shadow_reverse_cull_face = true
+shadow_blur = 0.0
+
+[node name="Network" type="Node" parent="." node_paths=PackedStringArray("ipField", "nameEntry", "chatBar", "menu", "level", "connectionNames", "chatSpawnPoint", "sendButton", "readyButton", "startButton", "stageName", "gameMode", "timeLimit", "scoreLimit")]
+script = ExtResource("35_hlpyk")
+chatBubblePath = "res://Assets/Prefabs/chat_bubble.tscn"
+ipField = NodePath("../Online/Offset/EnterIP/TextEdit")
+nameEntry = NodePath("../Online/Offset/EnterName/TextEdit")
+chatBar = NodePath("../Online/Offset/ChatBar/TextEdit")
+menu = NodePath("..")
+level = NodePath("../Level")
+connectionNames = NodePath("../Online/Offset/Control/PlayersConnected")
+chatSpawnPoint = NodePath("../Online/Offset/chatSpawnPoint")
+sendButton = NodePath("../Online/Offset/ChatBar/sendChat")
+readyButton = NodePath("../Online/Offset/Ready/Ready_Button")
+startButton = NodePath("../Online/Offset/Ready/Start/Start_Button")
+stageName = NodePath("../Online/Offset/Control/StageName")
+gameMode = NodePath("../Online/Offset/Control/ModeName")
+timeLimit = NodePath("../Online/Offset/Control/TimeLimit")
+scoreLimit = NodePath("../Online/Offset/Control/ScoreLimit")
+
+[node name="PlayerSpawner" type="MultiplayerSpawner" parent="Network"]
+_spawnable_scenes = PackedStringArray("res://Assets/Prefabs/InGameMech.tscn")
+spawn_path = NodePath("../../Players")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="Network"]
+replication_config = SubResource("SceneReplicationConfig_u8bs7")
+
+[node name="Players" type="Node3D" parent="."]
+
+[node name="Entities" type="Node3D" parent="."]
+
+[node name="Props" type="Node3D" parent="."]
+
+[node name="Level" type="Node3D" parent="." node_paths=PackedStringArray("network")]
+script = ExtResource("36_mo5lr")
+network = NodePath("../Network")
+
+[node name="Control" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 976.0
+offset_top = 460.0
+offset_right = 1016.0
+offset_bottom = 500.0
+
+[connection signal="text_changed" from="Online/Offset/EnterName/TextEdit" to="Online/Offset/EnterName/TextEdit" method="_on_text_changed"]
+[connection signal="text_changed" from="Online/Offset/ChatBar/TextEdit" to="Online/Offset/ChatBar/TextEdit" method="_on_text_changed"]
+[connection signal="mouse_entered" from="Online/Offset/ChatBar/sendChat" to="Online/Offset/ChatBar/sendChat" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Online/Offset/ChatBar/sendChat" to="Online/Offset/ChatBar/sendChat" method="_on_mouse_exited"]
+[connection signal="pressed" from="Online/Offset/ChatBar/sendChat" to="Network" method="_on_send_chat_pressed"]
+[connection signal="mouse_entered" from="Online/Offset/Ready/Ready_Button" to="Online/Offset/Ready/Ready_Button" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Online/Offset/Ready/Ready_Button" to="Online/Offset/Ready/Ready_Button" method="_on_mouse_exited"]
+[connection signal="pressed" from="Online/Offset/Ready/Ready_Button" to="Network" method="_on_ready_button_pressed"]
+[connection signal="mouse_entered" from="Online/Offset/Ready/Start/Start_Button" to="Online/Offset/Ready/Start/Start_Button" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Online/Offset/Ready/Start/Start_Button" to="Online/Offset/Ready/Start/Start_Button" method="_on_mouse_exited"]
+[connection signal="pressed" from="Online/Offset/Ready/Start/Start_Button" to="Network" method="_on_start_button_pressed"]
+[connection signal="mouse_entered" from="Online/Offset/EnterIP/Connect/Connect" to="Online/Offset/EnterIP/Connect/Connect" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Online/Offset/EnterIP/Connect/Connect" to="Online/Offset/EnterIP/Connect/Connect" method="_on_mouse_exited"]
+[connection signal="pressed" from="Online/Offset/EnterIP/Connect/Connect" to="Network" method="_on_connect_pressed"]
+[connection signal="text_changed" from="Online/Offset/EnterIP/TextEdit" to="Online/Offset/EnterIP/TextEdit" method="_on_text_changed"]
+[connection signal="mouse_entered" from="Online/Offset/Join/joinButton" to="Online/Offset/Join/joinButton" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Online/Offset/Join/joinButton" to="Online/Offset/Join/joinButton" method="_on_mouse_exited"]
+[connection signal="pressed" from="Online/Offset/Join/joinButton" to="." method="_on_join_button_pressed"]
+[connection signal="mouse_entered" from="Online/Offset/Host/hostButton" to="Online/Offset/Host/hostButton" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Online/Offset/Host/hostButton" to="Online/Offset/Host/hostButton" method="_on_mouse_exited"]
+[connection signal="pressed" from="Online/Offset/Host/hostButton" to="Network" method="_on_host_button_pressed"]
+[connection signal="mouse_entered" from="Online/Offset/back/backButton" to="Online/Offset/back/backButton" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Online/Offset/back/backButton" to="Online/Offset/back/backButton" method="_on_mouse_exited"]
+[connection signal="pressed" from="Online/Offset/back/backButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="Online/Offset/back/backButton" to="Online/Offset/back/backButton" method="_on_pressed"]
+[connection signal="mouse_entered" from="Online/Offset/Control/leftArrow1/leftArrowButton" to="Online/Offset/Control/leftArrow1/leftArrowButton" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Online/Offset/Control/leftArrow1/leftArrowButton" to="Online/Offset/Control/leftArrow1/leftArrowButton" method="_on_mouse_exited"]
+[connection signal="pressed" from="Online/Offset/Control/leftArrow1/leftArrowButton" to="Network" method="_on_left_arrow_button_pressed"]
+[connection signal="mouse_entered" from="Online/Offset/Control/rightArrow1/rightArrowButton" to="Online/Offset/Control/rightArrow1/rightArrowButton" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Online/Offset/Control/rightArrow1/rightArrowButton" to="Online/Offset/Control/rightArrow1/rightArrowButton" method="_on_mouse_exited"]
+[connection signal="pressed" from="Online/Offset/Control/rightArrow1/rightArrowButton" to="Network" method="_on_right_arrow_button_pressed"]
+[connection signal="mouse_entered" from="Online/Offset/Control/leftArrow2/leftArrowButton2" to="Online/Offset/Control/leftArrow2/leftArrowButton2" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Online/Offset/Control/leftArrow2/leftArrowButton2" to="Online/Offset/Control/leftArrow2/leftArrowButton2" method="_on_mouse_exited"]
+[connection signal="pressed" from="Online/Offset/Control/leftArrow2/leftArrowButton2" to="Network" method="_on_left_arrow_button_2_pressed"]
+[connection signal="mouse_entered" from="Online/Offset/Control/rightArrow2/rightArrowButton2" to="Online/Offset/Control/rightArrow2/rightArrowButton2" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Online/Offset/Control/rightArrow2/rightArrowButton2" to="Online/Offset/Control/rightArrow2/rightArrowButton2" method="_on_mouse_exited"]
+[connection signal="pressed" from="Online/Offset/Control/rightArrow2/rightArrowButton2" to="Network" method="_on_right_arrow_button_2_pressed"]
 [connection signal="mouse_entered" from="MainMenu/Offset/myRobot/myRobotButton" to="MainMenu/Offset/myRobot/myRobotButton" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="MainMenu/Offset/myRobot/myRobotButton" to="MainMenu/Offset/myRobot/myRobotButton" method="_on_mouse_exited"]
 [connection signal="mouse_entered" from="MainMenu/Offset/online/onlineButton" to="MainMenu/Offset/online/onlineButton" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="MainMenu/Offset/online/onlineButton" to="MainMenu/Offset/online/onlineButton" method="_on_mouse_exited"]
+[connection signal="pressed" from="MainMenu/Offset/online/onlineButton" to="." method="_on_online_button_pressed"]
 [connection signal="mouse_entered" from="MainMenu/Offset/training/trainingButton" to="MainMenu/Offset/training/trainingButton" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="MainMenu/Offset/training/trainingButton" to="MainMenu/Offset/training/trainingButton" method="_on_mouse_exited"]
 [connection signal="pressed" from="MainMenu/Offset/training/trainingButton" to="." method="_on_training_button_pressed"]
@@ -1281,4 +3403,4 @@ texture = SubResource("GradientTexture1D_88ctn")
 [connection signal="pressed" from="StageSelect/Offset/back/backButton" to="." method="_on_back_button_pressed"]
 [connection signal="pressed" from="StageSelect/Offset/back/backButton" to="StageSelect/Offset/back/backButton" method="_on_pressed"]
 
-[editable path="PreviewMech"]
+[editable path="mech"]
