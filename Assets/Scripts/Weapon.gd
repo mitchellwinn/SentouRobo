@@ -9,7 +9,8 @@ var damage
 var shieldDamage
 var knockback
 
-func _init(_leftRight,_name,_category,_weight,_hitscan,_damage,_shieldDamage,_knockback):
+func _init(_inGameName,_leftRight,_name,_category,_weight,_hitscan,_damage,_shieldDamage,_knockback):
+	inGameName = _inGameName
 	partName = _name
 	partCategory = _category
 	partWeight = _weight

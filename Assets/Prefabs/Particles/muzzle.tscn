@@ -1,55 +1,75 @@
-[gd_scene load_steps=7 format=3 uid="uid://drm7fh1m3fa7w"]
+[gd_scene load_steps=4 format=3 uid="uid://drm7fh1m3fa7w"]
 
 [ext_resource type="Texture2D" uid="uid://cxa6v7dnkij7p" path="res://Assets/ExtraImageTextures/muzzle1.png" id="1_silbe"]
 
-[sub_resource type="Curve" id="Curve_3rm25"]
-_data = [Vector2(0, 0.705263), 0.0, 0.0, 0, 0, Vector2(0.163077, 1), -3.20723, -3.20723, 0, 0, Vector2(0.99999, 0), 0.0, 0.0, 0, 0, Vector2(1, 0.284211), -0.868421, 0.0, 0, 0]
-point_count = 4
+[sub_resource type="Animation" id="Animation_v86w0"]
+resource_name = "flash"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 0,
+"values": []
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.3, 0.4, 0.6, 0.8, 1),
+"transitions": PackedFloat32Array(0.0625, 0.0625, 1, 1, 0.0625, 0.0625, 0.0625),
+"update": 0,
+"values": [Vector3(2, 2, 3.938), Vector3(0, 0, 0), Vector3(1, 1, 1.969), Vector3(15, 15, 29.529), Vector3(2, 2, 0), Vector3(3, 3, 5.907), Vector3(2, 2, 3.938)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.6, 1),
+"transitions": PackedFloat32Array(0.0544095, 0.0544095, 1),
+"update": 0,
+"values": [Color(1, 0.647059, 0.462745, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("OmniLight3D:light_energy")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 0.0824693, 1),
+"update": 0,
+"values": [1.0, 6.145, 0.0]
+}
 
-[sub_resource type="CurveTexture" id="CurveTexture_nj615"]
-curve = SubResource("Curve_3rm25")
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ixp1e"]
+_data = {
+"flash": SubResource("Animation_v86w0")
+}
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ajmiw"]
-emission_shape = 1
-emission_sphere_radius = 1.0
-spread = 6.5
-flatness = 1.0
-gravity = Vector3(0, 0, 0)
-angle_min = -36.0
-angle_max = 69.0
-scale_min = 13.4
-scale_max = 17.95
-scale_curve = SubResource("CurveTexture_nj615")
+[node name="Muzzle" type="Sprite3D"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 3.938, 0, 0, 0)
+modulate = Color(1, 1, 1, 0)
+billboard = 1
+texture = ExtResource("1_silbe")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0owai"]
-transparency = 1
-cull_mode = 2
-shading_mode = 2
-albedo_texture = ExtResource("1_silbe")
-emission_enabled = true
-emission_energy_multiplier = 7.9
-emission_texture = ExtResource("1_silbe")
-subsurf_scatter_enabled = true
-subsurf_scatter_strength = 0.94
-subsurf_scatter_texture = ExtResource("1_silbe")
-disable_receive_shadows = true
-billboard_keep_scale = true
-distance_fade_mode = 2
-distance_fade_max_distance = 0.0
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ixp1e")
+}
+speed_scale = 4.0
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_xhrq2"]
-material = SubResource("StandardMaterial3D_0owai")
-
-[node name="Muzzle" type="GPUParticles3D"]
-transform = Transform3D(0.94469, 0.284207, 0.163666, -0.327918, 0.810207, 0.485835, 0.00547423, -0.512633, 0.858591, -7.8848, -2.14087, 5.57895)
-emitting = false
-amount = 5
-lifetime = 3.61
-one_shot = true
-speed_scale = 60.25
-explosiveness = 0.95
-randomness = 0.23
-fixed_fps = 60
-local_coords = true
-process_material = SubResource("ParticleProcessMaterial_ajmiw")
-draw_pass_1 = SubResource("PlaneMesh_xhrq2")
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+light_energy = 0.0
+omni_range = 400.0

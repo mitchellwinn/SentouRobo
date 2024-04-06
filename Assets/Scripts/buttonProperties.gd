@@ -6,20 +6,24 @@ extends Button
 @export var description : String
 @export var path : String
 @export var delay: float
+@export var index: int
 
 func _on_mouse_entered():
 	if true:
-		if GameManager.buttonSelection != null:
+		if GameManager.buttonSelection != null and path!="" and GameManager.buttonSelection == self:
 			GameManager.buttonSelection.get_parent().texture = load("res://Assets/"+GameManager.buttonSelection.path+"/"+GameManager.buttonSelection.buttonName+"_.png")
-		AudioManager.playSound("res://Assets/SFX/Change.wav",-10,2.5,1)
+		AudioManager.playSound("res://Assets/SFX/Change.wav",-20,2.5,1)
 		GameManager.buttonSelection = self
-		get_parent().texture = load("res://Assets/"+path+"/"+buttonName+"^.png")
+		if path != "":
+			get_parent().texture = load("res://Assets/"+path+"/"+buttonName+"^.png")
+		else:
+			get_parent().self_modulate = Color(.3,.3,.3,.5)
 		if classification == "stageSelect":	
 			if description != "":
 				menu.stageSelectDescription.text = description
 				menu.stageSelectDescription.visible_ratio = 0
 		elif classification == "mainMenu":	
-			if !GameManager.hasControl():
+			if !GameManager.hasControl() or GameManager.waiting:
 				return
 			if description != "":
 				menu.mainMenuDescription.text = description
@@ -35,9 +39,12 @@ func _on_mouse_entered():
 			-2,-3:
 				menu.earth.visible = true
 func _on_mouse_exited():
-	if GameManager.hasControl():
+	if GameManager.hasControl() and path!="":
 		get_parent().texture = load("res://Assets/"+path+"/"+buttonName+"_.png")
+	else:
+		get_parent().self_modulate = Color(1,1,1,1)
 
 func _on_pressed():
-	await get_tree().create_timer(delay).timeout
-	get_parent().texture = load("res://Assets/"+path+"/"+buttonName+"_.png")
+	if path != "":
+		await get_tree().create_timer(delay).timeout 
+		get_parent().texture = load("res://Assets/"+path+"/"+buttonName+"_.png")

@@ -26,7 +26,7 @@ var peer = ENetMultiplayerPeer.new()
 @export var stageList = ["[center]VALLEY","[center]TEST"]
 @export var modeList = ["[center]TRAINING","[center]DEATHMATCH"]
 var stageIndex = 0
-var modeIndex = 0
+var modeIndex = 1
 @export var timeLimit: RichTextLabel
 @export var scoreLimit: RichTextLabel
 
@@ -49,10 +49,11 @@ func _process(delta):
 		elif GameManager.gamemode == -3:
 			_on_connect_pressed()
 	if multiplayer.is_server():
-		if GameManager.gameTimer >= timeLimit.get_child(0).text.to_int():
+		if GameManager.gameTimer >= timeLimit.get_child(0).text.to_int() and GameManager.gamemode>0:
+			GameManager.gamemode=-1
 			rpc("end_game")
-		elif GameManager.gameTimer >= scoreLimit.get_child(0).text.to_int():
-			rpc("end_game")
+	
+
 
 func updateNameList():
 	var i = 0
@@ -161,10 +162,8 @@ func change_level(scene :String):
 	level.currentStage = stage
 	
 func showUI():
-	GameManager.menu.menuBG1.visible = true
-	GameManager.menu.menuBG2.visible = true
-	GameManager.menu.menuBG3.visible = true
-	GameManager.menu.menuBG4.visible = true
+	GameManager.menu.get_node("Eclipse").visible = true
+	GameManager.menu.get_node("Eclipse2").visible = true
 	GameManager.menu.get_node("DirectionalLight3D").visible = true
 	GameManager.menu.get_node("Title").visible = true
 	#GameManager.menu.get_node("Online").visible = true
@@ -177,14 +176,8 @@ func showUI():
 	GameManager.menu.get_node("SubViewport3/Camera3D").current = true
 
 func hideUI():
-	GameManager.menu.menuBG1.visible = false
-	GameManager.menu.menuBG2.visible = false
-	GameManager.menu.menuBG3.visible = false
-	GameManager.menu.menuBG4.visible = false
-	GameManager.menu.menuBG1.stop()
-	GameManager.menu.menuBG2.stop()
-	GameManager.menu.menuBG3.stop()
-	GameManager.menu.menuBG4.stop()
+	GameManager.menu.get_node("Eclipse").visible = false
+	GameManager.menu.get_node("Eclipse2").visible = false
 	GameManager.menu.get_node("DirectionalLight3D").visible = false
 	GameManager.menu.get_node("Title").visible = false
 	GameManager.menu.get_node("Online").visible = false
@@ -202,6 +195,7 @@ func _on_copy_pressed():
 func _on_player_connected(id):
 	pass
 
+@rpc("any_peer", "reliable", "call_local")
 func end_game():
 	if GameManager.gamemode == 0:
 		return
@@ -322,10 +316,10 @@ func syncReady(id,readyStatus):
 		i+=1
 
 @rpc("any_peer","call_local","reliable")
-func sendChat(sender,msg,id,c1,c2,posx):
+func sendChat(sender,msg,id,c1r,c1g,c1b,c2r,c2g,c2b,posx):
 	var chat = preload("res://Assets/Prefabs/chat_bubble.tscn").instantiate()
-	chat.texture.get_gradient().set_color(0,c1)
-	chat.texture.get_gradient().set_color(1,c2)
+	chat.texture.get_gradient().set_color(0,Color(c1r,c1g,c1b,1))
+	chat.texture.get_gradient().set_color(1,Color(c2r,c2g,c2b,1))
 	add_child(chat)
 	if id == multiplayer.multiplayer_peer.get_unique_id():
 		chat.global_position = chatSpawnPoint.global_position
@@ -350,7 +344,7 @@ func _on_send_chat_pressed():
 		return
 	var msg = chatBar.text
 	chatBar.text = ""
-	rpc("sendChat",GameManager.activePlayerName,msg,multiplayer.multiplayer_peer.get_unique_id(),GameManager.myRobotData["Color1"],GameManager.myRobotData["Color2"],RandomNumberGenerator.new().randi_range(-300,100))
+	rpc("sendChat",GameManager.activePlayerName,msg,multiplayer.multiplayer_peer.get_unique_id(),GameManager.myRobotData["Color1r"],GameManager.myRobotData["Color1g"],GameManager.myRobotData["Color1b"],GameManager.myRobotData["Color2r"],GameManager.myRobotData["Color2g"],GameManager.myRobotData["Color2b"],RandomNumberGenerator.new().randi_range(-300,100))
 	GameManager.buttonFeedback(sendButton.get_parent(),"res://Assets/SFX/Change.wav")
 
 

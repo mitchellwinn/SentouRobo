@@ -5,6 +5,7 @@ extends Control
 @export var animMain: AnimationPlayer
 @export var animStage: AnimationPlayer
 @export var animOnline: AnimationPlayer
+@export var animGarage:AnimationPlayer
 #buttons
 @export var myRobot: TextureRect
 @export var online: TextureRect
@@ -28,31 +29,41 @@ extends Control
 @export var offset: Control #used as the parent when spawning new UI elements
 @export var SFX1: AudioStreamPlayer
 @export var SFX2: AudioStreamPlayer
+var backFireOn = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	previewMech = $PreviewMech
+	previewMechSkeleton = $PreviewMech/Armature/Skeleton3D
 	GameManager.menu = self
 	GameManager.players = $Players
 	RenderingServer.set_default_clear_color(Color(0.38431372549,0.38431372549,0.38431372549,1))
 	GameManager.gamemode = -1 #menuScreens
 	GameManager.mainMenu = self
 	GameManager.waiting = false
-	GameManager.updatePartGraphics(previewMechSkeleton)
 	title()
  
 func _physics_process(delta):
-	previewMech.get_node("AnimationPlayer").play("idle")
 	mainMenuDescription.visible_ratio += 1.0/30
 	stageSelectDescription.visible_ratio += 1.0/30
+	if backFireOn:
+		if !previewMech.get_node("AnimationPlayer2").is_playing():
+			previewMech.get_node("AnimationPlayer2").speed_scale = 0
+			previewMech.get_node("AnimationPlayer2").play("SwitchBackFire")
+		previewMech.get_node("AnimationPlayer2").seek(.8)
+		
 
 #transitions to title screen
 #waits for input on the title screen before calling main()
 func title():
-	AudioManager.stop_song.emit()
+	backFireOn = false
+	await get_tree().process_frame
+	#previewMech.get_node("AnimationPlayer").play("SwitchBackFire")
+	AudioManager.stop_songs()
 	AudioManager.currentMusicPath = ""
 	#if !menuBG1.is_playing():
 	#	menuBG1.play()
 	#	menuBG1.loop = true
-	SFX1.volume_db = AudioManager.volumeMixdB+AudioManager.sfxMixdB
+	SFX1.volume_db = AudioManager.volumeMixdB+AudioManager.sfxMixdB-15
 	SFX2.volume_db = SFX1.volume_db
 	GameManager.waiting = true
 	animTitle.play("titleIN")
@@ -73,12 +84,14 @@ func title():
 			press.modulate = Color(1,1,1,1)
 		else:
 			press.modulate = Color(1,1,1,0)
-		await get_tree().process_frame
 	press.modulate = Color(1,1,1,0)
 	#menuBG1.call_deferred("stop")
 #transitions to main menu layout
 func main():
 	previewMech.get_node("AnimationPlayer").play("idle")
+	previewMech.get_node("AnimationPlayer2").play("SwitchBackFire")
+	GameManager.updatePartGraphics(previewMechSkeleton,GameManager.myRobotData)
+	GameManager.updateRobotColor(previewMechSkeleton,GameManager.myRobotData)
 	AudioManager.playMusic("res://Assets/Music/rainloop.wav",-20,1,0)
 	#if !menuBG2.is_playing():
 	#	menuBG2.loop = true
@@ -145,9 +158,14 @@ func _on_back_button_pressed():
 func goBack():
 	if!GameManager.hasControl():
 		return
-	if GameManager.buttonSelection.get_parent() !=null:
-		GameManager.buttonFeedback(GameManager.buttonSelection.get_parent(),"res://Assets/SFX/Change.wav")
+		if GameManager.buttonSelection != null:
+			if GameManager.buttonSelection.get_parent() !=null:
+				GameManager.buttonFeedback(GameManager.buttonSelection.get_parent(),"res://Assets/SFX/Change.wav")
 	match GameManager.gamemode:
+		-5: #we are in the garage so go to main menu
+			main()
+			animGarage.play("garageOUT")
+			GameManager.saveMechData()
 		-4: #we are on online room menu so go to online menu
 			onlineMenu()
 			network.remove_multiplayer_peer()
@@ -226,3 +244,30 @@ func _on_online_button_pressed():
 	animOnline.play("onlineIN")
 	#loadStage("Valley")
 
+func garage():
+	previewMech.get_node("AnimationPlayer").play("pose"+str(RandomNumberGenerator.new().randi_range(1,2)))
+	#AudioManager.playMusic("res://Assets/Music/rainloop.wav",-20,1,0)
+	#if !menuBG2.is_playing():
+	#	menuBG2.loop = true
+	#	menuBG2.play()
+	GameManager.waiting = true
+	GameManager.gamemode = -5
+	GameManager.buttonSelection = null
+	animGarage.play("garageIN")
+	await get_tree().create_timer(.8).timeout
+	GameManager.waiting = false
+	#menuBG1.stop()
+
+func _on_my_robot_button_pressed():
+	if!GameManager.hasControl() or GameManager.gamemode!=-1:
+		return
+	GameManager.buttonFeedback(GameManager.buttonSelection.get_parent(),"res://Assets/SFX/MenuSelect1.wav")
+	await get_tree().create_timer(.2).timeout
+	animMain.play("mainMenuOUT")
+	garage()
+	#loadStage("Valley")
+
+
+
+func _on_animation_player_2_animation_finished(anim_name):
+	backFireOn = true

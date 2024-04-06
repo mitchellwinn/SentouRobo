@@ -59,20 +59,20 @@ func adjustAudioAmounts():
 
 func displayActiveTab():
 	general.visible = false
-	generalTab.position.x = 2000
+	generalTab.position.x = 2000 +113.333
 	audio.visible = false
-	audioTab.position.x = 2000
+	audioTab.position.x = 2000 +113.333
 	video.visible = false
-	videoTab.position.x = 2000
+	videoTab.position.x = 2000 +113.333
 	activeTab.visible = true
 	match activeTab:
 		general:
 			textTitle.text = "[center]"+get_tree().get_current_scene().get_name()+"[/center]"
-			generalTab.position.x = 2160 
+			generalTab.position.x = 2160 +113.333
 		audio:
-			audioTab.position.x = 2160 
+			audioTab.position.x = 2160 +113.333
 		video:
-			videoTab.position.x = 2160 
+			videoTab.position.x = 2160 +113.333 
 			
 #----------------------------------------------
 #-------DETERMINE ACTIVE TAB-------------------

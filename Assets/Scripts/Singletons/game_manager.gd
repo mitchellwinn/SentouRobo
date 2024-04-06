@@ -30,6 +30,8 @@ const Weapon = preload("res://Assets/Scripts/Weapon.gd")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	while PartCompendium.indexedCategories.size()==0:
+		await get_tree().process_frame
 	GameManager.loadData()
 	GameManager.loadMechData()
 	pass # Replace with function body.
@@ -47,38 +49,62 @@ func _process(delta):
 		else:
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN, 0)
 #updates the graphics of the mech	
-func updatePartGraphics(skeleton):
+
+func updateRobotColor(skeleton,robotData):
+	var part = skeleton.get_child(0)
+	part.get_child(0).get_active_material(0).albedo_color.r = robotData["Color1r"]
+	part.get_child(0).get_active_material(0).albedo_color.g = robotData["Color1g"]
+	part.get_child(0).get_active_material(0).albedo_color.b = robotData["Color1b"]
+		
+	part.get_child(0).get_active_material(1).albedo_color.r = robotData["Color2r"]
+	part.get_child(0).get_active_material(1).albedo_color.g = robotData["Color2g"]
+	part.get_child(0).get_active_material(1).albedo_color.b = robotData["Color2b"]
+		
+	part.get_child(0).get_active_material(2).albedo_color.r = robotData["Color3r"]
+	part.get_child(0).get_active_material(2).albedo_color.g = robotData["Color3g"]
+	part.get_child(0).get_active_material(2).albedo_color.b = robotData["Color3b"]
+	return
+	
+
+func updatePartGraphics(skeleton,robotData):
 	#make all parts invisible
 	for part in skeleton.get_children():
+		if part.name == "Weapon_L" or part.name == "Weapon_R" or part.name == "BackFire_L" or part.name == "BackFire_R": 
+			continue
 		part.visible = false
 	#determine head visibility
-	skeleton.get_node(GameManager.myRobotData["Head"].partName+"_Head").visible = true
+	skeleton.get_node(PartCompendium.head[robotData["Head"]].partName+"_Head").visible = true
 	#determine UpperTorso visibility
-	skeleton.get_node(GameManager.myRobotData["UpperTorso"].partName+"_UpperTorso").visible = true
+	skeleton.get_node(PartCompendium.upperTorso[robotData["UpperTorso"]].partName+"_UpperTorso").visible = true
 	#determine Torso visibility
-	skeleton.get_node(GameManager.myRobotData["Torso"].partName+"_Torso").visible = true
+	skeleton.get_node(PartCompendium.lowerTorso[robotData["Torso"]].partName+"_Torso").visible = true
 	#determine Right Thigh visibility
-	skeleton.get_node(GameManager.myRobotData["RightThigh"].partName+"_Thigh_R").visible = true
+	skeleton.get_node(PartCompendium.thighs[robotData["RightThigh"]].partName+"_Thigh_R").visible = true
 	#determine Left Thigh visibility
-	skeleton.get_node(GameManager.myRobotData["LeftThigh"].partName+"_Thigh_L").visible = true
+	skeleton.get_node(PartCompendium.thighs[robotData["LeftThigh"]].partName+"_Thigh_L").visible = true
 	#determine Right Leg visibility
-	skeleton.get_node(GameManager.myRobotData["RightLeg"].partName+"_Legs_R").visible = true
+	skeleton.get_node(PartCompendium.legs[robotData["RightLeg"]].partName+"_Legs_R").visible = true
 	#determine Left Leg visibility
-	skeleton.get_node(GameManager.myRobotData["LeftLeg"].partName+"_Legs_L").visible = true
+	skeleton.get_node(PartCompendium.legs[robotData["LeftLeg"]].partName+"_Legs_L").visible = true
 	#determine Right Foot visibility
-	skeleton.get_node(GameManager.myRobotData["RightFoot"].partName+"_Foot_R").visible = true
+	skeleton.get_node(PartCompendium.feet[robotData["RightFoot"]].partName+"_Foot_R").visible = true
 	#determine Left Foot visibility
-	skeleton.get_node(GameManager.myRobotData["LeftFoot"].partName+"_Foot_L").visible = true
+	skeleton.get_node(PartCompendium.feet[robotData["LeftFoot"]].partName+"_Foot_L").visible = true
 	#determine Right Shoulder visibility
-	skeleton.get_node(GameManager.myRobotData["RightShoulder"].partName+"_Shoulder_R").visible = true
+	skeleton.get_node(PartCompendium.shoulders[robotData["RightShoulder"]].partName+"_Shoulder_R").visible = true
 	#determine Left Shoulder visibility
-	skeleton.get_node(GameManager.myRobotData["LeftShoulder"].partName+"_Shoulder_L").visible = true
+	skeleton.get_node(PartCompendium.shoulders[robotData["LeftShoulder"]].partName+"_Shoulder_L").visible = true
 	#determine Right Arm visibility
-	skeleton.get_node(GameManager.myRobotData["RightArm"].partName+"_Arm_R").visible = true
+	skeleton.get_node(PartCompendium.arms[robotData["RightArm"]].partName+"_Arm_R").visible = true
 	#determine Left Arm visibility
-	skeleton.get_node(GameManager.myRobotData["LeftArm"].partName+"_Arm_L").visible = true
+	skeleton.get_node(PartCompendium.arms[robotData["LeftArm"]].partName+"_Arm_L").visible = true
 	#determine left weapon visibility
-	match GameManager.myRobotData["LeftArmWeapon"].partName:
+	skeleton.get_node(PartCompendium.backFire[robotData["LeftBackFire"]].partName+"_BackFire_L").visible = true
+	skeleton.get_node(PartCompendium.backFire[robotData["LeftBackFire"]].partName+"_BackMount_L").visible = true
+	skeleton.get_node(PartCompendium.backFire[robotData["RightBackFire"]].partName+"_BackFire_R").visible = true
+	skeleton.get_node(PartCompendium.backFire[robotData["RightBackFire"]].partName+"_BackMount_R").visible = true
+	#determine left weapon visibility
+	match PartCompendium.weapons[robotData["LeftArmWeapon"]].partName:
 		"Drill":
 			skeleton.get_node("Drill_L").visible = true
 		"NeedleCannon":
@@ -86,7 +112,7 @@ func updatePartGraphics(skeleton):
 		"PlasmaCannon":
 			skeleton.get_node("PlasmaCannon_L").visible = true
 	#determine right weapon visibility
-	match GameManager.myRobotData["RightArmWeapon"].partName:
+	match PartCompendium.weapons[robotData["RightArmWeapon"]].partName:
 		"Drill":
 			skeleton.get_node("Drill_R").visible = true
 		"NeedleCannon":
@@ -96,23 +122,32 @@ func updatePartGraphics(skeleton):
 func initializeRobotParts():
 	#Part.new(PART DISTINCTION, PART USE, PART WEIGHT)
 	myRobotData = {
-		"Head":Part.new("Mech1","armor", 2),
-		"UpperTorso":Part.new("Mech1","armor", 3),
-		"Torso":Part.new("Mech1","armor", 4),
-		"RightThigh":Part.new("Mech1","armor", 2),
-		"LeftThigh":Part.new("Mech1","armor", 2),
-		"RightLeg":Part.new("Mech1","armor", 2),
-		"LeftLeg":Part.new("Mech1","armor", 2),
-		"RightFoot":Part.new("Mech1","armor", 2),
-		"LeftFoot":Part.new("Mech1","armor", 2),
-		"RightShoulder":Part.new("Mech1","armor", 2),
-		"LeftShoulder":Part.new("Mech1","armor", 2),
-		"RightArm":Part.new("Mech2","armor", 2),
-		"LeftArm":Part.new("Mech2","armor", 2),
-		"LeftArmWeapon":Weapon.new("left","NeedleCannon","gun",3,true,30,20,0),
-		"RightArmWeapon":Weapon.new("right","Drill","melee",2,true,20,50,200),
-		"Color1":Color(.9,.51,.04,1.00),
-		"Color2":Color(1,1,1,1.00)
+		"Head":0,
+		"UpperTorso":0,
+		"Torso":0,
+		"RightThigh":0,
+		"LeftThigh":0,
+		"RightLeg":0,
+		"LeftLeg":0,
+		"RightFoot":0,
+		"LeftFoot":0,
+		"RightShoulder":0,
+		"LeftShoulder":0,
+		"RightArm":0,
+		"LeftArm":0,
+		"LeftArmWeapon":0,
+		"RightArmWeapon":1,
+		"LeftBackFire":0,
+		"RightBackFire":1,
+		"Color1r":.9,
+		"Color1g":.51,
+		"Color1b":.04,
+		"Color2r":1,
+		"Color2g":1,
+		"Color2b":1,
+		"Color3r":0,
+		"Color3g":0,
+		"Color3b":0
 	}
 
 func hasControl():
@@ -139,8 +174,19 @@ func spawnChild(parent,name_,path,pos,rot,scale):
 	var scene = load(path)
 	var entity = scene.instantiate()
 	entity.set_name(name_)
+	print (entity.name)
 	parent.add_child(entity)
 	entity.position = pos
+	entity.rotation = rot
+	entity.scale = scale
+	return entity
+	
+func spawnChildGlobal(parent,name_,path,pos,rot,scale):
+	var scene = load(path)
+	var entity = scene.instantiate()
+	entity.set_name(name_)
+	parent.add_child(entity)
+	entity.global_position = pos
 	entity.rotation = rot
 	entity.scale = scale
 	return entity
@@ -151,7 +197,7 @@ func respawn():
 	myRobot.global_rotation = point.global_rotation
 	
 func buttonFeedback(button, path):
-	AudioManager.playSound(path,-10,1,.05)
+	AudioManager.playSound(path,-20,1,.05)
 	var t = 0.0
 	while(t<1.5):
 		t+=3.0*globalDelta
@@ -213,7 +259,9 @@ func loadMechData() -> void:
 		return
 	if FileAccess.file_exists(SAVE_PATH) == true:
 		if not file.eof_reached():
-			var myRobotData = JSON.parse_string(file.get_line())
+			myRobotData = JSON.parse_string(file.get_line())
+			print(myRobotData)
+			
 
 func getValueFromDict( dict, key):
 	if dict.has(key):
@@ -222,10 +270,8 @@ func getValueFromDict( dict, key):
 		return null
 
 func hideUI():
-	GameManager.menu.menuBG1.visible = false
-	GameManager.menu.menuBG2.visible = false
-	GameManager.menu.menuBG3.visible = false
-	GameManager.menu.menuBG4.visible = false
+	GameManager.menu.get_node("Eclipse").visible = false
+	GameManager.menu.get_node("Eclipse2").visible = false
 	GameManager.menu.get_node("DirectionalLight3D").visible = false
 	GameManager.menu.get_node("Title").visible = false
 	GameManager.menu.get_node("Online").visible = false

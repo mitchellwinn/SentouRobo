@@ -1,0 +1,260 @@
+[gd_scene load_steps=9 format=3 uid="uid://b8e7apntheo3y"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_7euy8"]
+noise_type = 0
+seed = 460
+frequency = 0.0026
+offset = Vector3(103.9, 0, 0)
+fractal_octaves = 3
+fractal_lacunarity = 2.175
+fractal_gain = 2.125
+fractal_weighted_strength = 0.72
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_pyorc"]
+width = 166
+height = 7897
+in_3d_space = true
+noise = SubResource("FastNoiseLite_7euy8")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5h5ve"]
+transparency = 3
+alpha_hash_scale = 2.0
+alpha_antialiasing_mode = 0
+blend_mode = 1
+cull_mode = 2
+diffuse_mode = 3
+specular_mode = 1
+albedo_color = Color(1, 1, 1, 0.164706)
+albedo_texture = SubResource("NoiseTexture2D_pyorc")
+emission_enabled = true
+emission = Color(0.792157, 0, 1, 1)
+uv1_scale = Vector3(0.245, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ecnra"]
+shading_mode = 0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_btw3o"]
+transparency = 3
+alpha_hash_scale = 0.66
+alpha_antialiasing_mode = 0
+blend_mode = 1
+cull_mode = 2
+diffuse_mode = 3
+specular_mode = 1
+albedo_color = Color(1, 0.556863, 0.0509804, 0.0156863)
+albedo_texture = SubResource("NoiseTexture2D_pyorc")
+emission_enabled = true
+emission = Color(1, 0.462745, 0, 1)
+uv1_scale = Vector3(0.245, 1, 1)
+
+[sub_resource type="Animation" id="Animation_ybgmw"]
+resource_name = "main"
+loop_mode = 1
+step = 0.005
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CSGCylinder3D:radius")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.5),
+"transitions": PackedFloat32Array(0.105112, 2.46229, 0.105112),
+"update": 0,
+"values": [0.001, 0.32, 0.001]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CSGCylinder3D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.25, 1),
+"update": 0,
+"values": [Vector3(0, 1.5708, 1.5708), Vector3(1.5708, 1.5708, 1.5708)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SpotLight3D:light_energy")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.8),
+"transitions": PackedFloat32Array(1.56917, 0.34151, 1),
+"update": 0,
+"values": [0.0, 1.542, 0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CSGCylinder3D2:radius")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.375, 0.9),
+"transitions": PackedFloat32Array(0.406126, 0.0824693, 1),
+"update": 0,
+"values": [0.001, 0.779, 0.001]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CSGCylinder3D2:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.025, 0.075, 0.1, 0.15, 0.175, 0.225, 0.25, 0.3, 0.325, 0.375, 0.4, 0.425, 0.475, 0.5, 0.525, 0.575, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [true, false, true, false, true, false, true, false, true, false, true, false, false, true, false, false, true, false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("CSGCylinder3D2:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.975),
+"transitions": PackedFloat32Array(0.225313, 1),
+"update": 0,
+"values": [Vector3(0, 1.5708, 1.5708), Vector3(3.12414, 1.5708, 1.5708)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("CSGTorus3D:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.625),
+"transitions": PackedFloat32Array(1.51572, 4.43828, 1),
+"update": 0,
+"values": [Vector3(0, -1.71901e-08, 0.393263), Vector3(0, -1.71901e-08, 0.393263), Vector3(0, -1.20773e-06, 27.6296)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("CSGTorus3D:scale")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 0.05, 1.025, 1.05),
+"transitions": PackedFloat32Array(0.203063, 0.34151, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.4, 0.4, 0.4), Vector3(0.4, 0.4, 0.4), Vector3(0, 0, 0)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("CSGTorus3D:outer_radius")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 0.025, 0.1, 0.475),
+"transitions": PackedFloat32Array(1, 0.297302, 0.267943, 1),
+"update": 0,
+"values": [0.595, 1.201, 1.822, 5.75]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("CSGTorus3D:inner_radius")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.475),
+"transitions": PackedFloat32Array(1, 0.267943, 1),
+"update": 0,
+"values": [0.317, 0.648, 5.75]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("CSGCylinder3D3:radius")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0, 0.11, 0.325),
+"transitions": PackedFloat32Array(0.210224, 2.46229, 0.210224),
+"update": 0,
+"values": [0.001, 0.066, 0.001]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("CSGCylinder3D3:visible")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0, 0.33),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_p2mg7"]
+_data = {
+"main": SubResource("Animation_ybgmw")
+}
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ei25y"]
+transparency = 3
+alpha_hash_scale = 0.66
+alpha_antialiasing_mode = 0
+blend_mode = 1
+cull_mode = 2
+diffuse_mode = 3
+specular_mode = 1
+albedo_color = Color(0.568627, 0.305882, 0, 0.105882)
+albedo_texture = SubResource("NoiseTexture2D_pyorc")
+emission_enabled = true
+emission = Color(0.490196, 0.00392157, 0.94902, 1)
+emission_energy_multiplier = 1.75
+uv1_scale = Vector3(0.245, 1, 1)
+
+[node name="LaserBeam1" type="Node3D"]
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="."]
+transform = Transform3D(0.35244, 2.83057e-08, 0.935834, 0.935834, -4.09066e-08, -0.35244, 2.83057e-08, 1, -4.09066e-08, 0, -6.11959e-07, 14)
+radius = 0.001
+height = 27.1999
+sides = 18
+material = SubResource("StandardMaterial3D_5h5ve")
+
+[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="."]
+transform = Transform3D(0.97935, 9.02638e-10, 0.202172, 0.202172, -8.83722e-09, -0.97935, 9.02638e-10, 1, -8.83722e-09, 0, -6.11959e-07, 14)
+visible = false
+radius = 0.001
+height = 27.1999
+sides = 18
+material = SubResource("StandardMaterial3D_ecnra")
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="."]
+transform = Transform3D(0.0175309, 4.29451e-08, -0.999846, -0.999846, 4.37047e-08, -0.0175309, 4.29451e-08, 1, 4.37047e-08, 0, -6.11959e-07, 14)
+visible = false
+radius = 0.000999987
+height = 27.1999
+sides = 18
+material = SubResource("StandardMaterial3D_btw3o")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_p2mg7")
+}
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0)
+light_color = Color(1, 0.615686, 1, 1)
+light_energy = 0.0
+spot_range = 27.5757
+spot_angle = 1.56383
+
+[node name="CSGTorus3D" type="CSGTorus3D" parent="."]
+transform = Transform3D(0.000818372, 0, 0, 0, -3.57722e-11, -0.000818372, 0, 0.000818372, -3.57722e-11, 0, -3.81171e-07, 8.72018)
+inner_radius = 1.50344
+outer_radius = 1.72073
+material = SubResource("StandardMaterial3D_ei25y")

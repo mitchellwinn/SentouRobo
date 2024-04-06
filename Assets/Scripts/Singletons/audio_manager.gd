@@ -27,6 +27,9 @@ func playSound(path,volume,pitch,pitchRandomize):
 	await get_tree().create_timer(2.0).timeout
 	sfxInstance.queue_free()
 	
+func stop_songs():
+	stop_song.emit()
+	
 func playMusic(path,volume,pitch,pitchRandomize):
 	if path == currentMusicPath:
 		return

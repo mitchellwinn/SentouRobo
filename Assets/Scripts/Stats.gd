@@ -13,9 +13,15 @@ var shieldRatio = float(shield)/float(SHIELD_MAX)
 @export var kills: int
 @export var deaths:int
 var lastAttacker: int
+@export var backFireOn:= true
 
 func _enter_tree():
 	set_multiplayer_authority(get_parent().name.to_int())
+
+func _ready():
+	animatorHP.current_animation="HPfill"
+	animatorSP.current_animation="SPfill"
+	animateHP_UI()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -23,7 +29,6 @@ func _process(delta):
 	if get_parent().name.to_int()!=multiplayer.get_unique_id():
 		#print()
 		return
-	animateHP_UI()
 	pass
 
 func statsCheck():
@@ -32,6 +37,7 @@ func statsCheck():
 	#print("statscheck")
 	hp = clamp(hp,0,HP_MAX)
 	shield = clamp(shield,0,SHIELD_MAX)
+	animateHP_UI()
 	if hp<=0:
 		hp = HP_MAX
 		shield = SHIELD_MAX
@@ -51,9 +57,7 @@ func addKillCount(id):
 
 func animateHP_UI():
 	#print("animateHP_UI")
-	hpRatio = lerp(hpRatio,float(hp)/float(HP_MAX),GameManager.globalDelta*2)
-	shieldRatio = lerp(shieldRatio,float(shield)/float(SHIELD_MAX),GameManager.globalDelta*2)
-	animatorHP.current_animation="HPfill"
-	animatorSP.current_animation="SPfill"
+	hpRatio = lerp(hpRatio,float(hp)/float(HP_MAX),1)
+	shieldRatio = lerp(shieldRatio,float(shield)/float(SHIELD_MAX),1)
 	animatorHP.seek(hpRatio,true)
 	animatorSP.seek(shieldRatio,true)

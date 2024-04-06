@@ -1,0 +1,212 @@
+[gd_scene load_steps=25 format=3 uid="uid://ckwg57cd40ij4"]
+
+[ext_resource type="Texture2D" uid="uid://bdnk2ud61563j" path="res://Assets/textures/dustcloud.png" id="1_ahsn3"]
+[ext_resource type="AudioStream" uid="uid://cjv0ctd3hg7dm" path="res://Assets/SFX/Combat/BulletWhir.wav" id="2_3pbv5"]
+[ext_resource type="Script" path="res://Assets/Scripts/PitchModulator.gd" id="3_fkcqb"]
+
+[sub_resource type="Curve" id="Curve_eplgc"]
+min_value = -360.0
+max_value = 360.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.0582822, 360), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_h54jc"]
+curve = SubResource("Curve_eplgc")
+
+[sub_resource type="Gradient" id="Gradient_yn75c"]
+interpolation_color_space = 1
+colors = PackedColorArray(1, 1, 1, 1, 0.29166, 0.128716, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_y0ffx"]
+gradient = SubResource("Gradient_yn75c")
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_l74kq"]
+gradient = SubResource("Gradient_yn75c")
+
+[sub_resource type="Curve" id="Curve_d6p5b"]
+max_value = 100.0
+_data = [Vector2(0, 2.10526), 0.0, 18.1508, 0, 0, Vector2(1, 22.1053), 58.1174, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_b7le4"]
+curve = SubResource("Curve_d6p5b")
+
+[sub_resource type="Curve" id="Curve_ximej"]
+min_value = -200.0
+max_value = 200.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.134969, 200), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_62qei"]
+curve = SubResource("Curve_ximej")
+
+[sub_resource type="Curve" id="Curve_qofsj"]
+_data = [Vector2(0, 0), 0.0, 3.6, 0, 0, Vector2(0.110429, 0.274272), 0.0, 0.0, 0, 0, Vector2(0.283626, 0), 0.0, 0.0, 0, 0, Vector2(0.312883, 0.1875), 0.0, 0.0, 0, 0, Vector2(0.404908, 0.00606799), 0.0, 0.0, 0, 0, Vector2(0.45092, 0.116505), 0.0, 0.0, 0, 0, Vector2(0.509202, 0), 0.0, 0.0, 0, 0, Vector2(0.552147, 0.0691748), 0.0, 0.0, 0, 0, Vector2(0.647239, 0.00606799), 0.0, 0.0, 0, 0, Vector2(0.99999, 0), 0.0, 0.0, 0, 0]
+point_count = 10
+
+[sub_resource type="CurveTexture" id="CurveTexture_n1pn7"]
+curve = SubResource("Curve_qofsj")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ekql7"]
+lifetime_randomness = 1.0
+angle_min = -180.0
+angle_max = 180.0
+direction = Vector3(0, 0, 0)
+spread = 0.0
+flatness = 1.0
+angular_velocity_min = -0.5
+angular_velocity_max = 0.5
+angular_velocity_curve = SubResource("CurveTexture_h54jc")
+gravity = Vector3(0, 0, 0)
+linear_accel_min = -1.0
+linear_accel_max = 1.0
+radial_accel_min = 1.15
+radial_accel_max = 2.81
+radial_accel_curve = SubResource("CurveTexture_62qei")
+damping_min = 2.296
+damping_max = 2.431
+damping_curve = SubResource("CurveTexture_b7le4")
+scale_min = 10.0
+scale_max = 30.0
+scale_curve = SubResource("CurveTexture_n1pn7")
+color_ramp = SubResource("GradientTexture1D_l74kq")
+color_initial_ramp = SubResource("GradientTexture1D_y0ffx")
+hue_variation_min = -0.17
+hue_variation_max = 0.46
+turbulence_noise_strength = 0.15
+turbulence_noise_scale = 0.83
+turbulence_noise_speed = Vector3(0.97, 0, 1)
+turbulence_noise_speed_random = 0.35
+sub_emitter_mode = 1
+sub_emitter_frequency = 1.0
+sub_emitter_keep_velocity = true
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ea8dc"]
+load_path = "res://.godot/imported/dustcloud.png-f7e874081735187f7c53396b783656c1.s3tc.ctex"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0lwgr"]
+transparency = 4
+blend_mode = 1
+diffuse_mode = 3
+specular_mode = 1
+albedo_color = Color(0.658824, 1, 0.917647, 1)
+albedo_texture = SubResource("CompressedTexture2D_ea8dc")
+roughness = 0.0
+emission_enabled = true
+emission = Color(0.384314, 0, 0.72549, 1)
+emission_energy_multiplier = 16.0
+emission_operator = 1
+emission_texture = ExtResource("1_ahsn3")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="SphereMesh" id="SphereMesh_gqquw"]
+material = SubResource("StandardMaterial3D_0lwgr")
+radius = 0.64
+height = 1.493
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p8cxc"]
+transparency = 3
+alpha_hash_scale = 2.0
+alpha_antialiasing_mode = 0
+blend_mode = 1
+diffuse_mode = 3
+specular_mode = 1
+albedo_color = Color(1, 1, 1, 0.207843)
+albedo_texture = ExtResource("1_ahsn3")
+metallic = 1.0
+metallic_specular = 0.65
+roughness = 0.27
+emission_enabled = true
+emission = Color(1, 0.647059, 0, 1)
+emission_energy_multiplier = 16.0
+emission_operator = 1
+emission_texture = ExtResource("1_ahsn3")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="TorusMesh" id="TorusMesh_k3eco"]
+material = SubResource("StandardMaterial3D_p8cxc")
+inner_radius = 1.14
+outer_radius = 1.06
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sw0ld"]
+transparency = 3
+alpha_hash_scale = 2.0
+alpha_antialiasing_mode = 0
+blend_mode = 1
+diffuse_mode = 3
+specular_mode = 1
+albedo_color = Color(0.611765, 0, 0, 0.0352941)
+albedo_texture = ExtResource("1_ahsn3")
+metallic = 1.0
+metallic_specular = 0.65
+roughness = 0.27
+emission_enabled = true
+emission = Color(0.27451, 0, 0.839216, 1)
+emission_energy_multiplier = 16.0
+emission_operator = 1
+emission_texture = ExtResource("1_ahsn3")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="TorusMesh" id="TorusMesh_jcn5n"]
+material = SubResource("StandardMaterial3D_sw0ld")
+inner_radius = 0.725
+outer_radius = 1.227
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_frxtj"]
+transparency = 4
+blend_mode = 1
+diffuse_mode = 3
+specular_mode = 1
+albedo_color = Color(0.87451, 0.694118, 0, 0.0235294)
+albedo_texture = SubResource("CompressedTexture2D_ea8dc")
+roughness = 0.0
+emission_enabled = true
+emission = Color(0.768627, 0.466667, 0, 1)
+emission_texture = ExtResource("1_ahsn3")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="SphereMesh" id="SphereMesh_k1osv"]
+material = SubResource("StandardMaterial3D_frxtj")
+radius = 1.08
+height = 2.105
+
+[node name="BeamCharge" type="GPUParticles3D"]
+amount = 200
+lifetime = 20.0
+speed_scale = 2.0
+fixed_fps = 60
+local_coords = true
+transform_align = 1
+process_material = SubResource("ParticleProcessMaterial_ekql7")
+draw_passes = 4
+draw_pass_1 = SubResource("SphereMesh_gqquw")
+draw_pass_2 = SubResource("TorusMesh_k3eco")
+draw_pass_3 = SubResource("TorusMesh_jcn5n")
+draw_pass_4 = SubResource("SphereMesh_k1osv")
+
+[node name="SFXconstant1" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_3pbv5")
+volume_db = -5.016
+pitch_scale = 1.15
+autoplay = true
+max_distance = 200.0
+doppler_tracking = 2
+script = ExtResource("3_fkcqb")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]

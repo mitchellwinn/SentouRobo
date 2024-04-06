@@ -4,6 +4,8 @@ const SPEED = 15
 const THRUST_SPEED = 35
 const JUMP_VELOCITY = 100
 ########################
+@export var backFireRAnchor: Node3D
+@export var backFireLAnchor: Node3D
 @export var stats: Node
 @export var skeleton: Skeleton3D
 @export var camera: Camera3D
@@ -26,8 +28,8 @@ const JUMP_VELOCITY = 100
 @export var rightArm: BoneAttachment3D
 @export var leftShoulder: BoneAttachment3D
 @export var rightShoulder: BoneAttachment3D
-@export var muzzle1L: GPUParticles3D
-@export var muzzle1R: GPUParticles3D
+@export var muzzle1L: Sprite3D
+@export var muzzle1R: Sprite3D
 @export var collider: CollisionShape3D
 @export var UIoffset: Control
 @export var hitscannerL: RayCast3D
@@ -48,6 +50,7 @@ var direction = Vector3.ZERO
 @export var falling : bool
 @export var velo: Vector3
 @export var momentum: Vector3
+@export var weaponSwitchComplete:= true
 var dead
 var interruptable = false
 var antiGravity = false
@@ -95,6 +98,11 @@ func _enter_tree():
 
 
 func _ready():
+	skeleton = $Scalar/mech/Armature/Skeleton3D
+	localAnimator = $Scalar/mech/AnimationPlayer
+	localAnimatorOverlayL = $Scalar/mech/AnimationPlayer2
+	localAnimatorOverlayR = $Scalar/mech/AnimationPlayer3
+	
 	var torso = skeleton.find_bone("Bone")
 	var pose = skeleton.get_bone_global_pose_no_override(torso)
 	if GameManager.gamemode==0:
@@ -111,11 +119,11 @@ func _ready():
 		deathscore.visible = true
 		timer.visible = true
 		
-	GameManager.updatePartGraphics(skeleton)
 	if multiplayer.multiplayer_peer != null:
 		if !is_multiplayer_authority():
 			$Scalar/UI.visible = false
 			return
+	rpc("updateMechInGame")
 	GameManager.spawnPoints = GameManager.menu.network.level.currentStage.get_node("SpawnPoints").get_children()
 	spawnIndex = GameManager.menu.network.connectionListID.find(name.to_int())
 	$Stats.id = name.to_int()
@@ -230,9 +238,12 @@ func semiActionable():
 #in a way that allows for a smooth gameplay experience
 func cameraInterpolation(delta):
 	var adjustedPosition = checkCameraPositionBlocked()
-	camera.global_position = lerp(camera.global_position,adjustedPosition,delta*.5*(velocity.length()/2+4))
+	camera.global_position = lerp(camera.global_position,adjustedPosition,delta*.25*(velocity.length()/2+4))
 	cameraTarget.reparent(get_node("/root"),true) #ajust parenting to root to make QUAT global instead of local
+	#cameraTarget.basis.y = Vector3.UP
+	#cameraTarget.basis.x = Vector3.RIGHT
 	camera.quaternion = camera.quaternion.slerp(cameraTarget.quaternion,delta*10)
+	#camera.basis.y = Vector3.UP
 	cameraTarget.reparent(scalar,true) #ajust parenting ^^^
 #checks to see if the camera would be clipping into terrain before lining up with target
 func checkCameraPositionBlocked():
@@ -258,28 +269,23 @@ func gravity(delta):
 	falling = false
 	if !antiGravity:
 		if !is_on_floor():
+			if usingAbility == "thrust" and rotateCheckRay.is_colliding():
+				global_position = lerp(global_position,rotateCheckRay.get_collision_point(),delta*5)
 			if usingAbility == "thrust" and floorAnimCheck.is_colliding():
-				gravityGain = lerp(gravityGain,10.0,delta*2.0)
-				velocity.y = lerp(velocity.y,-32.0-gravityGain,.06)
-				#velocity+= basis.y * -1.5
-			elif usingAbility == "thrust" and rotateCheckRay.is_colliding():
-				var magnet = rotateCheckRay.get_collision_point()-global_position
-				gravityGain += delta*clamp((50-magnet.length()),0,50)/20
-				velocity+= magnet*delta*60 + direction*delta*30
-			else:
-				falling = true
-				gravityGain += delta*15
-				velocity.y = lerp(velocity.y,-32.0-gravityGain,.06)
-		else:
-			gravityGain = 0
+				global_position = lerp(global_position,rotateCheckRay.get_collision_point(),delta*100)
+			falling = true
+			gravityGain += delta*15
+			velocity.y = lerp(velocity.y,-32.0-gravityGain,.06)
+		elif usingAbility == "thrust":
+			apply_floor_snap()
 			#velocity.y = 0
 #returns true if the mech was airborn last frame and traveling downwards with speed
 func testLanding():
 	var justLanded = false
-	if is_on_floor() and airbornLastFrame and abs(airbornVelocity)>5:
+	if is_on_floor() and airbornLastFrame and abs(airbornVelocity)>15:
 		justLanded = true
 		airbornLastFrame = false
-	elif !floorCheckRay.is_colliding():
+	elif !floorAnimCheck.is_colliding():
 		airbornLastFrame=true
 		airbornVelocity = velocity.y
 	return justLanded
@@ -362,7 +368,7 @@ func move(delta):
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	direction = Vector3.ZERO
 	if true:
-		camera.fov = lerp(camera.fov,60.0,0.1)
+		camera.fov = lerp(camera.fov,95.0,0.1)
 		rotateFlatten()
 		var tryMove = false
 		if Input.is_action_pressed("up"):
@@ -399,20 +405,28 @@ func testRunning():
 	return running
 #checks for attack usage and prevents from using other attacks until resolved#######################
 func attacks(delta):
+	if Input.is_action_just_pressed("swapWeaponPrimary"):
+		toggleBackFire(false)
+	if Input.is_action_just_pressed("swapWeaponSecondary"):
+		toggleBackFire(true)
 	if Input.is_action_pressed("weaponR"):
 		if !usingAttackR():
-			match GameManager.myRobotData["RightArmWeapon"].partCategory:
-				"gun":
-					shoot(delta, GameManager.myRobotData["RightArmWeapon"])
-				"melee":
-					swing(delta, GameManager.myRobotData["RightArmWeapon"])
+			activeWeaponType(delta,"Right")
 	if Input.is_action_pressed("weaponL"):
 		if !usingAttackL():
-			match GameManager.myRobotData["LeftArmWeapon"].partCategory:
-				"gun":
-					shoot(delta, GameManager.myRobotData["LeftArmWeapon"])
-				"melee":
-					swing(delta, GameManager.myRobotData["LeftArmWeapon"])
+			activeWeaponType(delta,"Left")
+#checks for active weapon type
+func activeWeaponType(delta,side):
+	if !stats.backFireOn:
+		match  PartCompendium.weapons[GameManager.myRobotData[side+"ArmWeapon"]].partCategory:
+			"gun":
+				shoot(delta,  PartCompendium.weapons[GameManager.myRobotData[side+"ArmWeapon"]],side.to_lower())
+			"melee":
+				swing(delta,  PartCompendium.weapons[GameManager.myRobotData[side+"ArmWeapon"]],side.to_lower())
+	else:
+		match  PartCompendium.backFire[GameManager.myRobotData[side+"BackFire"]].partCategory:
+			"laser":
+				shoot(delta,  PartCompendium.backFire[GameManager.myRobotData[side+"BackFire"]],side.to_lower())
 #checks for ability usage and transitions into an ability state when used in an ordinary state#######################
 func abilities(delta):
 	if usingAbility !="thrust":
@@ -433,8 +447,8 @@ func abilities(delta):
 		if semiActionable():
 			dash(delta,-basis.x,"Right")
 #swings#######################
-func swing(delta, weapon):
-	match weapon.leftRight:
+func swing(delta, weapon, side):
+	match side:
 		"left":
 			localAnimatorOverlayL.seek(0)
 			swingingL = true
@@ -460,51 +474,93 @@ func swing(delta, weapon):
 			swingingL = false
 		"right":
 			swingingR = false
+#turns back fire weapons from active to inactive and vice versa
+func toggleBackFire(toggle):
+	print("toggle")
+	weaponSwitchComplete = false
+	stats.backFireOn = toggle
 #shoots#######################
-func shoot(delta, weapon):
-	var hitscanner
-	match weapon.leftRight:
-		"left":
-			hitscanner = hitscannerL
-			shootingL = true
-			shotTimerL =5
-			localAnimatorOverlayL.seek(0)
-		"right":
-			hitscanner = hitscannerR
-			shootingR = true
-			shotTimerR = 5
-			localAnimatorOverlayR.seek(0)
+func shoot(delta, weapon, side):
 	match weapon.hitscan:
 		true:
-			AttackManager.shootHitscan(hitscanner,weapon,self)
+			var hitscanner
+			match side.to_lower():
+				"left":
+					hitscanner = hitscannerL
+					shootingL = true
+					shotTimerL =5
+					localAnimatorOverlayL.seek(0)
+				"right":
+					hitscanner = hitscannerR
+					shootingR = true
+					shotTimerR = 5
+					localAnimatorOverlayR.seek(0)
+			match weapon.partCategory:
+				"gun":
+					print("shoot gun")
+					shootEffect1(hitscanner,delta,side,weapon)
+				"laser":
+					print("shoot laser")
+					shootEffect2(hitscanner,delta,side,weapon)
 		false:
-			pass
-	#await get_tree().process_frame
+			pass #need to add projectiles
+			#AttackManager.shootProjectile(weapon,self)
+################################
+func shootEffect1(hitscanner,delta,side,weapon):
+	AttackManager.shootHitscan(hitscanner,weapon,self)
 	var t = 0
 	localAudio.rpc("play","res://Assets/SFX/Combat/Guns 8.wav",-25,1,.035)
-	match weapon.leftRight:
+	match side:
 		"left":
-			ParticleManager.emitParticle(muzzle1L,false)
-			ParticleManager.emitParticle(muzzle1L,true)
+			muzzle1L.get_node("AnimationPlayer").play("flash")
+			muzzle1L.get_node("AnimationPlayer").seek(0)
 		"right":
-			ParticleManager.emitParticle(muzzle1R,false)
-			ParticleManager.emitParticle(muzzle1R,true)
+			muzzle1R.get_node("AnimationPlayer").play("flash")
+			muzzle1R.get_node("AnimationPlayer").seek(0)
 	while(t<.6):
 		#rotateToNormal()
 		t+=delta*2.4
 		await get_tree().physics_frame
 		#camera.fov = lerp(camera.fov,130.0,.003)
-	match weapon.leftRight:
+	match side:
 		"left":
 			shootingL = false
 		"right":
 			shootingR = false
+func shootEffect2(hitscanner,delta,side,weapon):
+	var t = 0
+	print ("firing side: side")
+	match side.to_lower():
+		"right":
+			ParticleManager.spawnParticleChildd("res://Assets/Prefabs/Particles/beam_charge_1.tscn","beamCharge", 99999,backFireRAnchor ,backFireRAnchor.global_position, Vector3.UP)
+		"left":
+			ParticleManager.spawnParticleChildd("res://Assets/Prefabs/Particles/beam_charge_1.tscn", "beamCharge",99999,backFireLAnchor ,backFireLAnchor.global_position, Vector3.UP)
+	localAudio.rpc("play","res://Assets/SFX/Combat/Guns 8.wav",-25,1,.035)
+	while(t<.6):
+		#rotateToNormal()
+		t+=delta
+		await get_tree().physics_frame
+	while(Input.is_action_pressed("weapon"+side.substr(0,1).to_upper()) and usingAbility != "thrust"):
+		await get_tree().physics_frame
+	AttackManager.shootHitscan(hitscanner,weapon,self)
+	match side.to_lower():
+		"left":
+			shootingL = false
+			if backFireLAnchor.get_node("beamCharge"):
+				backFireLAnchor.get_node("beamCharge").queue_free()
+		"right":
+			shootingR = false
+			if backFireRAnchor.get_node("beamCharge"):
+				backFireRAnchor.get_node("beamCharge").queue_free()
+	
+################################
 #ability that propels the mech forward while holding shift, can ride vertically up ramps#######################
 func thrust(delta):
 	usingAbility = "thrust"
 	var t = 0
 	localAudio.rpc("play","res://Assets/SFX/TransitionThrust.wav",-10,1,.035)
 	cameraTarget.position.y = .5
+	toggleBackFire(false)
 	while(t<.8):
 		rotateToNormal()
 		t+=delta*2.4
@@ -552,9 +608,9 @@ func thrust(delta):
 		direction += Vector3(basis.z.x,basis.z.y,basis.z.z).normalized()
 		#print(str(direction) + " antigrav: "+ str(antiGravity))
 		if floorCheckRay.is_colliding() and  basis.z.y<0:
-			momentum += direction*delta*2
+			momentum += direction*delta*4
 		else:
-			momentum = momentum.lerp(Vector3.ZERO,delta*0.5)
+			momentum = momentum.lerp(Vector3.ZERO,delta*0.2)
 		#apply_floor_snap()
 		velocity.x = lerp(velocity.x,direction.x*(momentum.length()+1)*THRUST_SPEED+momentum.x,.285)
 		velocity.z = lerp(velocity.z,direction.z*(momentum.length()+1)*THRUST_SPEED+momentum.z,.285)
@@ -643,17 +699,24 @@ func rotateFlatten():
 #picks the correct animation for the mech based on the current situation#######################
 func animate():
 	#$Scalar.scale = Vector3(10,10,10)
-	if usingAbility == "thrust":
-		if !floorAnimCheck.is_colliding():
+	if swingingR:
+		#localAnimatorOverlayL.play("meleeAttack1_L",.015)
+		#localAnimatorOverlayL.speed_scale = 1.6
+		localAnimator.play("meleeAttack1_R",.25)
+		localAnimator.speed_scale = 1.6
+	elif swingingL:
+		#localAnimatorOverlayL.play("meleeAttack1_L",.015)
+		#localAnimatorOverlayL.speed_scale = 1.6
+		localAnimator.play("meleeAttack1_L",.25)
+		localAnimator.speed_scale = 1.6
+	elif usingAbility == "thrust":
+		if !rotateCheckRay.is_colliding():
 			localAnimator.play("fall",.5)
 			localAnimator.speed_scale = 0.75
 		elif localAnimator.current_animation != "thrust" and localAnimator.current_animation != "":
 			#print("thurst animation start, was just playing: "+localAnimator.current_animation)
 			localAnimator.play("thrust",.25)
 			localAnimator.speed_scale = 1.15
-		else:
-			localAnimator.play("thrust",.25)
-			localAnimator.seek(.999)
 	elif usingAbility == "dashForward":
 		localAnimator.play("dashForward"+str(footAlternation),.25)
 		localAnimator.speed_scale = 1.2
@@ -688,53 +751,64 @@ func animate():
 			localAnimator.play("fall",.5)
 			localAnimator.speed_scale = 0.75
 	###
-	localAnimatorOverlayL.speed_scale = 1
-	localAnimatorOverlayR.speed_scale = 1
-	if swingingL:
-		#localAnimatorOverlayL.play("meleeAttack1_L",.015)
-		#localAnimatorOverlayL.speed_scale = 1.6
-		localAnimator.play("meleeAttack1_L",.015)
-		localAnimator.speed_scale = 1.6
-	elif shootingL:
-		localAnimatorOverlayL.play("rangedAttack1_L",.015)
-		localAnimatorOverlayL.speed_scale = .6
-		#localAnimator.play("rangedAttack1_L",.015)
-		#localAnimator.speed_scale = .6
-	elif shotTimerL>0: 
-		localAnimatorOverlayL.speed_scale = 0
-		localAnimatorOverlayL.play("rangedAttack1_L",.35)
-		localAnimatorOverlayL.seek(0)
-	elif shotTimerL>-0.5:
-		#localAnimatorOverlayL.play(localAnimator.current_animation,.35)
-		localAnimatorOverlayR.stop()
-	else:
-		localAnimatorOverlayL.stop()
-	###
-	if swingingR:
-		#localAnimatorOverlayR.play("meleeAttack1_R",.015)
-		#localAnimatorOverlayR.speed_scale = 1.6
-		localAnimatorOverlayR.play("meleeAttack1_R",.015)
-		localAnimatorOverlayR.speed_scale = 1.6
-	elif shootingR:
-		localAnimatorOverlayR.play("rangedAttack1_R",.015)
-		localAnimatorOverlayR.speed_scale = .6
-		#localAnimator.play("rangedAttack1_R",.015)
-		#localAnimator.speed_scale = .6
-	elif shotTimerR>0: 
-		if shotTimerL>0:
-			localAnimatorOverlayR.speed_scale = 0
-			localAnimatorOverlayR.play("rangedAttack1Done_R",.35)
+	if !stats.backFireOn:
+		localAnimatorOverlayL.speed_scale = 1
+		localAnimatorOverlayR.speed_scale = 1
+		if shootingL:
+			localAnimatorOverlayL.play("rangedAttack1overlay_L",.015)
+			localAnimatorOverlayL.speed_scale = .6
+			#localAnimator.play("rangedAttack1_L",.015)
+			#localAnimator.speed_scale = .6
+		elif shotTimerL>0: 
+			localAnimatorOverlayL.speed_scale = 0
+			localAnimatorOverlayL.play("rangedAttack1overlay_L",.35)
+			localAnimatorOverlayL.seek(0)
 		else:
-			localAnimatorOverlayR.play("rangedAttack1_R",.35)
-		localAnimatorOverlayR.seek(0)
-	elif shotTimerR>-0.5:
-		#localAnimatorOverlayR.play(localAnimator.current_animation,.35)
+			localAnimatorOverlayL.stop()
+	###
+		if shootingR:
+			localAnimatorOverlayR.play("rangedAttack1overlay_R",.015)
+			localAnimatorOverlayR.speed_scale = .6
+			#localAnimator.play("rangedAttack1_R",.015)
+			#localAnimator.speed_scale = .6
+		elif shotTimerR>0: 
+			if shotTimerL>0:
+				localAnimatorOverlayR.speed_scale = 0
+				localAnimatorOverlayR.play("rangedAttack1overlay_R",.35)
+			else:
+				localAnimatorOverlayR.play("rangedAttack1overlay_R",.35)
+			localAnimatorOverlayR.seek(0)
+		else:
+			localAnimatorOverlayR.stop()
+	###
+	if stats.backFireOn:
 		localAnimatorOverlayR.stop()
+		localAnimatorOverlayL.stop()
+		$Scalar/mech/AnimationPlayer4.play("SwitchBackFire",.015)
+		if !weaponSwitchComplete:
+			$Scalar/mech/AnimationPlayer4.speed_scale = 1
+		else:
+			$Scalar/mech/AnimationPlayer4.seek(.8)
+			$Scalar/mech/AnimationPlayer4.speed_scale = 0
 	else:
-		localAnimatorOverlayR.stop()
+		$Scalar/mech/AnimationPlayer4.play("SwitchMainWeapon",.015)
+		if !weaponSwitchComplete:
+			$Scalar/mech/AnimationPlayer4.speed_scale = 1
+		else:
+			$Scalar/mech/AnimationPlayer4.seek(.8)
+			$Scalar/mech/AnimationPlayer4.speed_scale = 0
 	###
 	var torso = skeleton.find_bone("Bone")
 	var pose = skeleton.get_bone_global_pose_no_override(torso)
-	pose = pose.rotated_local(Vector3.RIGHT, -cameraTarget.rotation.x*1.5)
+	pose = pose.rotated_local(Vector3.RIGHT, -(cameraTarget.rotation.x+30)*1.5)
 	pose = pose.rotated_local(Vector3.UP, -.4)
 	skeleton.set_bone_global_pose_override(torso, pose, .5, true)
+
+@rpc("any_peer", "reliable", "call_local")
+func updateMechInGame():
+	GameManager.updatePartGraphics(skeleton,GameManager.myRobotData)
+	GameManager.updateRobotColor(skeleton,GameManager.myRobotData)
+
+
+func _on_animation_player_4_animation_finished(anim_name):
+	weaponSwitchComplete = true

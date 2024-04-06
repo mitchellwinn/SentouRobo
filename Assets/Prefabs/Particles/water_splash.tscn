@@ -1,150 +1,200 @@
-[gd_scene load_steps=17 format=3 uid="uid://cnc3ukvxjeyij"]
+[gd_scene load_steps=9 format=3 uid="uid://cnc3ukvxjeyij"]
 
 [ext_resource type="Texture2D" uid="uid://b0uv7q17b0myw" path="res://Assets/ExtraImageTextures/splash1.png" id="1_icwga"]
-[ext_resource type="Texture2D" uid="uid://siow1nxgxuvb" path="res://Assets/ExtraImageTextures/splash2.png" id="2_3sofh"]
+[ext_resource type="AudioStream" uid="uid://dy7dwpk64wuhe" path="res://Assets/SFX/Water Splash Sound Effect.mp3" id="2_4brqg"]
+[ext_resource type="Script" path="res://Assets/Scripts/PitchModulator.gd" id="3_c5i1j"]
 
-[sub_resource type="Gradient" id="Gradient_e7rvx"]
-colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 0)
+[sub_resource type="Animation" id="Animation_7puds"]
+resource_name = "splash"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 7.11705, 0), Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(1, 1, 1), Vector3(1, 9.66741, 1), Vector3(1, 1, 1)]
+}
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_svtd5"]
-gradient = SubResource("Gradient_e7rvx")
+[sub_resource type="Animation" id="Animation_wxskc"]
+resource_name = "whiteSplash"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 2, 0), Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(1, 1, 1), Vector3(3, 3, 1), Vector3(1, 1, 1)]
+}
 
-[sub_resource type="Curve" id="Curve_nemb7"]
-max_value = 100.0
-_data = [Vector2(0, 2.10526), 0.0, 18.1508, 0, 0, Vector2(1, 22.1053), 58.1174, 0.0, 0, 0]
-point_count = 2
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hblpt"]
+_data = {
+"splash": SubResource("Animation_7puds"),
+"whiteSplash": SubResource("Animation_wxskc")
+}
 
-[sub_resource type="CurveTexture" id="CurveTexture_if4q6"]
-curve = SubResource("Curve_nemb7")
+[sub_resource type="Animation" id="Animation_3ubqy"]
+resource_name = "splash"
+length = 5.0
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node3D/Sprite/AnimationPlayer:current_animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.55, 1.1, 1.65, 2.2, 2.75),
+"transitions": PackedFloat32Array(8.05365e-05, 8.05365e-05, 8.05365e-05, 8.05365e-05, 8.05365e-05, 8.05365e-05),
+"update": 1,
+"values": [&"splash", &"splash", &"splash", &"splash", &"splash", &"splash"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Node3D/Sprite2/AnimationPlayer:current_animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.2, 0.75, 1.3, 1.85, 2.4, 2.95),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [&"splash", &"splash", &"splash", &"splash", &"splash", &"splash"]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Node3D/Sprite3/AnimationPlayer:current_animation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.35, 0.75, 1.15, 1.55, 1.95, 2.3, 2.7, 3.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [&"whiteSplash", &"whiteSplash", &"whiteSplash", &"whiteSplash", &"whiteSplash", &"whiteSplash", &"whiteSplash", &"whiteSplash", &"whiteSplash"]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Node3D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 0,
+"values": []
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Node3D:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1.4, 3.75),
+"transitions": PackedFloat32Array(2.07053, 0.153893, 1),
+"update": 0,
+"values": [Vector3(1, 0, 1), Vector3(2, 2, 1), Vector3(1, 0, 1)]
+}
 
-[sub_resource type="Curve" id="Curve_bldnh"]
-_data = [Vector2(0, 0), 0.0, 6.32074, 0, 0, Vector2(0.342105, 0.68421), -1.84615, -1.84615, 0, 0, Vector2(0.99999, 0), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 4
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_v8lei"]
+_data = {
+"main": SubResource("Animation_3ubqy")
+}
 
-[sub_resource type="CurveTexture" id="CurveTexture_8fqf1"]
-curve = SubResource("Curve_bldnh")
+[node name="water_splash" type="Node3D"]
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_q5ok4"]
-lifetime_randomness = 0.3
-emission_shape = 3
-emission_box_extents = Vector3(1, 0, 1)
-direction = Vector3(0, 1, 0)
-spread = 4.35
-gravity = Vector3(0, -1, 0)
-initial_velocity_min = 3.1
-initial_velocity_max = 3.1
-angular_velocity_min = -10.0
-angular_velocity_max = 10.0
-damping_min = 0.935
-damping_max = 2.461
-damping_curve = SubResource("CurveTexture_if4q6")
-scale_min = 5.0
-scale_max = 15.0
-scale_curve = SubResource("CurveTexture_8fqf1")
-color = Color(1, 1, 1, 0)
-color_ramp = SubResource("GradientTexture1D_svtd5")
-color_initial_ramp = SubResource("GradientTexture1D_svtd5")
-turbulence_enabled = true
-sub_emitter_mode = 1
-sub_emitter_frequency = 1.0
-sub_emitter_keep_velocity = true
+[node name="Node3D" type="Node3D" parent="."]
+transform = Transform3D(1.49824, 0, 0, 0, 0.996478, 0, 0, 0, 1, 0, 0, 0)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pvjh2"]
-transparency = 1
-blend_mode = 1
-cull_mode = 2
-shading_mode = 2
-diffuse_mode = 3
-specular_mode = 1
-vertex_color_is_srgb = true
-albedo_color = Color(0.509804, 0.717647, 0.996078, 0.25098)
-albedo_texture = ExtResource("1_icwga")
-albedo_texture_force_srgb = true
-albedo_texture_msdf = true
-emission_enabled = true
-emission = Color(0, 0, 0.803922, 1)
-emission_energy_multiplier = 4.5
-emission_operator = 1
-billboard_mode = 3
-billboard_keep_scale = true
-particles_anim_h_frames = 1
-particles_anim_v_frames = 1
-particles_anim_loop = false
+[node name="Sprite" type="Sprite3D" parent="Node3D"]
+modulate = Color(0.290196, 0.67451, 1, 0.882353)
+billboard = 2
+shaded = true
+double_sided = false
+alpha_cut = 1
+texture = ExtResource("1_icwga")
 
-[sub_resource type="QuadMesh" id="QuadMesh_3j1a5"]
-material = SubResource("StandardMaterial3D_pvjh2")
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Node3D/Sprite"]
+libraries = {
+"": SubResource("AnimationLibrary_hblpt")
+}
+speed_scale = 4.0
 
-[sub_resource type="Curve" id="Curve_ogemt"]
-_data = [Vector2(0, 0), 0.0, 6.32074, 0, 0, Vector2(0.342105, 0.68421), -1.84615, -1.84615, 0, 0, Vector2(0.539474, 0.515789), 2.08, 2.08, 0, 0, Vector2(0.809211, 0.242105), 2.8, 2.8, 0, 0, Vector2(0.99999, 0), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 6
+[node name="Sprite2" type="Sprite3D" parent="Node3D"]
+flip_h = true
+modulate = Color(0.290196, 0.898039, 1, 0.682353)
+billboard = 2
+shaded = true
+double_sided = false
+alpha_cut = 1
+texture = ExtResource("1_icwga")
 
-[sub_resource type="CurveTexture" id="CurveTexture_ibofu"]
-curve = SubResource("Curve_ogemt")
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Node3D/Sprite2"]
+libraries = {
+"": SubResource("AnimationLibrary_hblpt")
+}
+speed_scale = 4.0
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ohcq6"]
-lifetime_randomness = 0.3
-emission_shape = 3
-emission_box_extents = Vector3(1, 0, 1)
-direction = Vector3(0, 1, 0)
-spread = 4.35
-gravity = Vector3(0, -1, 0)
-initial_velocity_min = 3.1
-initial_velocity_max = 3.1
-angular_velocity_min = -10.0
-angular_velocity_max = 10.0
-radial_accel_min = 2.15
-radial_accel_max = 4.6
-damping_min = 1.02
-damping_max = 2.461
-damping_curve = SubResource("CurveTexture_if4q6")
-scale_min = 5.0
-scale_max = 15.0
-scale_curve = SubResource("CurveTexture_ibofu")
-color = Color(1, 1, 1, 0)
-color_ramp = SubResource("GradientTexture1D_svtd5")
-color_initial_ramp = SubResource("GradientTexture1D_svtd5")
-turbulence_enabled = true
-sub_emitter_mode = 1
-sub_emitter_frequency = 1.0
-sub_emitter_keep_velocity = true
+[node name="Sprite3" type="Sprite3D" parent="Node3D"]
+billboard = 2
+shaded = true
+double_sided = false
+alpha_cut = 1
+alpha_hash_scale = 0.82
+texture = ExtResource("1_icwga")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ribpi"]
-transparency = 3
-alpha_hash_scale = 1.51
-alpha_antialiasing_mode = 0
-blend_mode = 1
-cull_mode = 2
-diffuse_mode = 2
-specular_mode = 2
-albedo_color = Color(1, 1, 1, 0.184314)
-albedo_texture = ExtResource("2_3sofh")
-billboard_mode = 3
-billboard_keep_scale = true
-particles_anim_h_frames = 1
-particles_anim_v_frames = 1
-particles_anim_loop = false
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Node3D/Sprite3"]
+libraries = {
+"": SubResource("AnimationLibrary_hblpt")
+}
+speed_scale = 5.0
 
-[sub_resource type="QuadMesh" id="QuadMesh_1vi2e"]
-material = SubResource("StandardMaterial3D_ribpi")
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_v8lei")
+}
+speed_scale = 5.0
 
-[node name="WaterSplash" type="GPUParticles3D"]
-transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
-emitting = false
-amount = 20
-sub_emitter = NodePath("WaterSplash")
-lifetime = 0.8
-one_shot = true
-explosiveness = 0.5
-process_material = SubResource("ParticleProcessMaterial_q5ok4")
-draw_pass_1 = SubResource("QuadMesh_3j1a5")
-
-[node name="WaterSplash" type="GPUParticles3D" parent="."]
-emitting = false
-amount = 60
-lifetime = 2.0
-one_shot = true
-explosiveness = 0.8
-randomness = 1.0
-fixed_fps = 60
-process_material = SubResource("ParticleProcessMaterial_ohcq6")
-draw_pass_1 = SubResource("QuadMesh_1vi2e")
+[node name="SFXconstant1" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_4brqg")
+volume_db = -5.016
+pitch_scale = 1.15
+autoplay = true
+max_distance = 352.4
+doppler_tracking = 2
+script = ExtResource("3_c5i1j")

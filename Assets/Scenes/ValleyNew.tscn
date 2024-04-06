@@ -34,12 +34,13 @@ panorama = ExtResource("5_rxqso")
 sky_material = SubResource("PanoramaSkyMaterial_v21ip")
 
 [sub_resource type="Environment" id="Environment_sigpm"]
-background_mode = 2
-background_energy_multiplier = 1.75
+background_mode = 1
+background_color = Color(0.8, 0.427451, 0.380392, 1)
+background_energy_multiplier = 1.85
 sky = SubResource("Sky_plimb")
 sky_rotation = Vector3(0, 31.2519, 0)
-ambient_light_source = 3
-ambient_light_color = Color(0.65098, 0.937255, 0.756863, 1)
+ambient_light_source = 2
+ambient_light_color = Color(1, 0.811765, 0.733333, 1)
 ambient_light_sky_contribution = 0.6
 ambient_light_energy = 1.14
 reflected_light_source = 2
@@ -74,9 +75,8 @@ glow_hdr_scale = 0.0
 glow_hdr_luminance_cap = 8.66
 fog_enabled = true
 fog_light_color = Color(0.913725, 1, 1, 1)
-fog_light_energy = 0.45
-fog_density = 0.0045
-fog_aerial_perspective = 0.547
+fog_light_energy = 0.0
+fog_density = 0.0
 fog_sky_affect = 0.323
 fog_height = 206.09
 fog_height_density = 0.0025
@@ -117,6 +117,7 @@ radius = 0.376
 height = 9.467
 
 [node name="Valley" type="Node3D"]
+transform = Transform3D(1.75, 0, 0, 0, 1.75, 0, 0, 0, 1.75, 0, 0, 0)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.297933, -0.848289, 0.43777, -0.826708, -2.45934e-08, 0.562632, -0.477274, -0.529534, -0.701287, 52.3968, 116.322, 160.59)
@@ -211,6 +212,7 @@ material = ExtResource("1_txjxb")
 transform = Transform3D(4.48, 0, 0, 0, 4.48, 0, 0, 0, 4.48, 0, -6.35846, -76.8164)
 
 [node name="PalmTree" type="Sprite3D" parent="Folliage"]
+transform = Transform3D(0.275, 0, 0, 0, 0.275, 0, 0, 0, 0.275, 0, -4.55347, 0)
 billboard = 2
 texture = ExtResource("9_00jt4")
 
@@ -223,7 +225,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.134054, 0, 0)
 shape = SubResource("CapsuleShape3D_k3wlq")
 
 [node name="PalmTree3" type="Sprite3D" parent="Folliage"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.938, -2.42775, 17.4488)
+transform = Transform3D(0.275, 0, 0, 0, 0.275, 0, 0, 0, 0.275, -10.938, -6.98122, 17.4488)
 billboard = 2
 texture = ExtResource("9_00jt4")
 
@@ -236,7 +238,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.134054, 0, 0)
 shape = SubResource("CapsuleShape3D_k3wlq")
 
 [node name="PalmTree4" type="Sprite3D" parent="Folliage"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.7445, -5.04895, 19.9578)
+transform = Transform3D(0.275, 0, 0, 0, 0.275, 0, 0, 0, 0.275, -11.7445, -9.60242, 19.9578)
 flip_h = true
 billboard = 2
 texture = ExtResource("9_00jt4")
@@ -250,7 +252,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.134054, 0, 0)
 shape = SubResource("CapsuleShape3D_k3wlq")
 
 [node name="PalmTree5" type="Sprite3D" parent="Folliage"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.3237, 0.0473516, 19.9578)
+transform = Transform3D(0.275, 0, 0, 0, 0.275, 0, 0, 0, 0.275, 11.3237, -4.50612, 19.9578)
 flip_h = true
 billboard = 2
 texture = ExtResource("9_00jt4")
@@ -264,7 +266,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.134054, 0, 0)
 shape = SubResource("CapsuleShape3D_k3wlq")
 
 [node name="PalmTree6" type="Sprite3D" parent="Folliage"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.62163, 0.0473516, 19.9578)
+transform = Transform3D(0.275, 0, 0, 0, 0.275, 0, 0, 0, 0.275, 2.62163, -4.50612, 19.9578)
 billboard = 2
 texture = ExtResource("9_00jt4")
 
@@ -277,7 +279,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.134054, 0, 0)
 shape = SubResource("CapsuleShape3D_k3wlq")
 
 [node name="PalmTree7" type="Sprite3D" parent="Folliage"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.62163, -6.92822, 68.1645)
+transform = Transform3D(0.275, 0, 0, 0, 0.275, 0, 0, 0, 0.275, 2.62163, -11.4817, 68.1645)
 billboard = 2
 texture = ExtResource("9_00jt4")
 
@@ -290,7 +292,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.134054, 0, 0)
 shape = SubResource("CapsuleShape3D_k3wlq")
 
 [node name="PalmTree8" type="Sprite3D" parent="Folliage"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.302, -9.01714, 75.7695)
+transform = Transform3D(0.275, 0, 0, 0, 0.275, 0, 0, 0, 0.275, 10.302, -13.5706, 75.7695)
 flip_h = true
 billboard = 2
 texture = ExtResource("9_00jt4")
@@ -304,7 +306,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.134054, 0, 0)
 shape = SubResource("CapsuleShape3D_k3wlq")
 
 [node name="PalmTree9" type="Sprite3D" parent="Folliage"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.2448, 0.447997, 66.3004)
+transform = Transform3D(0.275, 0, 0, 0, 0.275, 0, 0, 0, 0.275, 49.2448, -4.10548, 66.3004)
 flip_h = true
 billboard = 2
 texture = ExtResource("9_00jt4")
@@ -318,7 +320,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.134054, 0, 0)
 shape = SubResource("CapsuleShape3D_k3wlq")
 
 [node name="PalmTree10" type="Sprite3D" parent="Folliage"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.2448, -0.28136, 45.3134)
+transform = Transform3D(0.275, 0, 0, 0, 0.275, 0, 0, 0, 0.275, 49.2448, -4.83483, 45.3134)
 flip_h = true
 billboard = 2
 texture = ExtResource("9_00jt4")
@@ -332,7 +334,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.134054, 0, 0)
 shape = SubResource("CapsuleShape3D_k3wlq")
 
 [node name="PalmTree11" type="Sprite3D" parent="Folliage"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60.5428, -3.13127, 15.6012)
+transform = Transform3D(0.275, 0, 0, 0, 0.275, 0, 0, 0, 0.275, 60.5428, -7.68474, 15.6012)
 flip_h = true
 billboard = 2
 texture = ExtResource("9_00jt4")
@@ -346,7 +348,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.134054, 0, 0)
 shape = SubResource("CapsuleShape3D_k3wlq")
 
 [node name="PalmTree12" type="Sprite3D" parent="Folliage"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60.5428, 0.111976, -5.3946)
+transform = Transform3D(0.275, 0, 0, 0, 0.275, 0, 0, 0, 0.275, 60.5428, -4.4415, -5.3946)
 flip_h = true
 billboard = 2
 texture = ExtResource("9_00jt4")
@@ -360,7 +362,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.134054, 0, 0)
 shape = SubResource("CapsuleShape3D_k3wlq")
 
 [node name="PalmTree13" type="Sprite3D" parent="Folliage"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.39488, 1.21206, -39.7162)
+transform = Transform3D(0.275, 0, 0, 0, 0.275, 0, 0, 0, 0.275, 3.39488, -3.34141, -39.7162)
 billboard = 2
 texture = ExtResource("9_00jt4")
 
@@ -373,7 +375,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.134054, 0, 0)
 shape = SubResource("CapsuleShape3D_k3wlq")
 
 [node name="PalmTree14" type="Sprite3D" parent="Folliage"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -41.9368, 0.801868, -36.0121)
+transform = Transform3D(0.275, 0, 0, 0, 0.275, 0, 0, 0, 0.275, -41.9368, -3.7516, -36.0121)
 flip_h = true
 billboard = 2
 texture = ExtResource("9_00jt4")
@@ -387,7 +389,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.134054, 0, 0)
 shape = SubResource("CapsuleShape3D_k3wlq")
 
 [node name="PalmTree15" type="Sprite3D" parent="Folliage"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -41.9368, -5.39776, -19.5933)
+transform = Transform3D(0.275, 0, 0, 0, 0.275, 0, 0, 0, 0.275, -41.9368, -9.95123, -19.5933)
 billboard = 2
 texture = ExtResource("9_00jt4")
 
@@ -400,7 +402,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.134054, 0, 0)
 shape = SubResource("CapsuleShape3D_k3wlq")
 
 [node name="PalmTree16" type="Sprite3D" parent="Folliage"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -51.8143, 1.10472, -15.4431)
+transform = Transform3D(0.275, 0, 0, 0, 0.275, 0, 0, 0, 0.275, -51.8143, -3.44875, -15.4431)
 flip_h = true
 billboard = 2
 texture = ExtResource("9_00jt4")
@@ -414,7 +416,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.134054, 0, 0)
 shape = SubResource("CapsuleShape3D_k3wlq")
 
 [node name="PalmTree17" type="Sprite3D" parent="Folliage"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -51.8143, 0.588112, 33.4574)
+transform = Transform3D(0.275, 0, 0, 0, 0.275, 0, 0, 0, 0.275, -51.8143, -3.96536, 33.4574)
 flip_h = true
 billboard = 2
 texture = ExtResource("9_00jt4")
@@ -428,7 +430,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.134054, 0, 0)
 shape = SubResource("CapsuleShape3D_k3wlq")
 
 [node name="PalmTree18" type="Sprite3D" parent="Folliage"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.4383, -2.06753, 75.1378)
+transform = Transform3D(0.275, 0, 0, 0, 0.275, 0, 0, 0, 0.275, -27.4383, -6.621, 75.1378)
 flip_h = true
 billboard = 2
 texture = ExtResource("9_00jt4")
@@ -442,7 +444,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.134054, 0, 0)
 shape = SubResource("CapsuleShape3D_k3wlq")
 
 [node name="PalmTree19" type="Sprite3D" parent="Folliage"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.9465, -3.1236, 66.3944)
+transform = Transform3D(0.275, 0, 0, 0, 0.275, 0, 0, 0, 0.275, -10.9465, -7.67707, 66.3944)
 flip_h = true
 billboard = 2
 texture = ExtResource("9_00jt4")
@@ -456,7 +458,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.134054, 0, 0)
 shape = SubResource("CapsuleShape3D_k3wlq")
 
 [node name="PalmTree20" type="Sprite3D" parent="Folliage"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.2561, 0.72772, 27.5409)
+transform = Transform3D(0.275, 0, 0, 0, 0.275, 0, 0, 0, 0.275, -24.2561, -3.82575, 27.5409)
 flip_h = true
 billboard = 2
 texture = ExtResource("9_00jt4")
@@ -470,7 +472,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.134054, 0, 0)
 shape = SubResource("CapsuleShape3D_k3wlq")
 
 [node name="PalmTree21" type="Sprite3D" parent="Folliage"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.3982, 0.269199, -17.3933)
+transform = Transform3D(0.275, 0, 0, 0, 0.275, 0, 0, 0, 0.275, -19.3982, -4.28427, -17.3933)
 flip_h = true
 billboard = 2
 texture = ExtResource("9_00jt4")
@@ -484,7 +486,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.134054, 0, 0)
 shape = SubResource("CapsuleShape3D_k3wlq")
 
 [node name="PalmTree2" type="Sprite3D" parent="Folliage"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.4978, -2.20869, 0)
+transform = Transform3D(0.275, 0, 0, 0, 0.275, 0, 0, 0, 0.275, 21.4978, -6.76216, 0)
 flip_h = true
 billboard = 2
 texture = ExtResource("9_00jt4")
